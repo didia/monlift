@@ -1,0 +1,2 @@
+serviceClass: me.didia.monlift.client.GreetingService
+path: 5630B0E902EADE707432744CB7AB8327.gwt.rpc
