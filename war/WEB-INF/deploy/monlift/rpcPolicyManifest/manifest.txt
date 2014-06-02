@@ -1,2 +1,3 @@
 # Module monlift
 # RPC service class, partial path of RPC policy file
+me.didia.monlift.client.GreetingService, 5630B0E902EADE707432744CB7AB8327.gwt.rpc
