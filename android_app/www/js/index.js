@@ -40,5 +40,9 @@ var app = {
     receivedEvent: function(id) {
         
     }
+$.('#singinButton').on('click' , function(e))
+{
+	test
+}
 };
 app.initialize();
