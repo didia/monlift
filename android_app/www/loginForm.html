@@ -16,17 +16,26 @@
             <h1 class="title"> MonLift </h1>
             <a class="icon icon-left-nav" href="index.html"></a>
             
+            <a class="btn pull-right" href="html/register.html">
+                Register
+            </a>
         </header>
         <div class="content">
-            <form>
-                <input type="text" placeholder="Username">
-                <input type="text" placeholder="Password">
-                <button class="btn btn-positive btn-block">Log in</button>
+            <form id = "singin-form">
+                <input type="text" class ="form-control" placeholder="Username" required autofocus>
+                <input type="text" class ="form-control" placeholder="Password" required>
+                <label class="checkbox pull-left">
+                <input type="checkbox" value="remember-me">
+                 Remember me
+                </label>
+                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+ 				<button class="btn btn-positive btn-block">Log in</button>
+            	
             </form> 
         </div>
 
-        <script type="text/javascript" src="js/ratchet.min.js"></script>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="/js/ratchet.min.js"></script>
+        <script type="text/javascript" src="/cordova.js"></script>
+        <script type="text/javascript" src="/js/index.js"></script>
     </body>
 </html>>
