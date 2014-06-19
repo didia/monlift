@@ -1,21 +1,22 @@
 package me.didia.monlift.entities;
 
 import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.DiscriminatorType;
 
 import com.google.appengine.api.datastore.Key;
-
+/**
+ * User class
+ * SuperClass to all typer of users in the program
+ * Abstract to avoid being directly used
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "DISCRIMINATOR", discriminatorType = DiscriminatorType.STRING)
-@DiscriminatorValue("USER")
+@DiscriminatorColumn(name = "Type")
 public abstract class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
