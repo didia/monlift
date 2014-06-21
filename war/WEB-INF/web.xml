@@ -20,6 +20,13 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>Monlift</servlet-name>
 		<url-pattern>/monlift</url-pattern>
 	</servlet-mapping>
+	<init-param>
+		<param-name>com.sun.jersey.config.property.packages</param-name>
+		<param-value>/monlift/src/me.didia.monlift.service.Service.java</param-value>
+	</init-param>
+	<init-param>
+		
+	</init-param>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
