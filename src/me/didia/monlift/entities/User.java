@@ -8,7 +8,7 @@ import com.googlecode.objectify.annotation.Id;
  * Abstract to avoid being directly used
  */
 @Entity
-public abstract class User {
+public class User {
 
 	@Id private Long id;
 	private String firstname;
@@ -56,5 +56,10 @@ public abstract class User {
 		this.isDriver = driver;
 	}
 	
-	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}	
 }
