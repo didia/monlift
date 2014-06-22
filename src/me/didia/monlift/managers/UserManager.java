@@ -4,9 +4,23 @@ import me.didia.monlift.entities.User;
 import me.didia.monlift.factories.UserFactory;
 
 public class UserManager {
+	private static UserManager instance = null;
 	private static UserFactory userFactory = UserFactory.getInstance();
 	
-	public User createUser(String firstname,String lastname, String email,String phone){
+	private UserManager(){};
+	
+	/**
+	 * Singleton method to return an instance of the UserFactory class
+	 * @return UserFactory object
+	 */
+	public static UserManager getInstance(){
+		if (instance == null){
+			instance = new UserManager();
+		}
+		return instance;
+	}
+	
+	public Long createUser(String firstname,String lastname, String email,String phone){
 		return userFactory.createUser(firstname, lastname, email,phone);
 	}
 	

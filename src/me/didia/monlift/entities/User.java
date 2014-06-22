@@ -17,9 +17,9 @@ public class User {
 	private String phone;
 	private String username;
 	private String password;
-	private boolean isDriver;
+	private boolean isDriver = false;
 	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	public void setId(long id) {

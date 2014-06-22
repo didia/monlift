@@ -1,7 +1,6 @@
 package me.didia.monlift.factories;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
-
 import me.didia.monlift.entities.User;
 
 import com.googlecode.objectify.Key;
@@ -41,14 +40,15 @@ public class UserFactory {
 	 * @param phone
 	 * @return User object
 	 */
-	public User createUser(String firstname,String lastname, String email,String phone){
+	public Long createUser(String firstname,String lastname, String email,String phone){
 		User newUser= new User();
 		newUser.setFirstname(firstname);
 		newUser.setLastname(lastname);
 		newUser.setPhone(phone);
 		newUser.setEmail(email);
 		save(newUser);
-		return newUser;
+		
+		return newUser.getId();
 	}
 	
 
