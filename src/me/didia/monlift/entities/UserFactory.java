@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import me.didia.monlift.helper.EMF;
+import me.didia.monlift.service.User;
 
 import com.google.appengine.api.datastore.Key;
 
@@ -111,6 +112,15 @@ public class UserFactory {
 			em.close();
 		}
 		return u.getId();
+	}
+
+	/**
+	 * Method to get User by email and password
+	 * @return
+	 */
+	public static User getUserByEmailandPassword(String email, String password) {
+		// TODO select user by email and password
+		return null;
 	}
 	
 	/**
