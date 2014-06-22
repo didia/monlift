@@ -16,5 +16,9 @@ public class Driver extends User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	public boolean isDriver()
+	{
+		return true;
+	}
 	
 }
