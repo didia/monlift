@@ -1,36 +1,28 @@
 package me.didia.monlift.entities;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-
-import com.google.appengine.api.datastore.Key;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
 /**
  * User class
  * SuperClass to all typer of users in the program
  * Abstract to avoid being directly used
  */
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "Type")
 public abstract class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Key id;
+
+	@Id private Long id;
 	private String firstname;
 	private String lastname;
 	private String email;
 	private String phone;
-	private boolean driver;
+	private String username;
+	private String password;
+	private boolean isDriver;
 	
-	public Key getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(Key id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getFirstname() {
@@ -58,10 +50,10 @@ public abstract class User {
 		this.phone = phone;
 	}
 	public boolean isDriver() {
-		return driver;
+		return isDriver;
 	}
 	public void setDriver(boolean driver) {
-		this.driver = driver;
+		this.isDriver = driver;
 	}
 	
 	

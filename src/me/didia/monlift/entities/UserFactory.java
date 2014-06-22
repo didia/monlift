@@ -19,6 +19,7 @@ public class UserFactory {
 	/**
 	 * single instance of the UserFactory class.
 	 */
+	
 	private static UserFactory instance = null;
 	
 	private UserFactory(){};
