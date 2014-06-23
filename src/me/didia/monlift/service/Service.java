@@ -26,6 +26,7 @@ public class Service {
 		Policy policy = Policy.getInstance("/monlift/war/antisamy-ebay-1.4.4.xml");
 		
 		try{
+<<<<<<< HEAD
 			CleanResults crFirstname = as.scan(firstname, policy);
 			CleanResults crLasttname = as.scan(lastname,policy);
 			CleanResults crEmail = as.scan(email, policy);
@@ -36,11 +37,6 @@ public class Service {
 			crLasttname.getErrorMessages();
 			crEmail.getErrorMessages();
 			crPhone.getErrorMessages();
-			
-			UserFactory.getInstance().createUser(firstname, lastname, email, phone);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
 		
 	}
 	
@@ -53,7 +49,7 @@ public class Service {
 	 */
 	public String doLogin(String email, String password){
 		String token = null;
-		User loggingInUser = UserFactory.getUserByEmailandPassword(email, password);
+		User loggingInUser =null;// UserFactory.getUserByEmailandPassword(email, password);
 		if(loggingInUser !=null){
 			token = HelperFunctions.generateToken(loggingInUser);
 		}
