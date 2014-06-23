@@ -5,11 +5,6 @@ import me.didia.monlift.entities.User;
 import me.didia.monlift.factories.UserFactory;
 import me.didia.monlift.helper.HelperFunctions;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 public class Service {
 	/**
 	 * Register service 
@@ -26,7 +21,6 @@ public class Service {
 		Policy policy = Policy.getInstance("/monlift/war/antisamy-ebay-1.4.4.xml");
 		
 		try{
-<<<<<<< HEAD
 			CleanResults crFirstname = as.scan(firstname, policy);
 			CleanResults crLasttname = as.scan(lastname,policy);
 			CleanResults crEmail = as.scan(email, policy);
@@ -37,6 +31,11 @@ public class Service {
 			crLasttname.getErrorMessages();
 			crEmail.getErrorMessages();
 			crPhone.getErrorMessages();
+			
+			UserFactory.getInstance().createUser(firstname, lastname, email, phone);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 	}
 	
