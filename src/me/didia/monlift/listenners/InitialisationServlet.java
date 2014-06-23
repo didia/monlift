@@ -4,6 +4,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import me.didia.monlift.entities.User;
+import me.didia.monlift.helper.UniqueConstraint;
 
 import com.googlecode.objectify.ObjectifyService;
 
@@ -23,6 +24,7 @@ public class InitialisationServlet implements ServletContextListener {
 	private void registerObjectifyEntities()
 	{
 		ObjectifyService.register(User.class);
+		ObjectifyService.register(UniqueConstraint.class);
 	}
 
 }
