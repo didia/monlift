@@ -1,7 +1,7 @@
 package me.didia.monlift.service;
 
 import me.didia.monlift.entities.User;
-import me.didia.monlift.entities.UserFactory;
+import me.didia.monlift.factories.UserFactory;
 import me.didia.monlift.helper.HelperFunctions;
 
 import javax.ws.rs.GET;
@@ -14,7 +14,7 @@ public class Service {
 	public void doRegister(String firstname, String lastname, String email, String phone )
 	{
 		try{
-			UserFactory.getInstance().createPassenger(firstname, lastname, email, phone);
+			UserFactory.getInstance().createUser(firstname, lastname, email, phone);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -30,7 +30,7 @@ public class Service {
 	 */
 	public String doLogin(String email, String password){
 		String token = null;
-		User loggingInUser = UserFactory.getUserByEmailandPassword(email, password);
+		User loggingInUser =null;// UserFactory.getUserByEmailandPassword(email, password);
 		if(loggingInUser !=null){
 			token = HelperFunctions.generateToken(loggingInUser);
 		}
