@@ -13,13 +13,23 @@
 }
 #driver-welcome
 {
-    margin-top: 225px
+    margin-top: 25px;
+
+
+}
+
+.conten{
+
+	border: 1px solid #F9E444 ;
+	background-color:#F9E444;
 }
 #singin-form
 {
-	margin-top: 50px
+	margin-top: 50px;
 }
 #register
 {
-	margin-top: 50px
+	margin-top: 50px;
 }
+
+
