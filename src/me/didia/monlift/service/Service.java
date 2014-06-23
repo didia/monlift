@@ -4,11 +4,6 @@ import me.didia.monlift.entities.User;
 import me.didia.monlift.factories.UserFactory;
 import me.didia.monlift.helper.HelperFunctions;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 public class Service {
 
 	public void doRegister(String firstname, String lastname, String email, String phone )
