@@ -48,17 +48,8 @@ public class UserFactory {
 		newUser.setLastname(lastname);
 		newUser.setPhone(phone);
 		newUser.setEmail(email);
-		if(uniqueConstraintManager.create(newUser, "email", email))
-		{
-			save(newUser);
-		}
-		else
-		{
-			String errorMessage = "User with email <<%s>> exists already";
-			throw new DuplicateValueException(errorMessage);
-		}
-		
-		
+		setUniqueConstraint(newUser, "email", email);
+		save(newUser);
 		return newUser.getId();
 	}
 	
@@ -80,6 +71,15 @@ public class UserFactory {
 	 */
 	public Key<User> save(User user){
 		return ofy().save().entity(user).now();
+	}
+	
+	public void setUniqueConstraint(Object object, String fieldname, String value) throws DuplicateValueException
+	{
+		if(!uniqueConstraintManager.create(object, fieldname, value))
+		{
+			String errorMessage = String.format("User with %s <<%s>> exists already", fieldname, value);
+			throw new DuplicateValueException(errorMessage);
+		}
 	}
 	
 	/**

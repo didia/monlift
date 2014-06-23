@@ -30,10 +30,11 @@ public class UserManager {
 	 * @param username
 	 * @return void
 	 */
-	public void promoteToDriver(Long id, String username){
+	public void promoteToDriver(Long id, String username) throws DuplicateValueException{
 		User userToPromote = getUser(id);
 		userToPromote.setUsername(username);
 		userToPromote.setDriver(true);
+		userFactory.setUniqueConstraint(userToPromote, "username", username);
 		userFactory.save(userToPromote);
 	}
 	
