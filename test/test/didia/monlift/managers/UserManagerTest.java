@@ -18,6 +18,7 @@ public class UserManagerTest extends AbstractTest {
 	UserManager userManager = UserManager.getInstance();
 	User p;
 	Long id;
+	Long second_id;
 	@Test
 	public void testPromoteToDriver(){
 		String username = "jakeIbee";
@@ -29,11 +30,29 @@ public class UserManagerTest extends AbstractTest {
 			assertEquals(p.getUsername(), username);
 			assertTrue(p.isDriver());
 		} catch (DuplicateValueException e) {
-			// TODO Auto-generated catch block
+			
 			fail(e.getMessage());
 		}
-		
-		
+	}
+	@Test
+	public void testPromoteDriverDuplicate()
+	{
+		String username = "TheBlaze";
+		try {
+			id= userManager.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
+			second_id= userManager.createUser("Jake", "Massa", "jac.massa0904@gmail.com", "7838073831");
+			userManager.promoteToDriver(id, username);
+			try{
+				userManager.promoteToDriver(second_id, username);
+				fail("Exception DuplicateValueException should be thrown as user is promoted with an existing username");
+			}catch(DuplicateValueException e)
+			{
+				assertTrue(true);
+			}
+		} catch (DuplicateValueException e) {
+			
+			fail(e.getMessage());
+		}
 		
 	}
 
