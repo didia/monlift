@@ -13,6 +13,7 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.googlecode.objectify.ObjectifyService;
 
 import me.didia.monlift.entities.User;
+import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.factories.UserFactory;
 
 /**
@@ -31,26 +32,55 @@ public class UserFactoryTest extends AbstractTest {
 	UserFactory uf = UserFactory.getInstance();
 	@Test
 	public void testCreateUser(){
-		id= uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
-		p = uf.getUser(id);
-		assertEquals(p.getFirstname(),"Jake");
-		assertEquals(p.getLastname(),"Massa");
-		assertEquals(p.getEmail(),"jac.massa0908@gmail.com");
-		assertEquals(p.getPhone(),"7838073831");
-		assertFalse(p.isDriver());
+		try {
+			id= uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
+			p = uf.getUser(id);
+			assertEquals(p.getFirstname(),"Jake");
+			assertEquals(p.getLastname(),"Massa");
+			assertEquals(p.getEmail(),"jac.massa0908@gmail.com");
+			assertEquals(p.getPhone(),"7838073831");
+			assertFalse(p.isDriver());
+		} catch (DuplicateValueException e) {
+			// TODO Auto-generated catch block
+			fail(e.getMessage());
+		}
+		
+		
+	}
+	@Test
+	public void testCreateUserDuplicate()
+	{
+		try{
+			id= uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
+		} catch (DuplicateValueException e) {
+			fail(e.getMessage());
+		}
+		try{
+			id= uf.createUser("Jake", "Didia", "jac.massa0908@gmail.com", "7838073831");
+			fail("Expected function createUser to throw DuplicateValueException");
+		} catch(DuplicateValueException e){
+			assertTrue(true);
+		}
 	}
 	
 	
 	@Test
 	public void testGetUser(){
-		String firstname = "Jake";
-		String lastname = "Massa";
-		String email = "jac.massa0908@gmail.com";
-		id = uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
-		User user = uf.getUser(id);
-		assertEquals(user.getFirstname(),firstname);
-		assertEquals(user.getLastname(), lastname);
-		assertEquals(user.getEmail(), email);
+		
+		try {
+			String firstname = "Jake";
+			String lastname = "Massa";
+			String email = "jac.massa0908@gmail.com";
+			id = uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
+			User user = uf.getUser(id);
+			assertEquals(user.getFirstname(),firstname);
+			assertEquals(user.getLastname(), lastname);
+			assertEquals(user.getEmail(), email);
+		} catch (DuplicateValueException e) {
+			// TODO Auto-generated catch block
+			fail(e.getMessage());
+		}
+		
 		
 	}
 	
