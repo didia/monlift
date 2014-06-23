@@ -70,6 +70,11 @@ public class UserFactory {
 	public Key<User> save(User user){
 		return ofy().save().entity(user).now();
 	}
+
+	public static User getUserByEmailandPassword(String email, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	/**
 	 * delete the users that is given from the database
