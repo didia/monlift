@@ -1,6 +1,7 @@
 package me.didia.monlift.managers;
 
 import me.didia.monlift.entities.User;
+import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.factories.UserFactory;
 
 public class UserManager {
@@ -20,7 +21,7 @@ public class UserManager {
 		return instance;
 	}
 	
-	public Long createUser(String firstname,String lastname, String email,String phone){
+	public Long createUser(String firstname,String lastname, String email,String phone) throws DuplicateValueException{
 		return userFactory.createUser(firstname, lastname, email,phone);
 	}
 	
@@ -29,10 +30,11 @@ public class UserManager {
 	 * @param username
 	 * @return void
 	 */
-	public void promoteToDriver(Long id, String username){
+	public void promoteToDriver(Long id, String username) throws DuplicateValueException{
 		User userToPromote = getUser(id);
 		userToPromote.setUsername(username);
 		userToPromote.setDriver(true);
+		userFactory.setUniqueConstraint(userToPromote, "username", username);
 		userFactory.save(userToPromote);
 	}
 	

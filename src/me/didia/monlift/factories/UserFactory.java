@@ -2,6 +2,7 @@ package me.didia.monlift.factories;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 import me.didia.monlift.entities.User;
+import me.didia.monlift.managers.UniqueConstraintManager;
 
 import com.googlecode.objectify.Key;
 
@@ -18,7 +19,7 @@ public class UserFactory {
 	 */
 	
 	private static UserFactory instance = null;
-	
+	private static UniqueConstraintManager uniqueConstraintManager = UniqueConstraintManager.getInstance();
 	private UserFactory(){};
 	
 	/**
@@ -39,15 +40,16 @@ public class UserFactory {
 	 * @param email
 	 * @param phone
 	 * @return User object
+	 * @throws DuplicateValueException 
 	 */
-	public Long createUser(String firstname,String lastname, String email,String phone){
+	public Long createUser(String firstname,String lastname, String email,String phone) throws DuplicateValueException{
 		User newUser= new User();
 		newUser.setFirstname(firstname);
 		newUser.setLastname(lastname);
 		newUser.setPhone(phone);
 		newUser.setEmail(email);
+		setUniqueConstraint(newUser, "email", email);
 		save(newUser);
-		
 		return newUser.getId();
 	}
 	
@@ -74,6 +76,15 @@ public class UserFactory {
 	public static User getUserByEmailandPassword(String email, String password) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void setUniqueConstraint(Object object, String fieldname, String value) throws DuplicateValueException
+	{
+		if(!uniqueConstraintManager.create(object, fieldname, value))
+		{
+			String errorMessage = String.format("User with %s <<%s>> exists already", fieldname, value);
+			throw new DuplicateValueException(errorMessage);
+		}
 	}
 	
 	/**
