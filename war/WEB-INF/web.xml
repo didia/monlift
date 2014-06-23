@@ -32,4 +32,17 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
+	
+	 <servlet>
+    	<servlet-name>Jersey Rest Service</servlet-name>
+    	<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    	<init-param>
+      		<param-name>com.jersey.config.property.packages</param-name>
+      		<param-value>me.didia.rest</param-value>
+    	</init-param>
+  	</servlet>
+  	<servlet-mapping>
+    	<servlet-name>Jersey Rest Service</servlet-name>
+    	<url-pattern>/api/*</url-pattern>
+  	</servlet-mapping>
 </web-app>
