@@ -1,6 +1,7 @@
 package test.didia.monlift;
 
 import me.didia.monlift.entities.User;
+import me.didia.monlift.helper.UniqueConstraint;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,6 +24,7 @@ public class AbstractTest {
 	@Before
     public void setUp() {
 		ObjectifyService.register(User.class);
+		ObjectifyService.register(UniqueConstraint.class);
         helper.setUp();
     }
 
