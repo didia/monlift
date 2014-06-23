@@ -2,6 +2,7 @@ package test.didia.monlift.managers;
 
 import static org.junit.Assert.*;
 import me.didia.monlift.entities.User;
+import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.factories.UserFactory;
 import me.didia.monlift.managers.UserManager;
 
@@ -20,11 +21,18 @@ public class UserManagerTest extends AbstractTest {
 	@Test
 	public void testPromoteToDriver(){
 		String username = "jakeIbee";
-		id= userManager.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
-		userManager.promoteToDriver(id, username);
-		p = userManager.getUser(id);
-		assertEquals(p.getUsername(), username);
-		assertTrue(p.isDriver());
+		
+		try {
+			id= userManager.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
+			userManager.promoteToDriver(id, username);
+			p = userManager.getUser(id);
+			assertEquals(p.getUsername(), username);
+			assertTrue(p.isDriver());
+		} catch (DuplicateValueException e) {
+			// TODO Auto-generated catch block
+			fail(e.getMessage());
+		}
+		
 		
 		
 	}
