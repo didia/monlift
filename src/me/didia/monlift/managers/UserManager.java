@@ -46,4 +46,5 @@ public class UserManager {
 	{
 		return userFactory.getUser(id);
 	}
+	
 }
