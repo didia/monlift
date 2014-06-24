@@ -42,26 +42,34 @@ public class UserFactory {
 	 * @return User object
 	 * @throws DuplicateValueException 
 	 */
-	public Long createUser(String firstname,String lastname, String email,String phone) throws DuplicateValueException{
+	public Long createUser(String firstname,String lastname, String email,String phone, String password) throws DuplicateValueException{
 		User newUser= new User();
 		newUser.setFirstname(firstname);
 		newUser.setLastname(lastname);
 		newUser.setPhone(phone);
 		newUser.setEmail(email);
+		newUser.setPassword(password);
 		setUniqueConstraint(newUser, "email", email);
 		save(newUser);
 		return newUser.getId();
 	}
 	
-
-	
 	/**
 	 * function to return user from an Id
-	 * @return User object (passenger or Driver)
+	 * @return User object 
 	 */
 	public User getUser(Long id){
 		User user = ofy().load().type(User.class).id(id).now();
 		return user;
+	}
+	
+	/**
+	 * function to return user from an email
+	 * @return User object 
+	 */
+	public User getUserByEmail(String email) {
+		
+		return ofy().load().type(User.class).filter("email", email).first().now();
 	}
 	
 	/**
@@ -81,6 +89,8 @@ public class UserFactory {
 			throw new DuplicateValueException(errorMessage);
 		}
 	}
+
+
 	
 	/**
 	 * delete the users that is given from the database
