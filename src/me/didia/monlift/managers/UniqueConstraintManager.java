@@ -14,7 +14,7 @@ public class UniqueConstraintManager {
 	
 	public static  UniqueConstraintManager getInstance(){
 		if(instance == null)
-			return new UniqueConstraintManager();
+			instance = new UniqueConstraintManager();
 		return instance;
 	}
 	
