@@ -40,11 +40,19 @@ public class UserManager {
 	
 	/**
 	 * function to return user from an Id
-	 * @return User object (passenger or Driver)
+	 * @return User object
 	 */
 	public User getUser(Long id)
 	{
 		return userFactory.getUser(id);
 	}
 	
+	/**
+	 * function to return user from a email
+	 * @return User object
+	 */
+	public User getUserByEmail(String email)
+	{
+		return userFactory.getUserByEmail(email);
+	}
 }
