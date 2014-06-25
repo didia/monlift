@@ -24,7 +24,7 @@ public class UserManagerTest extends AbstractTest {
 		String username = "jakeIbee";
 		
 		try {
-			id= userManager.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
+			id= userManager.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
 			userManager.promoteToDriver(id, username);
 			p = userManager.getUser(id);
 			assertEquals(p.getUsername(), username);
@@ -39,8 +39,8 @@ public class UserManagerTest extends AbstractTest {
 	{
 		String username = "TheBlaze";
 		try {
-			id= userManager.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
-			second_id= userManager.createUser("Jake", "Massa", "jac.massa0904@gmail.com", "7838073831");
+			id= userManager.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
+			second_id= userManager.createUser("Jake", "Massa", "jac.massa0904@gmail.com", "7838073831","12345678");
 			userManager.promoteToDriver(id, username);
 			try{
 				userManager.promoteToDriver(second_id, username);

@@ -15,7 +15,7 @@ public class Service {
 	 * @return id user if user are created else exception
 	 */
 	
-	public void doRegister(String firstname, String lastname, String email,String phone ) throws ScanException, PolicyException
+	public void doRegister(String firstname, String lastname, String email,String phone, String password ) throws ScanException, PolicyException
 	{
 		AntiSamy as = new AntiSamy();
 		Policy policy = Policy.getInstance("/monlift/war/antisamy-ebay-1.4.4.xml");
@@ -25,14 +25,16 @@ public class Service {
 			CleanResults crLasttname = as.scan(lastname,policy);
 			CleanResults crEmail = as.scan(email, policy);
 			CleanResults crPhone = as.scan(phone, policy);
+			CleanResults crPassword = as.scan(password, policy);
 			
 			/**  list of String error messages*/
 			crFirstname.getErrorMessages();
 			crLasttname.getErrorMessages();
 			crEmail.getErrorMessages();
 			crPhone.getErrorMessages();
+			crPassword.getErrorMessages();
 			
-			UserFactory.getInstance().createUser(firstname, lastname, email, phone);
+			UserFactory.getInstance().createUser(firstname, lastname, email, phone, password);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
