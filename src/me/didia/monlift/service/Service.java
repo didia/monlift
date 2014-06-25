@@ -6,11 +6,6 @@ import me.didia.monlift.factories.UserFactory;
 import me.didia.monlift.helper.HelperFunctions;
 import me.didia.monlift.managers.UserManager;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 public class Service {
 	/**
 	 * Register service 
@@ -43,7 +38,7 @@ public class Service {
 	 */
 	public String doLogin(String email, String password){
 		String token = null;
-		User loggingInUser = UserFactory.getUserByEmailandPassword(email, password);
+		User loggingInUser =null;// UserFactory.getUserByEmailandPassword(email, password);
 		if(loggingInUser !=null){
 			token = HelperFunctions.generateToken(loggingInUser);
 		}
