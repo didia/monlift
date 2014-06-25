@@ -33,7 +33,7 @@ public class UserFactoryTest extends AbstractTest {
 	@Test
 	public void testCreateUser(){
 		try {
-			id= uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
+			id= uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
 			p = uf.getUser(id);
 			assertEquals(p.getFirstname(),"Jake");
 			assertEquals(p.getLastname(),"Massa");
@@ -51,12 +51,12 @@ public class UserFactoryTest extends AbstractTest {
 	public void testCreateUserDuplicate()
 	{
 		try{
-			id= uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
+			id= uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
 		} catch (DuplicateValueException e) {
 			fail(e.getMessage());
 		}
 		try{
-			id= uf.createUser("Jake", "Didia", "jac.massa0908@gmail.com", "7838073831");
+			id= uf.createUser("Jake", "Didia", "jac.massa0908@gmail.com", "7838073831","12345678");
 			fail("Expected function createUser to throw DuplicateValueException");
 		} catch(DuplicateValueException e){
 			assertTrue(true);
@@ -71,7 +71,7 @@ public class UserFactoryTest extends AbstractTest {
 			String firstname = "Jake";
 			String lastname = "Massa";
 			String email = "jac.massa0908@gmail.com";
-			id = uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831");
+			id = uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
 			User user = uf.getUser(id);
 			assertEquals(user.getFirstname(),firstname);
 			assertEquals(user.getLastname(), lastname);
