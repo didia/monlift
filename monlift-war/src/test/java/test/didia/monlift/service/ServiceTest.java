@@ -1,4 +1,4 @@
-package test.didia.monlift.service
+package test.didia.monlift.service;
 import static org.junit.Assert.*;
 import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.service.Service;
@@ -13,17 +13,17 @@ public class ServiceTest  extends AbstractTest{
 
 	@test
 	
-	public testfirstnameValidator()
+	public void testfirstnameValidator()
 	{
 		try{
 			String fistname = "jo";
 			assertTrue( myService.firstnameValidator(firstname));
+		}catch (DuplicateValueException e) {
+			
+			fail(e.getMessage());
 		}
-	} catch (DuplicateValueException e) {
-		
-		fail(e.getMessage());
-	}
+	} 
 	}
 			
 			
-}
+

@@ -46,8 +46,8 @@ public class Service {
 	{
 		
 		try{
-<			
-			UserFactory.getInstance().createUser(firstname, lastname, email, phone, password);
+			
+			UserManager.getInstance().createUser(firstname, lastname, email, phone, password);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
