@@ -5,15 +5,8 @@ import me.didia.monlift.helper.HelperFunctions;
 import me.didia.monlift.managers.UserManager;
 
 public class Service {
-	/**
-	 * Register service 
-	 * @param firstname
-	 * @param lastname
-	 * @param email
-	 * @param phone
-	 * @return id user if user are created else exception
-	 */
-
+	
+	UserManager userManager = UserManager.getInstance();
 	public boolean firstnameValidator(String firstname)
 	{
 		String FIRSTNAME_VALIDATOR = "[a-zA-Z0-9\\._\\-]{3,}";
@@ -40,18 +33,25 @@ public class Service {
 		 
 		return phone.matches(PHONE_VALIDATION_US_CA);
 	}
+	/**
+	 * Register service 
+	 * @param firstname
+	 * @param lastname
+	 * @param email
+	 * @param phone
+	 * @return id user if user are created else exception
+	 */
+	public long doRegister(String firstname, String lastname, String email,String phone,String password ) 
 
-	public void doRegister(String firstname, String lastname, String email,String phone,String password ) 
-
-	{
+	{ 
 		
 		try{
-			
-			UserManager.getInstance().createUser(firstname, lastname, email, phone, password);
+			if(firstnameValidator(firstname) && lastnameValidator(lastname) && emailValidator(email) && phoneValidator(phone))
+				long id =userManager.createUser(firstname, lastname, email, phone, password);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
+		return id;
 	}
 	
 	/**
