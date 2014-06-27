@@ -1,12 +1,12 @@
-package me.didia.monlift.InputValidator;
+package me.didia.monlift.inputValidator;
 
-import me.didia.monlift.inputValidatore.InputValidator;
+import me.didia.monlift.inputValidator.InputValidator;
+
 
 
 public class InputValidator{
 	private static InputValidator instance = null;
-	private static UserManager userManager = UserManager.getInstance();
-	private InputValidator(){};
+		private InputValidator(){};
 
 	/**
 	 * Singleton method to return an instance of the InputValidator  class
