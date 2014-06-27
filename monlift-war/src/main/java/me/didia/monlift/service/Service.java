@@ -1,6 +1,7 @@
 package me.didia.monlift.service;
 
 import me.didia.monlift.entities.User;
+import me.didia.monlift.factories.UserFactory;
 import me.didia.monlift.helper.HelperFunctions;
 import me.didia.monlift.managers.UserManager;
 
@@ -45,8 +46,7 @@ public class Service {
 
 	{
 		
-		try{
-<			
+		try{			
 			UserFactory.getInstance().createUser(firstname, lastname, email, phone, password);
 		}catch(Exception e){
 			e.printStackTrace();

@@ -19,19 +19,8 @@
 		var email = $("#email").val();
 		var pass = $("#pass").val();
 		var person ={
-			    name: "Jim Cowart",
-			    location: {
-			        city: {
-			            name: "Chattanooga",
-			            population: 167674
-			        },
-			        state: {
-			            name: "Tennessee",
-			            abbreviation: "TN",
-			            population: 6403000
-			        }
-			    },
-			    company: "appendTo",
+			    "email": "jake",
+			    "password": "massa"
 			};
 		  $.ajax({
 	            url: '/api/oauth/login',
@@ -39,15 +28,14 @@
 	            contentType: 'application/json',
 	            data: JSON.stringify(person),
 	            dataType: 'json',
-	            processData:false,
 	            success:function(data){
-	            	alert("the datas are:"+data);
+	            	alert("data is " + data);
 	            },
-	            error: function(jqXHR, textStatus, errorThrow){
-	            	alert("error is " + textStatus);
+	            error: function(jqXHR,textStatus,errorThrown){
+	            	alert("Error is" +jqXHR+textStatus,errorThrown);
 	            }
 	        });
-	        //alert("json posted!");
+	        return false;
 	    });
 </script>
 </html>
