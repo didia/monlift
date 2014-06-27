@@ -18,7 +18,7 @@ public class AuthentificationManager {
 	private static final int HASH_STRENGTH = 16;
 	private AuthentificationManager(){};
 	
-	public AuthentificationManager getInstance()
+	public static AuthentificationManager getInstance()
 	{
 		if(instance == null)
 		{
@@ -64,21 +64,33 @@ public class AuthentificationManager {
 		ofy().save().entity(userToken);
 	}
 	
-	private User getUserByPassword(String email, String password)
+	private User getUserByPassword(String email, String password) throws AuthentificationErrorException
 	{
 		User user = userManager.getUserByEmail(email);
-		if (checkPassword(password, user.getPassword()))
+
+		if (user != null && checkPassword(password, user.getPassword()))
 		{
 			return user;
 		}
-		
-		return null;
+		else
+		{
+			throw new AuthentificationErrorException("The email/password combination cannot be found");
+		}
 	}
-	private User getUserByToken(String subject, String token)
+	private User getUserByToken(String subject, String token) throws AuthentificationErrorException
 	{
 		UserToken userToken = getUserToken(subject, token);
+		if (userToken == null)
+		{
+			throw new AuthentificationErrorException("The authentification token is not recognized");
+		}
 		updateToken(userToken);
-		return userToken.user.get();
+		User user =  userToken.user.get();
+		if (user == null)
+		{
+			throw new AuthentificationErrorException("This user account has either been suspended or deleted");
+		}
+		return user;
 	}
 	
 	private UserToken getUserToken(String token, String subject)
@@ -86,7 +98,7 @@ public class AuthentificationManager {
 		return ofy().load().type(UserToken.class).filter("token", token).filter("subject",subject).first().now();
 	}
 	
-	public Session createSession(String email, String password)
+	public Session createSession(String email, String password) throws AuthentificationErrorException
 	{
 		User user = getUserByPassword(email, password);
 		UserToken userToken = createUserToken(user, UserToken.AUTHENTIFICATION);
@@ -94,7 +106,7 @@ public class AuthentificationManager {
 		return newSession;
 	}
 	
-	public Session getSession(String token)
+	public Session getSession(String token) throws AuthentificationErrorException
 	{
 		User user = getUserByToken(token,UserToken.AUTHENTIFICATION);
 		Session newSession = new Session(user, token);
