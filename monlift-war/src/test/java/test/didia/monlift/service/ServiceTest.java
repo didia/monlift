@@ -6,6 +6,7 @@ import me.didia.monlift.service.Service;
 public class ServiceTest  extends AbstractTest{
 
 	Service myService = new Service();
+	InputValidator inputValidator = InputValidator.getInstance();
 	
 	
 	/**
@@ -17,8 +18,8 @@ public class ServiceTest  extends AbstractTest{
 		try{
 			String validefistname = "jo";
 			String unValidefistnameValide = "/NoUser...4";
-			assertTrue( myService.firstnameValidator(validefirstname));
-			assertFalse( myService.firstnameValidator(unValidefirstname));
+			assertTrue(inputValidator.firstnameValidator(validefirstname));
+			assertFalse(inputValidator.firstnameValidator(unValidefirstname));
 			
 		}catch (DuplicateValueException e) {
 			
@@ -36,8 +37,8 @@ public class ServiceTest  extends AbstractTest{
 		try{
 			String valideLastname = "jo";
 			String unValideLastnameValide = "/NoUser...4";
-			assertTrue( myService.firstnameValidator(valideLarstname));
-			assertFalse( myService.firstnameValidator(unValideLarstname));
+			assertTrue( inputValidator.firstnameValidator(valideLarstname));
+			assertFalse(inputValidator.firstnameValidator(unValideLarstname));
 			
 		}catch (DuplicateValueException e) {
 			
@@ -53,8 +54,8 @@ public class ServiceTest  extends AbstractTest{
 	public void testEmailValidator(){
 		String valideEmail = "monlift@gmail.ca";
 		String unValideEmail = "2@test.com";
-		assertTrue(myService.emailValidator(valideEmail));
-		assertFalse(myService.emailValidator(unValideEmail));
+		assertTrue(inputValidator.emailValidator(valideEmail));
+		assertFalse(inputValidator.emailValidator(unValideEmail));
 	}catch(DuplicateValueException e)
 	{
 		fail(e.getMessage());
@@ -68,8 +69,8 @@ public class ServiceTest  extends AbstractTest{
 	{
 		String validePhone = "+1-309-798-4235";
 		String unValidePhone = "001-309-798-4234";
-		assertTrue(myService.phoneValidator(validePhone));
-		assertFalse(myService.validePhone(unValidePhone));
+		assertTrue(inputValidator.phoneValidator(validePhone));
+		assertFalse(inputValidator.validePhone(unValidePhone));
 	}catch(DuplicateValueException e)
 	{
 		fail(e.getMessage());
