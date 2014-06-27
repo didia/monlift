@@ -18,7 +18,7 @@ public class AuthentificationManager {
 	private static final int HASH_STRENGTH = 16;
 	private AuthentificationManager(){};
 	
-	public AuthentificationManager getInstance()
+	public static AuthentificationManager getInstance()
 	{
 		if(instance == null)
 		{
@@ -67,6 +67,7 @@ public class AuthentificationManager {
 	private User getUserByPassword(String email, String password) throws AuthentificationErrorException
 	{
 		User user = userManager.getUserByEmail(email);
+
 		if (user != null && checkPassword(password, user.getPassword()))
 		{
 			return user;
