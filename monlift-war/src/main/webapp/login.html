@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="US-ASCII">
+<title>Insert title here</title>
+</head>
+<body>
+	<form>
+		email: <input type ="text" id="email"><br>
+		password : <input type = "password" id="pass"><br>
+		<input type="submit" id="submit">
+	</form>
+	<br>
+	<a href="/api/oauth/login">here</a>
+</body>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+	$("#submit").click(function(){
+		var email = $("#email").val();
+		var pass = $("#pass").val();
+		var person ={
+			    name: "Jim Cowart",
+			    location: {
+			        city: {
+			            name: "Chattanooga",
+			            population: 167674
+			        },
+			        state: {
+			            name: "Tennessee",
+			            abbreviation: "TN",
+			            population: 6403000
+			        }
+			    },
+			    company: "appendTo",
+			};
+		  $.ajax({
+	            url: '/api/oauth/login',
+	            type: 'POST',
+	            contentType: 'application/json',
+	            data: JSON.stringify(person),
+	            dataType: 'json',
+	            processData:false,
+	            success:function(data){
+	            	alert("the datas are:"+data);
+	            },
+	            error: function(jqXHR, textStatus, errorThrow){
+	            	alert("error is " + textStatus);
+	            }
+	        });
+	        //alert("json posted!");
+	    });
+</script>
+</html>
