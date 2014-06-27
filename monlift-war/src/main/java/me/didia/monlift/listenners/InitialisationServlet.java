@@ -23,10 +23,11 @@ public class InitialisationServlet implements ServletContextListener {
 	}
 	private void registerObjectifyEntities()
 	{
+		JodaTimeTranslators.add(ObjectifyService.factory());
 		ObjectifyService.register(User.class);
 		ObjectifyService.register(UniqueConstraint.class);
 		ObjectifyService.register(UserToken.class);
-		JodaTimeTranslators.add(ObjectifyService.factory());
+		
 	}
 
 }
