@@ -8,7 +8,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONObject;
 
+import me.didia.monlift.entities.User;
 import me.didia.monlift.helper.ToJSON;
 import me.didia.monlift.securities.AuthentificationErrorException;
 import me.didia.monlift.securities.AuthentificationManager;
@@ -23,22 +25,25 @@ public class Oauth {
 	@Consumes("application/json")
 	public Response login(DataSent user){
 		AuthentificationManager am = AuthentificationManager.getInstance();
-		JSONArray jsonResponse = new JSONArray();
+		JSONObject jsonResponse = new JSONObject();
+		String returnString;
 		
 		Session session = new Session();
 		String email = user.getEmail();
 		String password = user.getPassword();
 		
 		try {
-			session = am.createSession(email,password);
-		} catch (AuthentificationErrorException e) {
+			session = am.createSession(email, password);
+			if(session!=null){
+				jsonResponse = ToJSON.sessionToJSON(session);
+				jsonResponse.put("status", "found");	
+			}
+			jsonResponse.put("status", "not found");
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(session!=null){
-			jsonResponse = ToJSON.sessionToJSON(session);
-			
-		}
-		String returnString=jsonResponse.toString();
+		returnString=jsonResponse.toString();
 		return Response.ok(returnString).build();
 	}
 	
