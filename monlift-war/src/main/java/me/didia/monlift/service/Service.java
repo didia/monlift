@@ -1,9 +1,8 @@
 package me.didia.monlift.service;
-import org.owasp.validator.html.*;
 
 import me.didia.monlift.entities.User;
-import me.didia.monlift.factories.UserFactory;
 import me.didia.monlift.helper.HelperFunctions;
+import me.didia.monlift.managers.UserManager;
 
 public class Service {
 	/**
@@ -14,26 +13,40 @@ public class Service {
 	 * @param phone
 	 * @return id user if user are created else exception
 	 */
-	
-	public void doRegister(String firstname, String lastname, String email,String phone, String password ) throws ScanException, PolicyException
+
+	public boolean firstnameValidator(String firstname)
 	{
-		AntiSamy as = new AntiSamy();
-		Policy policy = Policy.getInstance("/monlift/war/antisamy-ebay-1.4.4.xml");
+		String FIRSTNAME_VALIDATOR = "[a-zA-Z0-9\\._\\-]{3,}";
+		return firstname.matches(FIRSTNAME_VALIDATOR);
+	}
+	public boolean lastnameValidator(String lastname)
+	{
+		String LASTNAME_VALIDATOR = "[a-zA-Z0-9\\._\\-]{3,}";
+		return lastname.matches(LASTNAME_VALIDATOR);
+	}
+	
+
+	public boolean emailValidator(String email)
+	{
+		String EMAIL_PATTERN = 
+                "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		return email.matches(EMAIL_PATTERN);
+		
+	}
+	
+	public boolean phoneValidator(String phone)
+	{
+		String PHONE_VALIDATION_US_CA = "^[+]?[01]?[- .]?(\\([2-9]\\d{2}\\)|[2-9]\\d{2})[- .]?\\d{3}[- .]?\\d{4}$";
+		 
+		return phone.matches(PHONE_VALIDATION_US_CA);
+	}
+
+	public void doRegister(String firstname, String lastname, String email,String phone,String password ) 
+
+	{
 		
 		try{
-			CleanResults crFirstname = as.scan(firstname, policy);
-			CleanResults crLasttname = as.scan(lastname,policy);
-			CleanResults crEmail = as.scan(email, policy);
-			CleanResults crPhone = as.scan(phone, policy);
-			CleanResults crPassword = as.scan(password, policy);
-			
-			/**  list of String error messages*/
-			crFirstname.getErrorMessages();
-			crLasttname.getErrorMessages();
-			crEmail.getErrorMessages();
-			crPhone.getErrorMessages();
-			crPassword.getErrorMessages();
-			
+<			
 			UserFactory.getInstance().createUser(firstname, lastname, email, phone, password);
 		}catch(Exception e){
 			e.printStackTrace();

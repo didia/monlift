@@ -73,16 +73,35 @@ public class UserFactoryTest extends AbstractTest {
 			String email = "jac.massa0908@gmail.com";
 			id = uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
 			User user = uf.getUser(id);
+			assertNotNull(user);
 			assertEquals(user.getFirstname(),firstname);
 			assertEquals(user.getLastname(), lastname);
 			assertEquals(user.getEmail(), email);
 		} catch (DuplicateValueException e) {
-			// TODO Auto-generated catch block
+			
 			fail(e.getMessage());
 		}
 		
 		
 	}
 	
+	@Test
+	public void testGetUserByEmail()
+	{
+		try {
+			String firstname = "Jake";
+			String lastname = "Massa";
+			String email = "jac.massa0908@gmail.com";
+			id = uf.createUser(firstname, lastname, email, "7838073831","12345678");
+			User user = uf.getUserByEmail(email);
+			assertNotNull(user);
+			assertEquals(user.getFirstname(), firstname);
+			assertEquals(user.getLastname(), lastname);
+			assertEquals(user.getEmail(), email);
+		} catch (DuplicateValueException e) {
+	
+			fail(e.getMessage());
+		}
+	}
 	
 }

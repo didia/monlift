@@ -2,6 +2,7 @@ package me.didia.monlift.entities;
 
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 /**
  * User class
  * SuperClass to all typer of users in the program
@@ -13,11 +14,11 @@ public class User {
 	@Id private Long id;
 	private String firstname;
 	private String lastname;
-	private String email;
+	@Index private String email;
 	private String phone;
-	private String username;
+	@Index private String username;
 	private String password;
-	private boolean isDriver = false;
+	@Index private boolean isDriver = false;
 	
 	public Long getId() {
 		return id;
