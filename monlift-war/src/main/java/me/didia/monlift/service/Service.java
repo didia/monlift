@@ -2,6 +2,7 @@ package me.didia.monlift.service;
 
 import me.didia.monlift.entities.User;
 import me.didia.monlift.helper.HelperFunctions;
+import me.didia.monlift.inputValidator.InputValidator;
 import me.didia.monlift.managers.UserManager;
 
 public class Service {
@@ -18,11 +19,11 @@ public class Service {
 	 */
 	public long doRegister(String firstname, String lastname, String email,String phone,String password ) 
 
-	{ 
+	{ long id;
 		
 		try{
 			if(inputValidator.firstnameValidator(firstname) && inputValidator.lastnameValidator(lastname) && inputValidator.emailValidator(email) && inputValidator.phoneValidator(phone))
-				long id =userManager.createUser(firstname, lastname, email, phone, password);
+				 id=userManager.createUser(firstname, lastname, email, phone, password);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
