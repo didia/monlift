@@ -1,4 +1,4 @@
-package me.didia.monlift.service;
+package me.didia.monlift.services;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

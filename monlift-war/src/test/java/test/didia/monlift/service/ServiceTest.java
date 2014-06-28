@@ -3,12 +3,11 @@ package test.didia.monlift.service;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
 import test.didia.monlift.AbstractTest;
 import me.didia.monlift.entities.User;
-
 import me.didia.monlift.inputValidator.InputValidator;
-
-import me.didia.monlift.service.Service;
+import me.didia.monlift.services.Service;
 
 public class ServiceTest extends AbstractTest {
 

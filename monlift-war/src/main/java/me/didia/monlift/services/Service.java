@@ -1,4 +1,4 @@
-package me.didia.monlift.service;
+package me.didia.monlift.services;
 
 import me.didia.monlift.entities.User;
 import me.didia.monlift.inputValidator.InputValidator;
