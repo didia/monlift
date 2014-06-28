@@ -1,10 +1,10 @@
-package me.didia.monlift.rest;
+package me.didia.monlift.service;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
 @Path("/v1/status")
-public class Status {
+public class StatusService {
 	
 	private static final String api_version = "00.01.00";
 	@GET
