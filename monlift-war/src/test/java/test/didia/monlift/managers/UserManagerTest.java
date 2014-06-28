@@ -19,41 +19,44 @@ public class UserManagerTest extends AbstractTest {
 	User p;
 	Long id;
 	Long second_id;
+
 	@Test
-	public void testPromoteToDriver(){
+	public void testPromoteToDriver() {
 		String username = "jakeIbee";
-		
+
 		try {
-			id= userManager.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
+			id = userManager.createUser("Jake", "Massa",
+					"jac.massa0908@gmail.com", "7838073831", "12345678");
 			userManager.promoteToDriver(id, username);
 			p = userManager.getUser(id);
 			assertEquals(p.getUsername(), username);
 			assertTrue(p.isDriver());
 		} catch (DuplicateValueException e) {
-			
+
 			fail(e.getMessage());
 		}
 	}
+
 	@Test
-	public void testPromoteDriverDuplicate()
-	{
+	public void testPromoteDriverDuplicate() {
 		String username = "TheBlaze";
 		try {
-			id= userManager.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
-			second_id= userManager.createUser("Jake", "Massa", "jac.massa0904@gmail.com", "7838073831","12345678");
+			id = userManager.createUser("Jake", "Massa",
+					"jac.massa0908@gmail.com", "7838073831", "12345678");
+			second_id = userManager.createUser("Jake", "Massa",
+					"jac.massa0904@gmail.com", "7838073831", "12345678");
 			userManager.promoteToDriver(id, username);
-			try{
+			try {
 				userManager.promoteToDriver(second_id, username);
 				fail("Exception DuplicateValueException should be thrown as user is promoted with an existing username");
-			}catch(DuplicateValueException e)
-			{
+			} catch (DuplicateValueException e) {
 				assertTrue(true);
 			}
 		} catch (DuplicateValueException e) {
-			
+
 			fail(e.getMessage());
 		}
-		
+
 	}
 
 }
