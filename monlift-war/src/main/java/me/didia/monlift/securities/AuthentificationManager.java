@@ -95,6 +95,7 @@ public class AuthentificationManager {
 	
 	private UserToken getUserToken(String token, String subject)
 	{
+		
 		return ofy().load().type(UserToken.class).filter("token", token).filter("subject",subject).first().now();
 	}
 	
@@ -112,4 +113,10 @@ public class AuthentificationManager {
 		Session newSession = new Session(user, token);
 		return newSession;
 	}
-}
+	
+	public void deleteSession(String token)
+	{
+		UserToken userToken = getUserToken(token, UserToken.AUTHENTIFICATION);
+		ofy().delete().entity(userToken).now();
+	}
+ }

@@ -1,4 +1,4 @@
-package me.didia.monlift.rest;
+package me.didia.monlift.service;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -9,12 +9,11 @@ import javax.ws.rs.core.Response;
 
 import me.didia.monlift.helper.ToJSON;
 import me.didia.monlift.securities.Session;
-import me.didia.monlift.service.Service;
 
 import org.codehaus.jettison.json.JSONObject;
 
 @Path("/oauth")
-public class Oauth {
+public class OauthService {
 	
 	@POST
 	@Path("/login")
