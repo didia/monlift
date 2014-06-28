@@ -1,17 +1,24 @@
 package me.didia.monlift.service;
 
+import me.didia.monlift.entities.User;
+import me.didia.monlift.inputValidator.InputValidator;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.securities.AuthentificationErrorException;
 import me.didia.monlift.securities.AuthentificationManager;
 import me.didia.monlift.securities.Session;
 
+
 public class Service {
 	
+
+	private static UserManager userManager = UserManager.getInstance();
+	private static InputValidator inputValidator = InputValidator.getInstance();
+	
+	private Service(){};
 	private static Service instance = null;
 
 	
-	private Service(){};
-	
+
 	/**
 	 * Singleton method to return an instance of the Service class
 	 * @return Service object
@@ -22,6 +29,7 @@ public class Service {
 		}
 		return instance;
 	}
+
 	/**
 	 * Register service 
 	 * @param firstname
@@ -30,44 +38,25 @@ public class Service {
 	 * @param phone
 	 * @return id user if user are created else exception
 	 */
+	public User doRegister(String firstname, String lastname, String email,String phone,String password ) 
 
-	public boolean firstnameValidator(String firstname)
-	{
-		String FIRSTNAME_VALIDATOR = "[a-zA-Z0-9\\._\\-]{3,}";
-		return firstname.matches(FIRSTNAME_VALIDATOR);
-	}
-	public boolean lastnameValidator(String lastname)
-	{
-		String LASTNAME_VALIDATOR = "[a-zA-Z0-9\\._\\-]{3,}";
-		return lastname.matches(LASTNAME_VALIDATOR);
-	}
-	
-
-	public boolean emailValidator(String email)
-	{
-		String EMAIL_PATTERN = 
-                "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-		return email.matches(EMAIL_PATTERN);
+	{ 
+		User p =null;
 		
-	}
-	
-	public boolean phoneValidator(String phone)
-	{
-		String PHONE_VALIDATION_US_CA = "^[+]?[01]?[- .]?(\\([2-9]\\d{2}\\)|[2-9]\\d{2})[- .]?\\d{3}[- .]?\\d{4}$";
-		 
-		return phone.matches(PHONE_VALIDATION_US_CA);
-	}
 
-	public void doRegister(String firstname, String lastname, String email,String phone,String password ) 
+		try{
+			if(inputValidator.firstnameValidator(firstname) && inputValidator.lastnameValidator(lastname) && inputValidator.emailValidator(email) && inputValidator.phoneValidator(phone)){
+				//un flux de sortie juste ppour tester si on entre dans la condition 
+				System.out.println("on a de bonnes entrée");
+				// juste to get a user id if infos ( firstnames ..... are corrects)
+				Long id=UserManager.getInstance().createUser(firstname, lastname, email, phone, password);
+				p= UserManager.getInstance().getUser(id);
+			}
 
-	{
-		
-		try{			
-			UserManager.getInstance().createUser(firstname, lastname, email, phone, password);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
+		return p;
 	}
 	
 	/**
