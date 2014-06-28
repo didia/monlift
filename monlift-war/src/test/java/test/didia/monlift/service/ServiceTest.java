@@ -66,14 +66,17 @@ public class ServiceTest {
 		assertTrue(inputValidator.phoneValidator(validePhone));
 		assertFalse(inputValidator.phoneValidator(unValidePhone));
 	}
-	
+	/**
+	 * test of doRegister() function
+	 */
 	@Test
 	public void tesDoRegister() throws DuplicateValueException
-	{	UserManager userManager = UserManager.getInstance();
+	{	
 		User p;
 		
-		Long id  = myService.doRegister("Patrice", "Diouf", "trispa88@gmail.com", "+1-309-798-4235", "876a54321");
-		p = userManager.getUser(id);
+		
+		p  = myService.doRegister("Patrice", "Diouf", "trispa88@gmail.com", "+1-309-798-4235", "motdepasee");
+		
 		assertEquals(p.getFirstname(), "Patrice");
 		assertEquals(p.getLastname() , "Diouf");
 		assertEquals(p.getEmail(), "trispa88@gmail.com");

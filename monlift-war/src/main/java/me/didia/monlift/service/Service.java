@@ -29,20 +29,22 @@ public class Service {
 	 * @param phone
 	 * @return id user if user are created else exception
 	 */
-	public long doRegister(String firstname, String lastname, String email,String phone,String password ) 
+	public User doRegister(String firstname, String lastname, String email,String phone,String password ) 
 
 	{ 
-		@SuppressWarnings("null")
-		long id = (Long) null;
+		User p =null;
 		
 		try{
 			if(inputValidator.firstnameValidator(firstname) && inputValidator.lastnameValidator(lastname) && inputValidator.emailValidator(email) && inputValidator.phoneValidator(phone)){
-				 id=UserManager.getInstance().createUser(firstname, lastname, email, phone, password);
+				 
+				System.out.println("on a de bonnes entrée");
+				Long id=UserManager.getInstance().createUser(firstname, lastname, email, phone, password);
+				p= UserManager.getInstance().getUser(id);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return id;
+		return p;
 	}
 	
 	/**
