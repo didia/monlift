@@ -28,6 +28,18 @@ public class AuthentificationManagerTest extends AbstractTest {
 		}
 	}
 	
+	private static Session generateSession()
+	{
+		User user = getUser();
+		assert user != null;
+		try {
+			return authManager.createSession(EMAIL, PASSWORD);
+		} catch (AuthentificationErrorException e){
+			return null;
+		}
+		
+	}
+	
 	@Test
 	public void testCreateSession()
 	{
@@ -108,6 +120,20 @@ public class AuthentificationManagerTest extends AbstractTest {
 		} catch (AuthentificationErrorException e) {
 			assertTrue(true);
 			
+		}
+	}
+	
+	@Test
+	public void testDeleteSession()
+	{
+		Session session = generateSession();
+		assert session != null;
+		authManager.deleteSession(session.getToken());
+		try {
+			session = authManager.getSession(session.getToken());
+			fail("The getSession with deleted token should raise AuthentificationErrorException");
+		} catch (AuthentificationErrorException e) {
+			assertTrue(true);
 		}
 	}
 	
