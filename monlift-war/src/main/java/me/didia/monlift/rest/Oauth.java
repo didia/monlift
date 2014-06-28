@@ -33,8 +33,9 @@ public class Oauth {
 			if(session!=null){
 				jsonResponse = ToJSON.sessionToJSON(session);
 				jsonResponse.put("status", "found");	
-			}
-			jsonResponse.put("status", "not found");
+			}else{
+				jsonResponse.put("status", "not found");
+			}	
 			
 		} catch (Exception e) {
 			//error in json processing
@@ -75,3 +76,34 @@ class DataSent{
 	}
 }
 
+/**
+ * Authentication API , 
+ * full link is /api/oauth/
+ * ajax request example :
+ * function(){
+		var person ={
+			    "email": "jake",
+			    "password": "massa"
+			};
+		  $.ajax({
+	            url: '/api/oauth/login',
+	            type: 'POST',
+	            contentType: 'application/json',
+	            data: JSON.stringify(person),
+	            dataType: 'json',
+	            success:function(data){
+	            	var status = data.status
+	            	var user = JSON.parse (data.user);
+	            	var token = data.token;
+	            	var firstname = user.firstname;
+	            	console.log("userfirstname is "+ firstname);
+	            },
+	            error: function(jqXHR,textStatus,errorThrown){
+	            	alert("Error is" +jqXHR+textStatus,errorThrown);
+	            }
+	        });
+	        return false;
+	    };
+ * @author theotherside
+ *
+ */
