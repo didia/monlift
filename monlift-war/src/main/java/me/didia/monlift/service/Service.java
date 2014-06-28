@@ -1,11 +1,27 @@
 package me.didia.monlift.service;
 
-import me.didia.monlift.entities.User;
-import me.didia.monlift.factories.UserFactory;
-import me.didia.monlift.helper.HelperFunctions;
 import me.didia.monlift.managers.UserManager;
+import me.didia.monlift.securities.AuthentificationErrorException;
+import me.didia.monlift.securities.AuthentificationManager;
+import me.didia.monlift.securities.Session;
 
 public class Service {
+	
+	private static Service instance = null;
+
+	
+	private Service(){};
+	
+	/**
+	 * Singleton method to return an instance of the Service class
+	 * @return Service object
+	 */
+	public static Service getInstance(){
+		if (instance == null){
+			instance = new Service();
+		}
+		return instance;
+	}
 	/**
 	 * Register service 
 	 * @param firstname
@@ -47,7 +63,7 @@ public class Service {
 	{
 		
 		try{			
-			UserFactory.getInstance().createUser(firstname, lastname, email, phone, password);
+			UserManager.getInstance().createUser(firstname, lastname, email, phone, password);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -59,15 +75,17 @@ public class Service {
 	 * 
 	 * @param email
 	 * @param password
-	 * @return token if user found else null
+	 * @return session if user found else null
 	 */
-	public String doLogin(String email, String password){
-		String token = null;
-		User loggingInUser =null;// UserFactory.getUserByEmailandPassword(email, password);
-		if(loggingInUser !=null){
-			token = HelperFunctions.generateToken(loggingInUser);
+	public Session doLogin(String email, String password){
+		AuthentificationManager am = AuthentificationManager.getInstance();
+		Session session = new Session();
+		try {
+			session = am.createSession(email, password);
+		} catch (AuthentificationErrorException e) {
+			session = null;
 		}
-		return token;
+		return session;
 	}
 	
 	public void doLogout(){

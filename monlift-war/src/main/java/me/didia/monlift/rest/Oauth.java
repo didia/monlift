@@ -7,14 +7,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONObject;
-
-import me.didia.monlift.entities.User;
 import me.didia.monlift.helper.ToJSON;
-import me.didia.monlift.securities.AuthentificationErrorException;
-import me.didia.monlift.securities.AuthentificationManager;
 import me.didia.monlift.securities.Session;
+import me.didia.monlift.service.Service;
+
+import org.codehaus.jettison.json.JSONObject;
 
 @Path("/oauth")
 public class Oauth {
@@ -24,16 +21,15 @@ public class Oauth {
 	@Produces("application/json")
 	@Consumes("application/json")
 	public Response login(DataSent user){
-		AuthentificationManager am = AuthentificationManager.getInstance();
 		JSONObject jsonResponse = new JSONObject();
-		String returnString;
+		Service s = Service.getInstance();
 		
-		Session session = new Session();
+		String returnString;
 		String email = user.getEmail();
 		String password = user.getPassword();
 		
 		try {
-			session = am.createSession(email, password);
+			Session session = s.doLogin(email, password);
 			if(session!=null){
 				jsonResponse = ToJSON.sessionToJSON(session);
 				jsonResponse.put("status", "found");	
@@ -41,11 +37,14 @@ public class Oauth {
 			jsonResponse.put("status", "not found");
 			
 		} catch (Exception e) {
+			//error in json processing
 			e.printStackTrace();
 		}
 		returnString=jsonResponse.toString();
 		return Response.ok(returnString).build();
 	}
+	
+	
 	
 	@POST
 	@Path("/signup")
