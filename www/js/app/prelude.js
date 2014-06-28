@@ -13,7 +13,6 @@ define(function() {
 	if(!window.ML)
 	{
 		ML = {
-			_apiKey:null,
 			_session:null,
 			_userStatus:'unknow', // 'notConnected' or 'connected'
 			_logging: true,
@@ -71,7 +70,6 @@ define(function() {
 		     * is ML.<target>.
 		     * If the namespace target doesn't exist, it will be created automatically.
 		     *
-		     * @access private
 		     * @param target    {Object|String}  the target object to copy into
 		     * @param source    {Object}         the source object to copy from
 		     * @param overwrite {Boolean}        indicate if we should overwrite
@@ -102,6 +100,21 @@ define(function() {
 		        ML.Event.fire('ml.log', args);
 		      }
 		    },
+
+		    /**
+		     * Posts json data to api 
+		     * @param endpoint 
+		     * @param data
+		     * @param cb
+		     */
+		    post:function(endpoint, data, cb)
+		    {
+		    	if(endpoint[0] != "/")
+		    	    endpoint = "/" + endpoint;
+		    	endpoint = ML._domain.api + endpoint;
+
+		    	jquery.post{endpoint, data, cb(data, status), "json"};
+		    }
 
 		}
 	}
