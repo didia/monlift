@@ -20,10 +20,13 @@ public class ServiceTest extends AbstractTest {
 	 */
 	@Test
 	public void testFirstnameValidator() {
-		String validefirstname = "Trispa";
-		String unValidefirstname = "/NoUser...4";
-		assertTrue(inputValidator.firstnameValidator(validefirstname));
-		assertFalse(inputValidator.firstnameValidator(unValidefirstname));
+		
+		assertTrue(inputValidator.firstnameValidator("Marie-Rose"));
+		assertTrue(inputValidator.firstnameValidator("Jérôme"));
+		assertTrue(inputValidator.firstnameValidator("Trispa"));
+		assertFalse(inputValidator.firstnameValidator("/Trispa"));
+		assertFalse(inputValidator.firstnameValidator("1Trispa"));
+		assertTrue(inputValidator.firstnameValidator("Marie Rose"));
 
 	}
 
@@ -32,10 +35,15 @@ public class ServiceTest extends AbstractTest {
 	 */
 	@Test
 	public void testLasttnameValidator() {
-		String valideLastname = "joSephee";
-		String unValideLastname = "/NoUser...4";
-		assertTrue(inputValidator.firstnameValidator(valideLastname));
-		assertFalse(inputValidator.firstnameValidator(unValideLastname));
+		assertTrue(inputValidator.firstnameValidator("Diasonama"));
+		assertTrue(inputValidator.firstnameValidator("diemé"));
+		assertTrue(inputValidator.firstnameValidator("St-hanne"));
+		assertTrue(inputValidator.firstnameValidator("St.hanne"));
+		assertFalse(inputValidator.firstnameValidator("1Trispa"));
+		assertFalse(inputValidator.firstnameValidator("/Gagnon"));
+		
+
+		
 
 	}
 
@@ -44,10 +52,9 @@ public class ServiceTest extends AbstractTest {
 	 */
 	@Test
 	public void testEmailValidator() {
-		String valideEmail = "monlift@gmail.ca";
-		String unValideEmail = ".12322@test.com";
-		assertTrue(inputValidator.emailValidator(valideEmail));
-		assertFalse(inputValidator.emailValidator(unValideEmail));
+		
+		assertTrue(inputValidator.emailValidator("monlift@gmail.ca"));
+		assertFalse(inputValidator.emailValidator(".12322@test.com"));
 	}
 
 	/**

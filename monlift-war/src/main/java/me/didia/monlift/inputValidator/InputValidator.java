@@ -1,5 +1,8 @@
 package me.didia.monlift.inputValidator;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import me.didia.monlift.inputValidator.InputValidator;
 
 
@@ -20,13 +23,17 @@ public class InputValidator{
 	}
 	public boolean firstnameValidator(String firstname)
 	{
-		String FIRSTNAME_VALIDATOR = "[a-zA-Z0-9\\._\\-]{3,}";
-		return firstname.matches(FIRSTNAME_VALIDATOR);
+		String FIRSTNAME_VALIDATOR = "^[\\p{L} .'-]+$";
+		Pattern pattern = Pattern.compile(FIRSTNAME_VALIDATOR,Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(firstname);  
+		return matcher.find();
 	}
 	public boolean lastnameValidator(String lastname)
 	{
-		String LASTNAME_VALIDATOR = "[a-zA-Z0-9\\._\\-]{3,}";
-		return lastname.matches(LASTNAME_VALIDATOR);
+		String LASTNAME_VALIDATOR = "^[\\p{L} .'-]+$";
+		Pattern pattern = Pattern.compile(LASTNAME_VALIDATOR,Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(lastname);  
+		return matcher.find();	
 	}
 	
 
@@ -45,4 +52,13 @@ public class InputValidator{
 		return phone.matches(PHONE_VALIDATION_US_CA);
 	}
 	
+//	public boolean passeWordMatch(String pwd)
+//	{
+//	
+//		Pattern p1  = Pattern.compile("^\\w{8,}$");
+//		Pattern p2  = Pattern.compile("\\d+(.*)?\\d+");
+//		
+//	return p1.matcher(pwd).find() && p2.matcher(pwd).find();
+//	}
+//	
 }
