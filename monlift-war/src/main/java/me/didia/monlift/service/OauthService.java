@@ -1,5 +1,7 @@
 package me.didia.monlift.service;
 
+import java.io.DataInput;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -7,10 +9,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import me.didia.monlift.entities.User;
+import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.helper.ToJSON;
 import me.didia.monlift.securities.Session;
 
+import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+
 
 @Path("/oauth")
 public class OauthService {
@@ -50,10 +56,27 @@ public class OauthService {
 	@Path("/signup")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON }) 
-	public Response signup(){
-		return null;
+	public Response signup(DataInput firstname, DataInput lastname, DataInput email, DataInput phone, DataInput password) throws DuplicateValueException{
+		Service s = Service.getInstance();
+		JSONObject jsonResponse = new JSONObject();
+		try{
+			User user = s.doRegister(firstname.toString(), lastname.toString(), email.toString(), phone.toString(), password.toString());
+			if(user !=null){
+				jsonResponse.put("Info", "Succes");
+			}
+			else{
+				jsonResponse.put("Info", "error");
+			}
+		
+		}catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String returnString = jsonResponse.toString();
+		return Response.ok(returnString).build();
 		
 	}
+
 }
 
 
