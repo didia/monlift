@@ -56,7 +56,7 @@ public class OauthService {
 	@Path("/signup")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Consumes({ MediaType.APPLICATION_JSON }) 
-	public Response signup(DataInput firstname, DataInput lastname, DataInput email, DataInput phone, DataInput password) throws DuplicateValueException{
+	public Response register(DataInput firstname, DataInput lastname, DataInput email, DataInput phone, DataInput password) throws DuplicateValueException{
 		Service s = Service.getInstance();
 		JSONObject jsonResponse = new JSONObject();
 		try{
