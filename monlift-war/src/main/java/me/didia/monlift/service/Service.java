@@ -46,9 +46,6 @@ public class Service {
 
 		try{
 			if(inputValidator.firstnameValidator(firstname) && inputValidator.lastnameValidator(lastname) && inputValidator.emailValidator(email) && inputValidator.phoneValidator(phone)){
-				//un flux de sortie juste ppour tester si on entre dans la condition 
-				System.out.println("on a de bonnes entrée");
-				// juste to get a user id if infos ( firstnames ..... are corrects)
 				Long id=UserManager.getInstance().createUser(firstname, lastname, email, phone, password);
 				p= UserManager.getInstance().getUser(id);
 			}
