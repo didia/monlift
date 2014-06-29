@@ -1,16 +1,13 @@
 package me.didia.monlift.helper;
 
-import java.util.List;
+import me.didia.monlift.securities.Session;
 
-import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-
-import me.didia.monlift.securities.Session;
 
 /**
  * This utility will convert a Object List data into JSONArray format.

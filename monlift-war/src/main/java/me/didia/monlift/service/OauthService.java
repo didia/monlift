@@ -21,14 +21,14 @@ public class OauthService {
 	@Consumes("application/json")
 	public Response login(DataSent user){
 		JSONObject jsonResponse = new JSONObject();
-		Service s = Service.getInstance();
+		Service serviceInstance = Service.getInstance();
 		
 		String returnString;
 		String email = user.getEmail();
 		String password = user.getPassword();
 		
 		try {
-			Session session = s.doLogin(email, password);
+			Session session = serviceInstance.doLogin(email, password);
 			if(session!=null){
 				jsonResponse = ToJSON.sessionToJSON(session);
 				jsonResponse.put("status", "found");	
