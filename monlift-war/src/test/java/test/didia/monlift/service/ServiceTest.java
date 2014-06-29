@@ -1,14 +1,15 @@
 package test.didia.monlift.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import me.didia.monlift.entities.User;
+import me.didia.monlift.inputValidator.InputValidator;
+import me.didia.monlift.service.Service;
 
 import org.junit.Test;
+
 import test.didia.monlift.AbstractTest;
-import me.didia.monlift.entities.User;
-
-import me.didia.monlift.inputValidator.InputValidator;
-
-import me.didia.monlift.service.Service;
 
 public class ServiceTest extends AbstractTest {
 
@@ -78,4 +79,5 @@ public class ServiceTest extends AbstractTest {
 		assertEquals(p.getPhone(), "+1-309-798-4235");
 
 	}
+	
 }
