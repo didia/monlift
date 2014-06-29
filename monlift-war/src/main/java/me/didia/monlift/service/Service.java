@@ -9,15 +9,13 @@ import me.didia.monlift.securities.Session;
 
 
 public class Service {
-	
 
-	private static UserManager userManager = UserManager.getInstance();
 	private static InputValidator inputValidator = InputValidator.getInstance();
-	
+
 	private Service(){};
 	private static Service instance = null;
 
-	
+
 
 	/**
 	 * Singleton method to return an instance of the Service class
@@ -42,8 +40,6 @@ public class Service {
 
 	{ 
 		User p =null;
-		
-
 		try{
 			if(inputValidator.firstnameValidator(firstname) && inputValidator.lastnameValidator(lastname) && inputValidator.emailValidator(email) && inputValidator.phoneValidator(phone)){
 				Long id=UserManager.getInstance().createUser(firstname, lastname, email, phone, password);
@@ -55,7 +51,7 @@ public class Service {
 		}
 		return p;
 	}
-	
+
 	/**
 	 * login service 
 	 * 
@@ -64,17 +60,17 @@ public class Service {
 	 * @return session if user found else null
 	 */
 	public Session doLogin(String email, String password){
-		AuthentificationManager am = AuthentificationManager.getInstance();
+		AuthentificationManager managerInstance = AuthentificationManager.getInstance();
 		Session session = new Session();
 		try {
-			session = am.createSession(email, password);
+			session = managerInstance.createSession(email, password);
 		} catch (AuthentificationErrorException e) {
 			session = null;
 		}
 		return session;
 	}
-	
+
 	public void doLogout(){
-		
+
 	}
 }
