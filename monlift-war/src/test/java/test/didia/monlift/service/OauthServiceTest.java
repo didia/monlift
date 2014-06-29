@@ -1,7 +1,9 @@
 package test.didia.monlift.service;
 
 import static com.jayway.restassured.RestAssured.expect;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import me.didia.monlift.rest_entities.LoginDataReceived;
+import me.didia.monlift.rest_entities.RegisterDataReceived;
 
 import org.junit.Test;
 
@@ -13,36 +15,38 @@ import org.junit.Test;
  */
 public class OauthServiceTest {
 	
-	@Test
-	public void oauthServiceLogin() {
-		DataSent dataBeingSend = new DataSent();
-		dataBeingSend.setEmail("jac.massa0908@gmail.com");
-		dataBeingSend.setPassword("pass");
+	//@Test
+	public void oauthServiceRegister() {	
+		RegisterDataReceived registerData = new RegisterDataReceived();
+		
+		registerData.setFirstname("monlift");
+		registerData.setLastname("app");
+		registerData.setEmail("test@monlift.com");
+		registerData.setPhone("7838073831");
+		registerData.setPassword("monliftpass");
 		
 		expect().
-			body("status", equalTo("not found")).
+			body("token", notNullValue()).
+		given().
+			contentType("application/json; charset=UTF-8").
+			body(registerData).
+		when().
+			post("/api/oauth/register");
+	}
+	
+	
+	//@Test
+	public void oauthServiceLogin() {
+		LoginDataReceived dataBeingSend = new LoginDataReceived();
+		dataBeingSend.setEmail("test@monlift.com");
+		dataBeingSend.setPassword("monliftpass");
+		
+		expect().
+			body("token", notNullValue()).
 		given().
 			contentType("application/json; charset=UTF-8").
 			body(dataBeingSend).
 		when().
 			post("/api/oauth/login");
-	}
-}
-
-class DataSent{
-	private String email;
-	private String password;
-	
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
 	}
 }
