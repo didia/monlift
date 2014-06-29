@@ -2,11 +2,13 @@ package test.didia.monlift.service;
 
 import static org.junit.Assert.*;
 
+import me.didia.monlift.entities.User;
+import me.didia.monlift.factories.DuplicateValueException;
+import me.didia.monlift.inputValidator.InputValidator;
+
 import org.junit.Test;
 
 import test.didia.monlift.AbstractTest;
-import me.didia.monlift.entities.User;
-import me.didia.monlift.inputValidator.InputValidator;
 import me.didia.monlift.services.Service;
 
 
@@ -74,10 +76,14 @@ public class ServiceTest extends AbstractTest {
 	 */
 	@Test
 	public void tesDoRegister() {
-		User p;
+		User p=null;
 
-		p = myService.doRegister("Patrice", "Diouf", "trispa88@gmail.com",
-				"+1-309-798-4235", "motdepasee");
+		try {
+			p = myService.doRegister("Patrice", "Diouf", "trispa88@gmail.com",
+					"+1-309-798-4235", "motdepasee");
+		} catch (DuplicateValueException e) {
+			fail("duplicate value");
+		}
 
 		assertEquals(p.getFirstname(), "Patrice");
 		assertEquals(p.getLastname(), "Diouf");

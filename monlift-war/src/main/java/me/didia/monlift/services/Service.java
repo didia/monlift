@@ -1,6 +1,7 @@
 package me.didia.monlift.services;
 
 import me.didia.monlift.entities.User;
+import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.inputValidator.InputValidator;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.securities.AuthentificationErrorException;
@@ -35,20 +36,17 @@ public class Service {
 	 * @param email
 	 * @param phone
 	 * @return id user if user are created else exception
+	 * @throws DuplicateValueException 
 	 */
-	public User doRegister(String firstname, String lastname, String email,String phone,String password ) 
+	public User doRegister(String firstname, String lastname, String email,String phone,String password ) throws DuplicateValueException 
 
 	{ 
 		User p =null;
-		try{
 			if(inputValidator.firstnameValidator(firstname) && inputValidator.lastnameValidator(lastname) && inputValidator.emailValidator(email) && inputValidator.phoneValidator(phone)){
 				Long id=UserManager.getInstance().createUser(firstname, lastname, email, phone, password);
 				p= UserManager.getInstance().getUser(id);
 			}
 
-		}catch(Exception e){
-			e.printStackTrace();
-		}
 		return p;
 	}
 

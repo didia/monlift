@@ -34,7 +34,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     	<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
     	 <init-param>
       		<param-name>javax.ws.rs.Application</param-name>
-      		<param-value>me.didia.monlift.rest.MyApplication</param-value>
+      		<param-value>me.didia.monlift.service.MyApplication</param-value>
     	</init-param> 
     	<load-on-startup>1</load-on-startup>
     	
