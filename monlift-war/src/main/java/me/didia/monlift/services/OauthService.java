@@ -6,8 +6,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import me.didia.monlift.factories.DuplicateValueException;
-import me.didia.monlift.rest_entities.LoginDataReceived;
-import me.didia.monlift.rest_entities.RegisterDataReceived;
+import me.didia.monlift.marshallers.SessionMarshaller;
+import me.didia.monlift.requests.LoginRequest;
+import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.responses.SessionResponse;
 import me.didia.monlift.securities.Session;
 
 
@@ -18,12 +20,13 @@ public class OauthService {
 	@Path("/login")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Session login(LoginDataReceived user){
+	public SessionResponse login(LoginRequest user){
 		Service serviceInstance = Service.getInstance();
 		String email = user.getEmail();
 		String password = user.getPassword();
+		
 		Session session = serviceInstance.doLogin(email, password);
-		return session;
+		return SessionMarshaller.getInstance().marshall(session);
 	}
 	
 	
@@ -32,17 +35,17 @@ public class OauthService {
 	@Path("/register")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Session register(RegisterDataReceived registerData){
+	public SessionResponse register(RegisterRequest registerData){
 		Service serviceInstance = Service.getInstance();
 		Session session= null;
 		try {
 			serviceInstance.doRegister(registerData.getFirstname(),registerData.getLastname(),registerData.getEmail(),registerData.getPhone(),registerData.getPassword());
 			session = serviceInstance.doLogin(registerData.getEmail(), registerData.getPassword());
-			return session;
+			return SessionMarshaller.getInstance().marshall(session);
 		} catch (DuplicateValueException e) {
-			
+			return SessionMarshaller.getInstance().marshall(e);
 		}
-		return session;
+		
 		
 	}
 

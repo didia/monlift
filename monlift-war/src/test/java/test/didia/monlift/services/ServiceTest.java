@@ -1,4 +1,4 @@
-package test.didia.monlift.service;
+package test.didia.monlift.services;
 
 import static org.junit.Assert.*;
 

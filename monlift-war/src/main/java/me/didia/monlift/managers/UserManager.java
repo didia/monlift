@@ -43,7 +43,7 @@ public class UserManager {
 	
 	/**
 	 * function to return user from an Id
-	 * @return User object
+	 * @return UserResponse object
 	 */
 	public User getUser(Long id)
 	{
@@ -52,7 +52,7 @@ public class UserManager {
 	
 	/**
 	 * function to return user from a email
-	 * @return User object
+	 * @return UserResponse object
 	 */
 	public User getUserByEmail(String email)
 	{

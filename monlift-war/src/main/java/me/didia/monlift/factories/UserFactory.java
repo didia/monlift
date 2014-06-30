@@ -39,7 +39,7 @@ public class UserFactory {
 	 * @param lastname
 	 * @param email
 	 * @param phone
-	 * @return User object
+	 * @return UserResponse object
 	 * @throws DuplicateValueException 
 	 */
 	public Long createUser(String firstname,String lastname, String email,String phone, String password) throws DuplicateValueException{
@@ -56,7 +56,7 @@ public class UserFactory {
 	
 	/**
 	 * function to return user from an Id
-	 * @return User object 
+	 * @return UserResponse object 
 	 */
 	public User getUser(Long id){
 		User user = ofy().load().type(User.class).id(id).now();
@@ -65,7 +65,7 @@ public class UserFactory {
 	
 	/**
 	 * function to return user from an email
-	 * @return User object 
+	 * @return UserResponse object 
 	 */
 	public User getUserByEmail(String email) {
 		
@@ -90,7 +90,7 @@ public class UserFactory {
 	{
 		if(!uniqueConstraintManager.create(object, fieldname, value))
 		{
-			String errorMessage = String.format("User with %s <<%s>> exists already", fieldname, value);
+			String errorMessage = String.format("UserResponse with %s <<%s>> exists already", fieldname, value);
 			throw new DuplicateValueException(errorMessage);
 		}
 	}
@@ -104,7 +104,7 @@ public class UserFactory {
 	 */
 	/*
 	public boolean deleteUser(Key id){
-		User userTobeDeleted = getUser(id);
+		UserResponse userTobeDeleted = getUser(id);
 		EntityManager em = EMF.getInstance().get().createEntityManager();
 		try{
 			em.getTransaction().begin();
