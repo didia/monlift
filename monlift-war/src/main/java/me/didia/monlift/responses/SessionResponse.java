@@ -26,7 +26,7 @@ public class SessionResponse  implements IResponse<me.didia.monlift.securities.S
 		}else if(e.getClass()==ValidationErrorException.class){
 			status = "entered data contais errors";
 		}else if (e.getClass()==AuthentificationErrorException.class){
-			status = "username and password match not found";
+			status = "Invalid credentials";
 		}
 		
 	}

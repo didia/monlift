@@ -8,6 +8,7 @@ import javax.ws.rs.Produces;
 import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.marshallers.SessionMarshaller;
+import me.didia.monlift.requests.BaseRequest;
 import me.didia.monlift.requests.LoginRequest;
 import me.didia.monlift.requests.RegisterRequest;
 import me.didia.monlift.requests.ValidationErrorException;
@@ -53,11 +54,29 @@ public class OauthService {
 			return SessionMarshaller.getInstance().marshall(e);
 		} catch(AuthentificationErrorException e){
 			return SessionMarshaller.getInstance().marshall(e);
-		}
-		
-		
+		}	
 	}
+	
+	@POST
+	@Path("/logout")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public SessionResponse register(BaseRequest logoutRequest){
+		SessionResponse response = new SessionResponse();
+		try {
+			logoutRequest.validate();
+			AuthentificationManager.getInstance().getSession(logoutRequest.getToken());
+			AuthentificationManager.getInstance().deleteSession(logoutRequest.getToken());
+			response.setStatus("logged_out");
+			return response;
+			
+		} catch (AuthentificationErrorException e) {
+			return SessionMarshaller.getInstance().marshall(e);
+		} catch (ValidationErrorException e) {
+			return SessionMarshaller.getInstance().marshall(e);
+		}
 
+	}
 }
 
 /**

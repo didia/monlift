@@ -3,10 +3,13 @@ package test.didia.monlift.services;
 import static com.jayway.restassured.RestAssured.expect;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import me.didia.monlift.requests.BaseRequest;
 import me.didia.monlift.requests.LoginRequest;
 import me.didia.monlift.requests.RegisterRequest;
 
 import org.junit.Test;
+
+import test.didia.monlift.AbstractTest;
 
 /**
  * Testing of the rest api.
@@ -14,7 +17,7 @@ import org.junit.Test;
  * @author theotherside
  *
  */
-public class OauthServiceTest {
+public class OauthServiceTest extends AbstractTest {
 	
 	@Test
 	public void oauthServiceRegister() {	
@@ -58,11 +61,24 @@ public class OauthServiceTest {
 		dataBeingSend.setPassword("monlpass");
 		
 		expect().
-			body("status", equalTo("username and password match not found")).
+			body("status", equalTo("Invalid credentials")).
 		given().
 			contentType("application/json; charset=UTF-8").
 			body(dataBeingSend).
 		when().
 			post("/api/oauth/login");
+	}
+	
+	@Test
+	public void oauthServiceLogout() {
+		BaseRequest logoutRequest = new BaseRequest();
+		logoutRequest.setToken("hf184vbvk3gfnr66oct7vaq");
+		expect().
+			body("status", equalTo("logged_out")).
+		given().
+			contentType("application/json; charset=UTF-8").
+			body(logoutRequest).
+		when().
+			post("/api/oauth/logout");
 	}
 }
