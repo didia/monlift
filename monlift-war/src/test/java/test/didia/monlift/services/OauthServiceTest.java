@@ -19,7 +19,7 @@ import test.didia.monlift.AbstractTest;
  */
 public class OauthServiceTest extends AbstractTest {
 	
-	@Test
+	//@Test
 	public void oauthServiceRegister() {	
 		RegisterRequest registerData = new RegisterRequest();
 		
@@ -39,7 +39,7 @@ public class OauthServiceTest extends AbstractTest {
 	}
 	
 	
-	@Test
+	//@Test
 	public void oauthServiceLogin() {
 		LoginRequest dataBeingSend = new LoginRequest();
 		dataBeingSend.setEmail("test@monlift.com");
@@ -54,7 +54,7 @@ public class OauthServiceTest extends AbstractTest {
 			post("/api/oauth/login");
 	}
 	
-	@Test
+	//@Test
 	public void oauthServiceLoginIncorrect() {
 		LoginRequest dataBeingSend = new LoginRequest();
 		dataBeingSend.setEmail("test@monlift.com");
@@ -69,7 +69,7 @@ public class OauthServiceTest extends AbstractTest {
 			post("/api/oauth/login");
 	}
 	
-	@Test
+	//@Test
 	public void oauthServiceLogout() {
 		BaseRequest logoutRequest = new BaseRequest();
 		logoutRequest.setToken("hf184vbvk3gfnr66oct7vaq");
