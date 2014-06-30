@@ -15,13 +15,13 @@ import org.junit.Test;
  */
 public class OauthServiceTest {
 	
-	//@Test
+	@Test
 	public void oauthServiceRegister() {	
 		RegisterDataReceived registerData = new RegisterDataReceived();
 		
-		registerData.setFirstname("monlift");
+		registerData.setFirstname("jérôm");
 		registerData.setLastname("app");
-		registerData.setEmail("test@monlift.com");
+		registerData.setEmail("test@monlift223.com");
 		registerData.setPhone("7838073831");
 		registerData.setPassword("monliftpass");
 		
@@ -35,10 +35,10 @@ public class OauthServiceTest {
 	}
 	
 	
-	//@Test
+	@Test
 	public void oauthServiceLogin() {
 		LoginDataReceived dataBeingSend = new LoginDataReceived();
-		dataBeingSend.setEmail("test@monlift.com");
+		dataBeingSend.setEmail("test@monlift223.com");
 		dataBeingSend.setPassword("monliftpass");
 		
 		expect().
