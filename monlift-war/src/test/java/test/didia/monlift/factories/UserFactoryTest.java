@@ -1,20 +1,17 @@
 package test.didia.monlift.factories;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import test.didia.monlift.AbstractTest;
-
-import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.googlecode.objectify.ObjectifyService;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import me.didia.monlift.entities.User;
 import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.factories.UserFactory;
+
+import org.junit.Test;
+
+import test.didia.monlift.AbstractTest;
 
 /**
  * Test for the UserFactory class

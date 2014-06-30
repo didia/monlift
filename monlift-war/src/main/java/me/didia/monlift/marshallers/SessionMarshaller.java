@@ -29,8 +29,9 @@ public class SessionMarshaller implements IMarshaller<SessionResponse, Session> 
 	}
 
 	public SessionResponse marshall(BaseException e) {
-		// TODO Auto-generated method stub
-		return null;
+		SessionResponse response = new SessionResponse();
+		response.build(e);
+		return response;
 	}
 
 	

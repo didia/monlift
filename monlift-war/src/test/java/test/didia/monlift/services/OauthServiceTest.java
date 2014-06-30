@@ -1,6 +1,7 @@
 package test.didia.monlift.services;
 
 import static com.jayway.restassured.RestAssured.expect;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import me.didia.monlift.requests.LoginRequest;
 import me.didia.monlift.requests.RegisterRequest;
@@ -15,7 +16,7 @@ import org.junit.Test;
  */
 public class OauthServiceTest {
 	
-	//@Test
+	@Test
 	public void oauthServiceRegister() {	
 		RegisterRequest registerData = new RegisterRequest();
 		
@@ -35,7 +36,7 @@ public class OauthServiceTest {
 	}
 	
 	
-	//@Test
+	@Test
 	public void oauthServiceLogin() {
 		LoginRequest dataBeingSend = new LoginRequest();
 		dataBeingSend.setEmail("test@monlift.com");
@@ -43,6 +44,21 @@ public class OauthServiceTest {
 		
 		expect().
 			body("token", notNullValue()).
+		given().
+			contentType("application/json; charset=UTF-8").
+			body(dataBeingSend).
+		when().
+			post("/api/oauth/login");
+	}
+	
+	@Test
+	public void oauthServiceLoginIncorrect() {
+		LoginRequest dataBeingSend = new LoginRequest();
+		dataBeingSend.setEmail("test@monlift.com");
+		dataBeingSend.setPassword("monlpass");
+		
+		expect().
+			body("status", equalTo("username and password match not found")).
 		given().
 			contentType("application/json; charset=UTF-8").
 			body(dataBeingSend).
