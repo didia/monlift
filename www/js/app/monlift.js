@@ -5,7 +5,7 @@
 *
 */
 
-define("ML", ["jquery"], function($) {
+define(["jquery"], function($) {
 	
 	function MonLift()
 	{
@@ -85,7 +85,24 @@ define("ML", ["jquery"], function($) {
  			this._session = session;
 			this._userStatus = "connected";
  			window.localStorage.setItem('session', session);
- 		},		
+ 		},	
+ 		
+		/*
+ 		 * Function to get the login status of the user
+ 		 * @return boolean
+ 		 *
+ 		 */
+ 		 isUserLoggedIn : function()
+ 		 {
+ 		 	if(this._userStatus == "connected")
+ 		 	{
+ 		 		return true;
+ 		 	}
+ 		 	this._loadSession();
+ 		 	
+			return this.userStatus == "connected"?true:false;
+ 		 },
+			
 		
 	}
 	

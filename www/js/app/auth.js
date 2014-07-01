@@ -3,7 +3,7 @@
  *
  */
 
- define(['monlift'], function(monlift){
+ define(['app/monlift'], function(monlift){
 	 
 	 ML = monlift.getInstance();
 	 
