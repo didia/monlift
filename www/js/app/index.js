@@ -17,11 +17,7 @@
  * under the License.
  */
  
- define(["jquery", "jquerymobile", "ratchet"], function($) {
-    //the jquery.alpha.js and jquery.beta.js plugins have been loaded.
-    $(function() {
-        $('body').alpha().beta();
-    });
+ define(["jquery", "app/ui", "jquerymobile", "ratchet"], function($, ui) {
 
     var app = {
         // Application Constructor
@@ -40,17 +36,15 @@
         // The scope of 'this' is the event. In order to call the 'receivedEvent'
         // function, we must explicity call 'app.receivedEvent(...);'
         onDeviceReady: function() {
-          
+		  console.log(ui);
+          ui.go();
         },
         // Update DOM on a Received Event
         receivedEvent: function(id) {
             
         }
-    $.('#singinButton').on('click' , function(e))
-    {
-    	test
-    }
+  
     };
     app.initialize();
-
+	
 });
