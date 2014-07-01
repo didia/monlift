@@ -1,8 +1,8 @@
 
 
-define(['jquery', 'api/auth'], function($, monlift){
+define(['jquery', 'app/auth'], function($, auth){
 	 
-	 ML = monlift.getInstance();
+
 	 
 	 return {
  		
@@ -10,7 +10,7 @@ define(['jquery', 'api/auth'], function($, monlift){
 			// implements all ui specific functions here	
 			
 			
-			
+			ML.log("Welcome to the monlift framework");
 			
 		
 		}
