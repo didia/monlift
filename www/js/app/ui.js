@@ -1,6 +1,6 @@
 
 
-define(['api/auth'], function(monlift){
+define(['jquery', 'api/auth'], function($, monlift){
 	 
 	 ML = monlift.getInstance();
 	 
