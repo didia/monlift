@@ -2,8 +2,9 @@ package test.didia.monlift.service;
 
 import static com.jayway.restassured.RestAssured.expect;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import me.didia.monlift.rest_entities.LoginDataReceived;
-import me.didia.monlift.rest_entities.RegisterDataReceived;
+import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.requests.LoginRequest;
+import me.didia.monlift.requests.RegisterRequest;
 
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class OauthServiceTest {
 	
 	@Test
 	public void oauthServiceRegister() {	
-		RegisterDataReceived registerData = new RegisterDataReceived();
+		RegisterRequest registerData = new RegisterRequest();
 		
 		registerData.setFirstname("jérôm");
 		registerData.setLastname("app");
@@ -37,7 +38,7 @@ public class OauthServiceTest {
 	
 	@Test
 	public void oauthServiceLogin() {
-		LoginDataReceived dataBeingSend = new LoginDataReceived();
+		LoginRequest dataBeingSend = new LoginRequest();
 		dataBeingSend.setEmail("test@monlift223.com");
 		dataBeingSend.setPassword("monliftpass");
 		
