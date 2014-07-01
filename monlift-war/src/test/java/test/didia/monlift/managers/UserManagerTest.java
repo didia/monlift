@@ -1,9 +1,10 @@
 package test.didia.monlift.managers;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import me.didia.monlift.entities.User;
 import me.didia.monlift.factories.DuplicateValueException;
-import me.didia.monlift.factories.UserFactory;
 import me.didia.monlift.managers.UserManager;
 
 import org.junit.Test;

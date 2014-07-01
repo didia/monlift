@@ -4,7 +4,7 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 /**
- * User class
+ * UserResponse class
  * SuperClass to all typer of users in the program
  * Abstract to avoid being directly used
  */

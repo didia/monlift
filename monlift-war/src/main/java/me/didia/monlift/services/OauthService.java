@@ -6,9 +6,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 import me.didia.monlift.factories.DuplicateValueException;
-import me.didia.monlift.rest_entities.LoginDataReceived;
-import me.didia.monlift.rest_entities.RegisterDataReceived;
-import me.didia.monlift.securities.Session;
+import me.didia.monlift.managers.UserManager;
+import me.didia.monlift.marshallers.SessionMarshaller;
+import me.didia.monlift.requests.BaseRequest;
+import me.didia.monlift.requests.LoginRequest;
+import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.requests.ValidationErrorException;
+import me.didia.monlift.responses.SessionResponse;
+import me.didia.monlift.securities.AuthentificationErrorException;
+import me.didia.monlift.securities.AuthentificationManager;
 
 
 @Path("/oauth")
@@ -18,12 +24,16 @@ public class OauthService {
 	@Path("/login")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Session login(LoginDataReceived user){
-		Service serviceInstance = Service.getInstance();
+	public SessionResponse login(LoginRequest user){
 		String email = user.getEmail();
 		String password = user.getPassword();
-		Session session = serviceInstance.doLogin(email, password);
-		return session;
+		AuthentificationManager managerInstance = AuthentificationManager.getInstance();
+		try {
+			return SessionMarshaller.getInstance().marshall(managerInstance.createSession(email, password));
+		} catch (AuthentificationErrorException e) {
+			return SessionMarshaller.getInstance().marshall(e);
+		}
+		
 	}
 	
 	
@@ -32,20 +42,41 @@ public class OauthService {
 	@Path("/register")
 	@Produces("application/json")
 	@Consumes("application/json")
-	public Session register(RegisterDataReceived registerData){
-		Service serviceInstance = Service.getInstance();
-		Session session= null;
+	public SessionResponse register(RegisterRequest registerData){
 		try {
-			serviceInstance.doRegister(registerData.getFirstname(),registerData.getLastname(),registerData.getEmail(),registerData.getPhone(),registerData.getPassword());
-			session = serviceInstance.doLogin(registerData.getEmail(), registerData.getPassword());
-			return session;
-		} catch (DuplicateValueException e) {
+			registerData.validate();
+			UserManager.getInstance().createUser(registerData.getFirstname(),registerData.getLastname(),registerData.getEmail(),registerData.getPhone(),registerData.getPassword());
+			return SessionMarshaller.getInstance().marshall(AuthentificationManager.getInstance().createSession(registerData.getEmail(), registerData.getPassword()));
 			
-		}
-		return session;
-		
+		} catch (ValidationErrorException e) {
+			return SessionMarshaller.getInstance().marshall(e);
+		} catch(DuplicateValueException e){
+			return SessionMarshaller.getInstance().marshall(e);
+		} catch(AuthentificationErrorException e){
+			return SessionMarshaller.getInstance().marshall(e);
+		}	
 	}
+	
+	@POST
+	@Path("/logout")
+	@Produces("application/json")
+	@Consumes("application/json")
+	public SessionResponse register(BaseRequest logoutRequest){
+		SessionResponse response = new SessionResponse();
+		try {
+			logoutRequest.validate();
+			AuthentificationManager.getInstance().getSession(logoutRequest.getToken());
+			AuthentificationManager.getInstance().deleteSession(logoutRequest.getToken());
+			response.setStatus("logged_out");
+			return response;
+			
+		} catch (AuthentificationErrorException e) {
+			return SessionMarshaller.getInstance().marshall(e);
+		} catch (ValidationErrorException e) {
+			return SessionMarshaller.getInstance().marshall(e);
+		}
 
+	}
 }
 
 /**

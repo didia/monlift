@@ -1,20 +1,15 @@
-package test.didia.monlift.service;
+package test.didia.monlift.validator;
 
-import static org.junit.Assert.*;
-
-import me.didia.monlift.entities.User;
-import me.didia.monlift.factories.DuplicateValueException;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import me.didia.monlift.inputValidator.InputValidator;
 
 import org.junit.Test;
 
 import test.didia.monlift.AbstractTest;
-import me.didia.monlift.services.Service;
 
 
-public class ServiceTest extends AbstractTest {
-
-	private static Service myService = Service.getInstance();
+public class InputValidatorTest extends AbstractTest {
 	private InputValidator inputValidator = InputValidator.getInstance();
 
 	/**
@@ -68,27 +63,6 @@ public class ServiceTest extends AbstractTest {
 		String unValidePhone = "001-309-798-4234";
 		assertTrue(inputValidator.phoneValidator(validePhone));
 		assertFalse(inputValidator.phoneValidator(unValidePhone));
-
-	}
-
-	/**
-	 * test of doRegister() function
-	 */
-	@Test
-	public void tesDoRegister() {
-		User p=null;
-
-		try {
-			p = myService.doRegister("Patrice", "Diouf", "trispa88@gmail.com",
-					"+1-309-798-4235", "motdepasee");
-		} catch (DuplicateValueException e) {
-			fail("duplicate value");
-		}
-
-		assertEquals(p.getFirstname(), "Patrice");
-		assertEquals(p.getLastname(), "Diouf");
-		assertEquals(p.getEmail(), "trispa88@gmail.com");
-		assertEquals(p.getPhone(), "+1-309-798-4235");
 
 	}
 	

@@ -1,6 +1,6 @@
-package me.didia.monlift.rest_entities;
+package me.didia.monlift.requests;
 
-public class LoginDataReceived {
+public class LoginRequest implements IRequest{
 	private String email;
 	private String password;
 	
@@ -15,5 +15,9 @@ public class LoginDataReceived {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public void validate() throws ValidationErrorException {
+		// TODO Auto-generated method stub
+		
 	}
 }
