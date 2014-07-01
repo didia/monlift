@@ -7,6 +7,8 @@ import java.security.SecureRandom;
 
 import org.joda.time.DateTime;
 
+import com.googlecode.objectify.Ref;
+
 import me.didia.monlift.entities.User;
 import me.didia.monlift.managers.UserManager;
 
@@ -52,6 +54,7 @@ public class AuthentificationManager {
 		userToken.subject = subject;
 		userToken.date_created = new DateTime();
 		userToken.date_updated = userToken.date_created;
+		userToken.user = Ref.create(user);
 		ofy().save().entity(userToken).now();
 		
 		return userToken;
@@ -77,9 +80,9 @@ public class AuthentificationManager {
 			throw new AuthentificationErrorException("The email/password combination cannot be found");
 		}
 	}
-	private User getUserByToken(String subject, String token) throws AuthentificationErrorException
+	private User getUserByToken(String token,String subject) throws AuthentificationErrorException
 	{
-		UserToken userToken = getUserToken(subject, token);
+		UserToken userToken = getUserToken(token, subject);
 		if (userToken == null)
 		{
 			throw new AuthentificationErrorException("The authentification token is not recognized");
@@ -95,6 +98,7 @@ public class AuthentificationManager {
 	
 	private UserToken getUserToken(String token, String subject)
 	{
+		
 		return ofy().load().type(UserToken.class).filter("token", token).filter("subject",subject).first().now();
 	}
 	
@@ -112,4 +116,10 @@ public class AuthentificationManager {
 		Session newSession = new Session(user, token);
 		return newSession;
 	}
-}
+	
+	public void deleteSession(String token)
+	{
+		UserToken userToken = getUserToken(token, UserToken.AUTHENTIFICATION);
+		ofy().delete().entity(userToken).now();
+	}
+ }

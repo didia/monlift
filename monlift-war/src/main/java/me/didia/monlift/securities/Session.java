@@ -9,11 +9,9 @@ import me.didia.monlift.entities.User;
  * @author didia
  *
  */
-
 public class Session {
 	private User user;
 	private String token;
-	
 	public Session()
 	{
 		
