@@ -3,8 +3,11 @@
  *
  */
 
- define(['init'], function(){
- 	ML.provide('Auth', {
+ define(['monlift'], function(monlift){
+	 
+	 ML = monlift.getInstance();
+	 
+	 return {
  		/*
  		 * Function to login to the server, return a token
  		 *
@@ -20,7 +23,7 @@
 	 		 		{
 	 		 			ML.log(response.body.session.token);
  						ML.log(response.body.session.user);
- 						Auth.setSession(response.body.session);
+ 						ML.setSession(response.body.session);
 
 	 		 		}
 	 		 		else
@@ -36,11 +39,11 @@
 
  		},
 
-
  		/*
  		 * Function to register a new user
  		 *
  		 */ 
+		 
  		register:function(firstname, lastname, password, email, phone, cb){
  			if(firstname && lastname && password && email && phone)
  			{
@@ -70,20 +73,7 @@
 
  			}
  		},
- 		/*
- 		 *Function to set a user session
- 		 *session is an object with the form:
- 		 * {
-		 *  user: The user Object
-		 *  token: The user OAuth Token.
-		 * }
- 		 */
- 		setSession: function(session)
- 		{
- 			ML._session = session;
- 			window.localStorage.setItem('session', session);
- 		},
-
+		
  		/*
  		 * Function to get the login status of the user
  		 * @return boolean
@@ -91,19 +81,9 @@
  		 */
  		 isUserLoggedIn : function()
  		 {
- 		 	if(ML._session)
- 		 	{
- 		 		return true;
- 		 	}
- 		 	session = window.localStorage.getItem('session');
- 		 	if(session)
- 		 	{
- 		 		ML._session = session;
- 		 		return true;
- 		 	}
-
- 		 	return false;
- 		 }
-
- 	})
+			 return ML.isUserLoggedIn();
+		 },
+		 
+	 }
+ 	
  })
