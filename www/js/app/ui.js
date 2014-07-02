@@ -10,8 +10,21 @@ define(['jquery', 'app/auth'], function($, auth){
 			// implements all ui specific functions here	
 		
 			ML.log("Welcome to the monlift framework");
-			$("singin-form").submit({
-				
+			
+			$("#singin-form").submit({
+				var email = $(this).find('input[name = "email"]').val();
+				var pwd = $(this).find('input[name = "passwd"]').val();	
+				auth.login(email, pwd, function(resultatLogin){
+					if(resulatLogin.statu == "succes")
+						{
+						ML.log(resultatLogin.user.firstname +" "+firstname+" Bonne visite");
+						}
+					else
+						{
+						ML.log("Erreur d'hautentification");
+
+						}
+				});
 			})
 		
 		}
