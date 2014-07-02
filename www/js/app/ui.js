@@ -11,7 +11,8 @@ define(['jquery', 'app/auth'], function($, auth){
 		
 			ML.log("Welcome to the monlift framework");
 			
-			$("#singin-form").submit({
+			$("#login-form").submit(function(e){
+				e.preventDefault();
 				var email = $(this).find('input[name = "email"]').val();
 				var pwd = $(this).find('input[name = "passwd"]').val();	
 				auth.login(email, pwd, function(resultatLogin){
