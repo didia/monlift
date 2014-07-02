@@ -10,6 +10,7 @@ define(['jquery', 'app/auth'], function($, auth){
 			// implements all ui specific functions here	
 		
 			ML.log("Welcome to the monlift framework");
+
 			
 			$("#login-form").submit(function(e){
 				e.preventDefault();
@@ -26,6 +27,7 @@ define(['jquery', 'app/auth'], function($, auth){
 
 						}
 				});
+
 			})
 		
 		}
