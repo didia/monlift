@@ -11,7 +11,9 @@ define(['jquery', 'app/auth'], function($, auth){
 			
 			
 			ML.log("Welcome to the monlift framework");
-			
+			$("singin-form").submit({
+				auth.login();
+			})
 		
 		}
 		 
