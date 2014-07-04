@@ -86,7 +86,7 @@ proguard/
 
 #others
 android_app/platforms/
-
+android_app/www/js/app/build
 build/
 datanucleus.log
 .DS_Store
