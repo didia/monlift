@@ -36,7 +36,6 @@
         // The scope of 'this' is the event. In order to call the 'receivedEvent'
         // function, we must explicity call 'app.receivedEvent(...);'
         onDeviceReady: function() {
-		  console.log(ui);
           ui.go();
         },
         // Update DOM on a Received Event
