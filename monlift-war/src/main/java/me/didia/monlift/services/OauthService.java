@@ -1,9 +1,12 @@
 package me.didia.monlift.services;
 
+
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.managers.UserManager;
@@ -22,8 +25,8 @@ public class OauthService {
 	
 	@POST
 	@Path("/login")
-	@Produces("application/json")
-	@Consumes("application/json")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public SessionResponse login(LoginRequest user){
 		String email = user.getEmail();
 		String password = user.getPassword();
@@ -40,14 +43,14 @@ public class OauthService {
 	
 	@POST
 	@Path("/register")
-	@Produces("application/json")
-	@Consumes("application/json")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public SessionResponse register(RegisterRequest registerData){
 		try {
 			registerData.validate();
 			UserManager.getInstance().createUser(registerData.getFirstname(),registerData.getLastname(),registerData.getEmail(),registerData.getPhone(),registerData.getPassword());
 			return SessionMarshaller.getInstance().marshall(AuthentificationManager.getInstance().createSession(registerData.getEmail(), registerData.getPassword()));
-			
+
 		} catch (ValidationErrorException e) {
 			return SessionMarshaller.getInstance().marshall(e);
 		} catch(DuplicateValueException e){
@@ -59,9 +62,9 @@ public class OauthService {
 	
 	@POST
 	@Path("/logout")
-	@Produces("application/json")
-	@Consumes("application/json")
-	public SessionResponse register(BaseRequest logoutRequest){
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public SessionResponse logout(BaseRequest logoutRequest){
 		SessionResponse response = new SessionResponse();
 		try {
 			logoutRequest.validate();
