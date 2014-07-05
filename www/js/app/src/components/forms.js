@@ -25,14 +25,21 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 		}),
 		
 		RegisterForm: React.createClass({displayName:'RegisterForm', 
+			
+			handleSubmit: function(e){
+				e.preventDefault();
+				var firstname = this.refs.firstname.getDOMNode().value;
+				var lastname = this.refs.lastname.getDOMNode().value;
+				console.log(firstname + " " + lastname);
+			},
 			render: function(){
 				return (
-					<form id="register" className="form-horizontal" method="POST" action="#">
+					<form id="register" className="form-horizontal" onSubmit={this.handleSubmit}>
 						<div className="control-group">
 							<div className="controls">
 								<div className="input-prepend">
 									<span className="add-on"><i className="icon-user"></i> </span>
-									<input type="text" className="input-xlarge" id="fname" name="fname" placeholder="First Name" required/>
+									<input type="text" className="input-xlarge" id="fname" name="fname" placeholder="First Name" ref="firstname" required/>
 								</div>
 							</div>
 						</div>
@@ -40,7 +47,7 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 							<div className="controls">
 								<div className="input-prepend">
 									<span className="add-on"><i className="icon-user"></i></span>
-									<input type="text" className="input-xlarge form-control" name="lname" placeholder="Last Name" required />
+									<input type="text" className="input-xlarge form-control" name="lname" placeholder="Last Name" ref="lastname" required />
 								</div>
 							</div>
 						</div>
@@ -48,7 +55,7 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 							<div className="controls">
 								<div className="input-prepend">
 									<span className="add-on"><i className="icon-envelope"></i></span>
-									<input type="text" className="input-xlarge" id="email" name="email" placeholder="Email" required />
+									<input type="text" className="input-xlarge" id="email" name="email" placeholder="Email" ref="email" required />
 								</div>
 							</div>
 						</div>
@@ -57,7 +64,7 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 							<div className="controls">
 								<div className="input-prepend">
 									<span className="add-on"><i className="icon-lock"></i></span>
-									<input type="Password" className="input-xlarge" name="password" required placeholder="Password" />
+									<input type="Password" className="input-xlarge" name="password" ref="password" required placeholder="Password" />
 								</div>
 							</div>
 						</div>
@@ -66,7 +73,7 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 							<div className="controls">
 								<div className="input-prepend">
 									<span className="add-on"><i className="icon-lock"></i></span>
-									<input type="Password" className="input-xlarge" name="conpasswd" placeholder="Re-enter Password" required />
+									<input type="Password" className="input-xlarge" name="conpasswd" ref = "password2" placeholder="Re-enter Password" required />
 								</div>
 							</div>
 						</div>
@@ -74,7 +81,7 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 						<div className="control-group">
 							<label className="control-label"></label>
 							<div className="controls">
-								<button className="btn btn-primary btn-block">Create My Account</button>
+								<button type="submit" className="btn btn-primary btn-block">Create My Account</button>
 							</div>
 						</div>
 	  				</form>

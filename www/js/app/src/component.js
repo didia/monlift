@@ -1,9 +1,25 @@
-define(['jquery', 'app/monlift', 'app/auth'], function($, monlift, auth){
+
+define(['jquery', 'react', 'app/monlift', 'app/auth', 'components/header', 'components/body', 'components/footer', 'components/forms'], 
+		function($, React, monlift, auth, Header, Body, Footer, forms){
+	
 	 
 	 ML = monlift.getInstance();
 	 
 	 return {
- 		
+		getHeader: function(){
+			return Header;
+		},
+		
+ 		getHomePage: function(){
+			return Body;
+		
+		},
+		
+		getFooter: function()
+		{
+			return Footer;
+		},
+		
 		getLoginButton:function(){	
 		
 		},
@@ -24,12 +40,9 @@ define(['jquery', 'app/monlift', 'app/auth'], function($, monlift, auth){
 		
 		},
 		
-		getHomePage: function(){
-			
-		},
 		
-		getPassengerHomePage: function(){
-		
+		getSearchForm: function(){
+			return forms.SearchForm;
 		},
 		
 		getDriverHomePage: function(){
