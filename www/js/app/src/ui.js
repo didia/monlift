@@ -2,6 +2,7 @@
 define(['jquery','react', 'app/auth', 'app/component','components/forms'], function($,React, auth, component, forms, UI){
 	 
 	 // because JSX component do not understand the "." in forms.X, define a variable for them instead
+	 
 	 console.log(component);
 	 var SearchForm = forms.SearchForm;
 	 var LoginForm = forms.LoginForm;
