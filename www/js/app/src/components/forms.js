@@ -30,7 +30,12 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 				e.preventDefault();
 				var firstname = this.refs.firstname.getDOMNode().value;
 				var lastname = this.refs.lastname.getDOMNode().value;
-				console.log(firstname + " " + lastname);
+				var email = this.refs.email.getDOMNode().value;
+				var password = this.refs.password.getDOMNode().value;
+				var password2 = this.refs.password.getDOMNode().value;
+				var phone = this.refs.phone.getDOMNode().value;
+				auth.register(firstname, lastname, email, password, phone);
+				console.log(ML._session);
 			},
 			render: function(){
 				return (
@@ -77,7 +82,16 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 								</div>
 							</div>
 						</div>
-			
+						
+						<div className="control-group">
+							<div className="controls">
+								<div className="input-prepend">
+									<span className="add-on"><i className="icon-lock"></i></span>
+									<input type="text" className="input-xlarge" name="phone" ref="phone" placeholder="Your phone number" required />
+								</div>
+							</div>
+						</div>
+						
 						<div className="control-group">
 							<label className="control-label"></label>
 							<div className="controls">

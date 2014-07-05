@@ -19,6 +19,7 @@
 	 		 	var endpoint = 'oauth/login';
 	 		 	var jsonRequest = {"email":email, "password":password};
 	 		 	ML.post(endpoint, jsonRequest, function(response){
+					
 	 		 		if(response.status = "success")
 	 		 		{
 	 		 			ML.log(response.body.session.token);
@@ -44,7 +45,7 @@
  		 *
  		 */ 
 		 
- 		register:function(firstname, lastname, password, email, phone, cb){
+ 		register:function(firstname, lastname, email, password, phone, cb){
  			if(firstname && lastname && password && email && phone)
  			{
  				var endpoint = "oauth/register";
@@ -57,6 +58,7 @@
  				}
 
  				ML.post(endpoint, jsonRequest, function(response, status){
+					console.log(response);
  					if(response.status = "success")
  					{
  						ML.log(response.body);
