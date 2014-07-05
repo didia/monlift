@@ -7,6 +7,7 @@
 
 define(["jquery"], function($) {
 	
+	window.DEVELOPPEMENT = true;
 	function MonLift()
 	{
 		this._session = null;
@@ -49,13 +50,29 @@ define(["jquery"], function($) {
 		 * @param data
 		 * @param cb
 		 */
-		 post:function(endpoint, data, cb) {
-			 
-		    	if(endpoint[0] != "/")
-		    	    endpoint = "/" + endpoint;
-		    	endpoint = ML._domain.api + endpoint;
-
-		    	$.post(endpoint, data, cb(data, status), "json");
+		 post:function(endpoint, request, cb) {
+			 	
+			 request = JSON.stringify(request);
+		     if(endpoint[0] != "/")
+		    	  endpoint = "/" + endpoint;
+		     endpoint = ML._domain.api + endpoint;
+			 console.log(endpoint);
+			 console.log(request);
+	
+			 $.ajax({
+			 	type: "POST",
+			 	url:endpoint, 
+			 	dataType:"json",
+			 	async: true,
+			 	data: request, 
+				contentType: "application/json; charset=utf-8",
+			 	success:function(data, status){
+					cb.call(data, status)
+				},
+			 	error: function(data, status){
+					cb.call(data)
+				}
+		 });
 		 },
 		
 		/**
