@@ -67,9 +67,11 @@ define(["jquery"], function($) {
 			 	data: request, 
 				contentType: "application/json; charset=utf-8",
 			 	success:function(data, status){
+					console.log(data);
 					cb.call(data, status)
 				},
 			 	error: function(data, status){
+					console.log(data);
 					cb.call(data)
 				}
 		 });

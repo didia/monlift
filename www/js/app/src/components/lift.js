@@ -4,9 +4,9 @@ define(['jquery', 'react', 'app/monlift'], function($, React, monlift){
 	var Lift = React.createClass({displayName:'Lift', 
 		render: function(){
 			return (
-				<li class="table-view-cell media">
+				<li className="table-view-cell media">
              		<img src="img/D04.png" height="70" weight="70" />
-					<div class="media-body">
+					<div className="media-body">
                 		fred
                   		<h4>
                   			FROM:SSSSS

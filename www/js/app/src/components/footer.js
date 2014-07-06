@@ -4,12 +4,12 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 	var Footer = React.createClass({displayName:'Footer', 
 		render: function(){
 			return (
-        		<div class ="bar bar-tab">
-            		<a class="tab-item">                
-                 		<span class="icon icon-home"  href=""></span>
+        		<div className ="bar bar-tab">
+            		<a className="tab-item">                
+                 		<span className="icon icon-home"  href=""></span>
             		</a>
-            		<a class="tab-item">
-                  		<span class="icon icon-plus" href="#"></span>
+            		<a className="tab-item">
+                  		<span className="icon icon-plus" href="#"></span>
 					</a>
         		</div>
 			)
