@@ -32,11 +32,11 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 		                    	    	
 		                    	    	<header classeName="bar bar-nav">
                                   
-                                                   <a classeName="btn pull-left" href=""> Help </a>
+                                                   
                                     
                                                    <h1 classeName="title">MonLift</h1>
                                   
-                                                   <a class="btn pull-right" href="html/loginForm.html">Signin </a>
+                                                   <a class="btn pull-right" href="html/loginForm.html">logout</a>
                                 
                                                </header>
                                                );
