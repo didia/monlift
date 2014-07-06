@@ -7,6 +7,7 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
  		
 		LoginForm:React.createClass({displayName:'LoginForm',
 			
+			
 			render: function(){
 				return (
 					<form id ="singin-form">

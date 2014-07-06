@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-define(['jquery', 'react', 'app/monlift', 'components/forms', 'app/auth'], function($, React, monlift, forms, auth){
+define(['jquery', 'react', 'app/monlift', 'components/forms', 'components/liftList'], function($, React, monlift, forms, LiftList){
 	
 	var SearchForm = forms.SearchForm;
 	
@@ -33,6 +33,9 @@ define(['jquery', 'react', 'app/monlift', 'components/forms', 'app/auth'], funct
                 			</div>
 						</div>
             		</div>
+					
+					<LiftList />
+					
 				</div>
 			)
 		}

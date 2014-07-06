@@ -32,6 +32,7 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms'], funct
 				document.getElementById('footer')
 			);
 			
+			
 			$("#signin").click(function(e) {
                 e.preventDefault();
 				console.log("signin appélé");
