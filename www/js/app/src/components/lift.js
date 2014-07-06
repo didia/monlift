@@ -12,28 +12,17 @@ define(['jquery', 'react', 'app/monlift'], function($, React, monlift){
     
                            <li class="table-view-cell media">
 
-                           <img  src="img/photo.jpg" height="70" weight="70">
+                           		<img  src="img/photo.jpg" height="70" weight="70" />
 
-                           <!-- user name avatar  -->
-
-                           <div class="media-body">
+                           		<div class="media-body">
         
-                            <a href="">  fredy   </a>
+                            		<a href="">  fredy   </a>              
 
-                            <!-- user name  -->
-
-              
-
-                           <img src="img/car2.png"  height="100" weight="100">
-
-                            <!-- lift car picture  -->
-
-                        </li>
-
-                    </ul>
-             
-                
-              </div>
+                           			<img src="img/car2.png"  height="100" weight="100" />
+								</div>
+							</li>
+						</ul>
+              	</div>
                        
 
 
