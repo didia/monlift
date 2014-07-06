@@ -20,7 +20,7 @@ ExceptionMapper<BaseException> {
 	
 	@Override
 	public Response toResponse(BaseException ex) {
-		return Response.status(404).entity(ex.getMessage()).type("text/plain")
+		return Response.status(404).entity(ex.getMessage()).type("application/json")
 	            .build();
 	}
 }

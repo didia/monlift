@@ -22,7 +22,7 @@ public class AuthentificationExceptionMapper implements ExceptionMapper<Authenti
 
 	@Override
 	public Response toResponse(AuthentificationErrorException ex) {
-		return Response.status(HttpStatus.SC_UNAUTHORIZED).entity(ex.getMessage()).type("text/plain")
+		return Response.status(HttpStatus.SC_UNAUTHORIZED).entity(ex.getMessage()).type("application/json")
 	            .build();
 		
 	}

@@ -9,15 +9,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import me.didia.monlift.BaseException;
-import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.marshallers.SessionMarshaller;
 import me.didia.monlift.requests.BaseRequest;
 import me.didia.monlift.requests.LoginRequest;
 import me.didia.monlift.requests.RegisterRequest;
-import me.didia.monlift.requests.ValidationErrorException;
 import me.didia.monlift.responses.SessionResponse;
-import me.didia.monlift.securities.AuthentificationErrorException;
 import me.didia.monlift.securities.AuthentificationManager;
 
 
