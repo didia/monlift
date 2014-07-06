@@ -28,11 +28,6 @@ public class SessionMarshaller implements IMarshaller<SessionResponse, Session> 
 		
 	}
 
-	public SessionResponse marshall(BaseException e) {
-		SessionResponse response = new SessionResponse();
-		response.build(e);
-		return response;
-	}
 
 	
 }
