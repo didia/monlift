@@ -5,7 +5,7 @@ define(['jquery', 'react', 'app/monlift', 'components/lift'], function($, React,
 		render: function(){
 			return (
 				<div>
-          	    	<ul class="table-view">
+          	    	<ul className="table-view">
 						<Lift />
 						<Lift />
 					</ul>
