@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-define(['jquery','react', 'app/auth', 'app/component','components/forms'], function($,React, auth, component, forms, UI){
+define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/event'], function($,React, auth, component, forms, EventProvider){
 	 
 	 // because JSX component do not understand the "." in forms.X, define a variable for them instead
 	 
@@ -11,9 +11,10 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms'], funct
 	 var Header = component.getHeader();
 	 var Footer = component.getFooter();
 	 
+	 
 	 console.log(Header, HomePage, Footer);
 	 
-	 return {
+	 UI =  {
  		
 		go:function(){
 			// implements all ui specific functions here	
@@ -57,8 +58,35 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms'], funct
 			
 		},
 		
+		showLoginPage: function()
+		{
+			React.renderComponent(
+				<LoginForm />,
+				document.getElementById('app-body')
+			);
+					
+		},
+		
+		showHomePage: function()
+		{
+			React.renderComponent(
+				<Header />,
+				document.getElementById('header')
+			);
+			
+			React.renderComponent(
+				<HomePage />,
+				document.getElementById('app-body')
+			);
+		}
+		
+		
 		
 		 
 	 }
+	 
+	 EventProvider.subscribe('auth.login', UI.showHomePage);
+	 
+	 return UI;
  	
- })
+ });

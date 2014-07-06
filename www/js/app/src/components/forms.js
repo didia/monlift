@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlift, auth){
+define(['jquery', 'react', 'app/monlift', 'app/auth', 'app/event'], function($, React, monlift, auth, EventProvider){
 	 
 	 ML = monlift.getInstance();
 	 
@@ -38,9 +38,29 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 				auth.register(firstname, lastname, email, password, phone);
 				console.log(ML._session);
 			},
+			registrationFailed: function(message)
+			{
+				this.setState({errorMessage:message});
+			},
+			
+			getInitialState: function() {
+    			return {errorMessage: ''};
+  			},
+			
+			componentWillUnmount: function(){
+				var that = this;
+				EventProvider.unsubscribe('auth.registerFailed', ML.bind(that, 'registrationFailed'));
+			},
+			
+			componentDidMount: function(){
+				var that = this;
+				EventProvider.subscribe('auth.registerFailed', ML.bind(that, 'registrationFailed'));
+			},
 			render: function(){
+				
 				return (
 					<form id="register" className="form-horizontal" onSubmit={this.handleSubmit}>
+						{this.state.errorMessage? <p>{this.state.errorMessage} </p>:''}
 						<div className="control-group">
 							<div className="controls">
 								<div className="input-prepend">
