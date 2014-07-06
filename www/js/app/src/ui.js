@@ -56,7 +56,6 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 				}
             });
 			
-		
 		},
 		
 		showLoginPage: function()

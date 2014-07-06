@@ -7,18 +7,26 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'app/event'], function($, 
  		
 		LoginForm:React.createClass({displayName:'LoginForm',
 			
+			handleSubmit:function(e){
+				e.preventDefault();
+				var email = this.refs.email.getDOMNode().value;
+				var password  = this.email.getDOMNode().value;
+				auth.login(email, password);
+				consol.log(ML._session);	
+			},
 			render: function(){
 				return (
-					<form id ="singin-form">
-                		<input type="text" className="form-control" placeholder="Username" required />
-                		<input type="password" className ="form-control" placeholder="Password" required />
+					<form id = "singin-form"  className = "forme-horizontal" onSubmit= {this.handleSubmit}>
+						<input type="text" class="input-xlarge" id="email" name="email" placeholder="Email" ref = "email" required>
+						<input type="password" className ="form-control" placeholder="Password" ref = "password" required />
                 		<label className="checkbox pull-left">
-                			<input type="checkbox" value="remember-me" />
+                		<input type="checkbox" value="remember-me" />
                  				Remember me
                 		</label>
                 		<a href="#" className="pull-right need-help">Need help? </a><span className="clearfix"></span>
-                		<button className="btn btn-primary btn-block">Sign in</button>
+                		<button className="btn btn-primary btn-block" type = "submit">Sign in</button>
             		</form> 
+                		
 				);
 			}
 		

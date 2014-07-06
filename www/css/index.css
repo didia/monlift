@@ -1,3 +1,4 @@
+
 #search-form
 {
     margin-top: 50px;
@@ -18,14 +19,13 @@
 
 }
 
-.content2{
 
-	border: 1px solid #FFFFFF;
-	height: 300px;
-	background-color: #FFFFFF;
-
+<<<<<<< HEAD
 }
+#login-form
+=======
 #singin-form
+>>>>>>> origin/design
 {
 	margin-top: 50px;
 }
@@ -39,15 +39,7 @@
 }
 
 .bar{
-	background-color:#63B8FF;
+	background-color:#FFF;
 }
 
 
-
-.btn-block{
-	background-color:#63B8FF;
-	
-	
-	position: fixed;
-
-}

@@ -64,12 +64,16 @@ define(["jquery"], function($) {
 			 	async: true,
 			 	data: request, 
 				contentType: "application/json; charset=utf-8",
+
 			 	success:function(data){
 					console.log(data);
 					cb.apply(null, [data, "ok"])
 				},
-			 	error: function(jqxhr, textstatus, error){
-					cb.apply(null, [jqxhr.responseText, "failed"]);
+
+			 	error: function(data){
+					console.log(data);
+					cb(null, [data, "failed"]);
+
 				}
 		 });
 		 },
