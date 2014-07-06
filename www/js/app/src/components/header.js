@@ -4,11 +4,15 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 	var Header = React.createClass({displayName:'Header', 
 		render: function(){
 			return (
-				<header className="bar bar-nav">
-            		<a className="icon icon-list pull-left"></a>
-            		<h1 className="title">MonLift</h1>
-            		<a id="signin" className="btn pull-right">Sign in</a>
-             	</header>
+				<header class="bar bar-nav">
+                                  
+                                  <a class="btn pull-left" href=""> Help </a>
+                                  
+                                  <h1 class="title">MonLift</h1>
+                                  
+                                  <a class="btn pull-right" href="html/loginForm.html">Signin </a>
+                                
+                                </header>
 			)
 		}
 	});
