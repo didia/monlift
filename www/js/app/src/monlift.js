@@ -121,6 +121,10 @@ define(["jquery"], function($) {
  		 	
 			return this.userStatus == "connected"?true:false;
  		 },
+		 
+		 bind: function(toObject, methodName){
+    			return function(){toObject[methodName]()};
+	     }
 			
 		
 	}
