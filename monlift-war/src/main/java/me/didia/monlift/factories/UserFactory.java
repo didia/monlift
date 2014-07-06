@@ -81,11 +81,6 @@ public class UserFactory {
 		return ofy().save().entity(user).now();
 	}
 
-	public static User getUserByEmailandPassword(String email, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	public void setUniqueConstraint(Object object, String fieldname, String value) throws DuplicateValueException
 	{
 		if(!uniqueConstraintManager.create(object, fieldname, value))
