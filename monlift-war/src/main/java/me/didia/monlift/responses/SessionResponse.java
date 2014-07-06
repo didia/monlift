@@ -12,7 +12,6 @@ public class SessionResponse  implements IResponse<me.didia.monlift.securities.S
 	private UserResponse user;
 	private String token;
 	private String status;
-
 	public void build(me.didia.monlift.securities.Session session) {
 		user = new UserResponse();
 		user.build(session.getUser());
@@ -20,16 +19,6 @@ public class SessionResponse  implements IResponse<me.didia.monlift.securities.S
 		status = "ok";
 	}
 	
-	public void build(BaseException e) {
-		if(e.getClass()==DuplicateValueException.class){
-			status = "user already exists";
-		}else if(e.getClass()==ValidationErrorException.class){
-			status = "entered data contais errors";
-		}else if (e.getClass()==AuthentificationErrorException.class){
-			status = "Invalid credentials";
-		}
-		
-	}
 	/**
 	 * @return the user
 	 */

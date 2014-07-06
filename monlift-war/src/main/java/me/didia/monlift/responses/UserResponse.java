@@ -13,7 +13,7 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 		firstname = user.getFirstname();
 		lastname = user.getLastname();
 		email = user.getEmail();
-		phone = user.getLastname();
+		phone = user.getPhone();
 	}
 	/**
 	 * @return the id
@@ -75,9 +75,4 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public void build(BaseException e) {
-		
-		
-	}
-
 }

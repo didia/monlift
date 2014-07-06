@@ -90,7 +90,7 @@ public class UserFactory {
 	{
 		if(!uniqueConstraintManager.create(object, fieldname, value))
 		{
-			String errorMessage = String.format("UserResponse with %s <<%s>> exists already", fieldname, value);
+			String errorMessage = String.format("User with %s \"%s\" already exists", fieldname, value);
 			throw new DuplicateValueException(errorMessage);
 		}
 	}
