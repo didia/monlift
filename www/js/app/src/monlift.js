@@ -70,9 +70,9 @@ define(["jquery"], function($) {
 					cb.apply(null, [data, "ok"])
 				},
 
-			 	error: function(data){
-					console.log(data);
-					cb(null, [data, "failed"]);
+			 	error: function(jqxhr, textstatus, error){
+					cb.apply(null, [jqxhr.responseText, "failed"]);
+
 
 				}
 		 });
