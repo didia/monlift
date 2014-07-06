@@ -54,7 +54,6 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms'], funct
 				}
             });
 			
-		
 		},
 		
 		

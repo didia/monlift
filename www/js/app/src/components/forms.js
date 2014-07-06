@@ -10,14 +10,14 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 			render: function(){
 				return (
 					<form id ="singin-form">
-                		<input type="text" className="form-control" placeholder="Username" required />
+                		<input type="text" className="form-control" placeholder="Username" required  onSubmit= {this.handleSubmit}/>
                 		<input type="password" className ="form-control" placeholder="Password" required />
                 		<label className="checkbox pull-left">
                 			<input type="checkbox" value="remember-me" />
                  				Remember me
                 		</label>
                 		<a href="#" className="pull-right need-help">Need help? </a><span className="clearfix"></span>
-                		<button className="btn btn-primary btn-block">Sign in</button>
+                		<button className="btn btn-primary btn-block" type = "submit">Sign in</button>
             		</form> 
 				);
 			}
