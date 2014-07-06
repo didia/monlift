@@ -62,16 +62,17 @@
  				}
 
  				ML.post(endpoint, jsonRequest, function(response, status){
-					
- 					if(status == "ok")
+					console.log("status : " + status);
+ 					if(status === "ok")
  					{
+						console.log("The post succeeded");
  						ML.setSession(response);
 						EventProvider.fire('auth.login');
 						
-
  					}
  					else
  					{
+						console.log("The post failed");
  						ML.log(response);
 						EventProvider.fire('auth.registerFailed', response);
  					}

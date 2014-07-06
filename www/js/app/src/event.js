@@ -22,8 +22,10 @@ define([], function(){
 		  
 		unsubscribe: function(name, cb) {
 			var subs = this.subscribers()[name];
+			console.log(subs);
 			subs.forEach(function(value, key) {
       			if (value == cb) {
+					console.log("Unsubscribing from " + name);
         			subs[key] = null;
       			}
     		});
@@ -52,11 +54,11 @@ define([], function(){
       			args = Array.prototype.slice.call(arguments),
       			name = args.shift();
 
-    			this.subscribers()[name].forEach(function(sub) {
-    	  			if (sub) {
-        				sub.apply(this, args);
-      				}
-    			});
+    		this.subscribers()[name].forEach(function(sub) {
+    	  		if (sub) {
+        			sub.apply(this, args);
+      			}
+    		});
   		}
 		
 	}

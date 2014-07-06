@@ -56,8 +56,6 @@ define(["jquery"], function($) {
 		     if(endpoint[0] != "/")
 		    	  endpoint = "/" + endpoint;
 		     endpoint = ML._domain.api + endpoint;
-			 console.log(endpoint);
-			 console.log(request);
 	
 			 $.ajax({
 			 	type: "POST",
@@ -70,9 +68,8 @@ define(["jquery"], function($) {
 					console.log(data);
 					cb.apply(null, [data, "ok"])
 				},
-			 	error: function(data){
-					console.log(data);
-					cb(null, [data, "failed"]);
+			 	error: function(jqxhr, textstatus, error){
+					cb.apply(null, [jqxhr.responseText, "failed"]);
 				}
 		 });
 		 },
@@ -123,7 +120,7 @@ define(["jquery"], function($) {
  		 },
 		 
 		 bind: function(toObject, methodName){
-    			return function(){toObject[methodName]()};
+    			return function(){toObject[methodName](Array.prototype.slice.call(arguments))};
 	     }
 			
 		

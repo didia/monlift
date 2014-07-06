@@ -32,13 +32,25 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'app/event'], function($, 
 				var lastname = this.refs.lastname.getDOMNode().value;
 				var email = this.refs.email.getDOMNode().value;
 				var password = this.refs.password.getDOMNode().value;
-				var password2 = this.refs.password.getDOMNode().value;
 				var phone = this.refs.phone.getDOMNode().value;
-				auth.register(firstname, lastname, email, password, phone);
-				console.log(ML._session);
+				if(this.validateForm(firstname, lastname, email, password, phone))
+				{
+					auth.register(firstname, lastname, email, password, phone);
+				}
+			},
+			validateForm: function(firstname, lastname, email, password, phone)
+			{
+				if(!firstname || !lastname || !email || !password || !phone)
+				{
+					this.setState({errorMessage:"There are missing values in the form!"});
+					return false;
+				}
+				return true;
 			},
 			registrationFailed: function(message)
 			{
+				console.log("RegistrationFailed called with message: ");
+				console.log(arguments);
 				this.setState({errorMessage:message});
 			},
 			
@@ -47,11 +59,13 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'app/event'], function($, 
   			},
 			
 			componentWillUnmount: function(){
+				console.log("Registration Form will unmount");
 				var that = this;
-				EventProvider.unsubscribe('auth.registerFailed', ML.bind(that, 'registrationFailed'));
+				EventProvider.clear('auth.registerFailed');
 			},
 			
 			componentDidMount: function(){
+				console.log("Registration Form did unmount");
 				var that = this;
 				EventProvider.subscribe('auth.registerFailed', ML.bind(that, 'registrationFailed'));
 			},
@@ -93,16 +107,7 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'app/event'], function($, 
 								</div>
 							</div>
 						</div>
-			
-						<div className="control-group">
-							<div className="controls">
-								<div className="input-prepend">
-									<span className="add-on"><i className="icon-lock"></i></span>
-									<input type="Password" className="input-xlarge" name="conpasswd" ref = "password2" placeholder="Re-enter Password" required />
-								</div>
-							</div>
-						</div>
-						
+								
 						<div className="control-group">
 							<div className="controls">
 								<div className="input-prepend">
