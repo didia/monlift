@@ -66,13 +66,15 @@ define(["jquery"], function($) {
 			 	async: true,
 			 	data: request, 
 				contentType: "application/json; charset=utf-8",
-			 	success:function(data, status){
+
+			 	success:function(data){
 					console.log(data);
-					cb.call(data, status)
+					cb.apply(null, [data, "ok"])
 				},
-			 	error: function(data, status){
+			 	error: function(data){
 					console.log(data);
-					cb.call(data)
+					cb(null, [data, "failed"]);
+
 				}
 		 });
 		 },
@@ -121,6 +123,10 @@ define(["jquery"], function($) {
  		 	
 			return this.userStatus == "connected"?true:false;
  		 },
+		 
+		 bind: function(toObject, methodName){
+    			return function(){toObject[methodName]()};
+	     }
 			
 		
 	}
