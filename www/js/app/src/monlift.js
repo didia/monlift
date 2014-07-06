@@ -56,8 +56,6 @@ define(["jquery"], function($) {
 		     if(endpoint[0] != "/")
 		    	  endpoint = "/" + endpoint;
 		     endpoint = ML._domain.api + endpoint;
-			 console.log(endpoint);
-			 console.log(request);
 	
 			 $.ajax({
 			 	type: "POST",
@@ -66,13 +64,14 @@ define(["jquery"], function($) {
 			 	async: true,
 			 	data: request, 
 				contentType: "application/json; charset=utf-8",
-			 	success:function(data, status){
+
+			 	success:function(data){
 					console.log(data);
-					cb.call(data, status)
+					cb.apply(null, [data, "ok"])
 				},
-			 	error: function(data, status){
-					console.log(data);
-					cb.call(data)
+			 	error: function(jqxhr, textstatus, error){
+					cb.apply(null, [jqxhr.responseText, "failed"]);
+
 				}
 		 });
 		 },
@@ -121,6 +120,10 @@ define(["jquery"], function($) {
  		 	
 			return this.userStatus == "connected"?true:false;
  		 },
+		 
+		 bind: function(toObject, methodName){
+    			return function(){toObject[methodName](Array.prototype.slice.call(arguments))};
+	     }
 			
 		
 	}

@@ -1,9 +1,13 @@
 /**
  * This file contains files related to authentification management.
- *
+ * Global Events:
+ *  auth.login
+ *	auth.register
+ *  auth.logout
+ *	auth.sessionChange
  */
 
- define(['app/monlift'], function(monlift){
+ define(['app/monlift', 'app/event'], function(monlift, EventProvider){
 	 
 	 ML = monlift.getInstance();
 	 
@@ -18,18 +22,18 @@
  			{
 	 		 	var endpoint = 'oauth/login';
 	 		 	var jsonRequest = {"email":email, "password":password};
-	 		 	ML.post(endpoint, jsonRequest, function(response){
+	 		 	ML.post(endpoint, jsonRequest, function(response, status){
 					
-	 		 		if(response.status = "success")
+	 		 		if(status == "ok")
 	 		 		{
-	 		 			ML.log(response.body.session.token);
- 						ML.log(response.body.session.user);
- 						ML.setSession(response.body.session);
+	 		 			ML.log(response);
+ 						
+ 						ML.setSession(response);
 
 	 		 		}
 	 		 		else
 	 		 		{
-	 		 			ML.log(response.data.reason);
+	 		 			ML.log(response);
 	 		 		}
 
 	 		 		if(cb)
@@ -45,7 +49,7 @@
  		 *
  		 */ 
 		 
- 		register:function(firstname, lastname, email, password, phone, cb){
+ 		register:function(firstname, lastname, email, password, phone){
  			if(firstname && lastname && password && email && phone)
  			{
  				var endpoint = "oauth/register";
@@ -58,18 +62,22 @@
  				}
 
  				ML.post(endpoint, jsonRequest, function(response, status){
-					console.log(response);
- 					if(response.status = "success")
+					console.log("status : " + status);
+ 					if(status === "ok")
  					{
- 						ML.log(response.body);
-
+						console.log("The post succeeded");
+ 						ML.setSession(response);
+						EventProvider.fire('auth.login');
+						
  					}
  					else
  					{
- 						ML.log(response.body.reason);
+						console.log("The post failed");
+ 						ML.log(response);
+						EventProvider.fire('auth.registerFailed', response);
  					}
- 					if(cb)
- 						cb(response)
+ 					
+					
  				})
 
 

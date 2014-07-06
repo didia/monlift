@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlift, auth){
+define(['jquery', 'react', 'app/monlift', 'app/auth', 'app/event'], function($, React, monlift, auth, EventProvider){
 	 
 	 ML = monlift.getInstance();
 	 
@@ -32,14 +32,48 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 				var lastname = this.refs.lastname.getDOMNode().value;
 				var email = this.refs.email.getDOMNode().value;
 				var password = this.refs.password.getDOMNode().value;
-				var password2 = this.refs.password.getDOMNode().value;
 				var phone = this.refs.phone.getDOMNode().value;
-				auth.register(firstname, lastname, email, password, phone);
-				console.log(ML._session);
+				if(this.validateForm(firstname, lastname, email, password, phone))
+				{
+					auth.register(firstname, lastname, email, password, phone);
+				}
+			},
+			validateForm: function(firstname, lastname, email, password, phone)
+			{
+				if(!firstname || !lastname || !email || !password || !phone)
+				{
+					this.setState({errorMessage:"There are missing values in the form!"});
+					return false;
+				}
+				return true;
+			},
+			registrationFailed: function(message)
+			{
+				console.log("RegistrationFailed called with message: ");
+				console.log(arguments);
+				this.setState({errorMessage:message});
+			},
+			
+			getInitialState: function() {
+    			return {errorMessage: ''};
+  			},
+			
+			componentWillUnmount: function(){
+				console.log("Registration Form will unmount");
+				var that = this;
+				EventProvider.clear('auth.registerFailed');
+			},
+			
+			componentDidMount: function(){
+				console.log("Registration Form did unmount");
+				var that = this;
+				EventProvider.subscribe('auth.registerFailed', ML.bind(that, 'registrationFailed'));
 			},
 			render: function(){
+				
 				return (
 					<form id="register" className="form-horizontal" onSubmit={this.handleSubmit}>
+						{this.state.errorMessage? <p>{this.state.errorMessage} </p>:''}
 						<div className="control-group">
 							<div className="controls">
 								<div className="input-prepend">
@@ -73,16 +107,7 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 								</div>
 							</div>
 						</div>
-			
-						<div className="control-group">
-							<div className="controls">
-								<div className="input-prepend">
-									<span className="add-on"><i className="icon-lock"></i></span>
-									<input type="Password" className="input-xlarge" name="conpasswd" ref = "password2" placeholder="Re-enter Password" required />
-								</div>
-							</div>
-						</div>
-						
+								
 						<div className="control-group">
 							<div className="controls">
 								<div className="input-prepend">
