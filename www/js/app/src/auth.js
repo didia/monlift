@@ -83,6 +83,31 @@
 
  			}
  		},
+ 		
+ 		/*
+ 		 * function to logout user how allready connect
+ 		 */
+ 		logout: function(email, cb)
+ 		{
+ 			var endpoint = "oauth/logout";
+ 			var jsonRequest= {"email" : email}
+ 			ML.post(endpoint, jsonRequest, function(response, status){
+ 				if(statut === "ok" ){
+ 					consol.log("The post succeeded");
+ 					ML.setSession(response);
+				}
+				else
+	 		 		{
+	 		 			ML.log(response);
+	 		 		}
+
+	 		 		if(cb)
+	 		 		    cb(response);
+					
+ 				
+			});
+ 			
+ 		},
 		
  		/*
  		 * Function to get the login status of the user

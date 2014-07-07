@@ -10,6 +10,8 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 	 var HomePage = component.getHomePage();
 	 var Header = component.getHeader();
 	 var Footer = component.getFooter();
+	 var LogOutButton = component.getLogoutButton();
+	 
 	 
 	 
 	 console.log(Header, HomePage, Footer);
@@ -17,7 +19,11 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 	 UI =  {
  		
 		go:function(){
-			// implements all ui specific functions here	
+			// implements all ui specific functions here
+			
+			
+			mixins: [events.mixinFor("logout")],	// TODO
+			
 			React.renderComponent(
 				<Header />,
 				document.getElementById('header')
@@ -32,6 +38,7 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 				<Footer />,
 				document.getElementById('footer')
 			);
+			
 			
 			
 			$("#signin").click(function(e) {
@@ -56,8 +63,40 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 				}
             });
 			
+			
+			
 		},
 		
+		
+ 		//TODO
+    	getInitialState: function(){
+        return {
+            user: null
+        };
+    	},
+		
+		logIn: function(){
+        	this.setState({
+            	user: {name: "foobar"}
+        	});
+    	},
+		
+		onLogout:function(){
+			this.setState({
+				user: null
+			});
+		},
+		
+		 render: function() {
+        var user = this.state.user;
+ 
+        return Dom.div(null, 
+            user && Dom.span(null, "Hi " + user.name),
+            user && LogOutButton(),
+            !user && Dom.button({onClick: this.logIn},"log in")
+        	);
+    	},
+		//FIN TODO
 		showLoginPage: function()
 		{
 			React.renderComponent(
