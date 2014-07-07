@@ -79,7 +79,9 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
                                   <a class="tab-item">
                                   
                                   <img src="img/road.svg"  href="#" height="30" weight="30" >
-                                    
+                                  
+                                  </a>
+                               
                                </div>
 
        
