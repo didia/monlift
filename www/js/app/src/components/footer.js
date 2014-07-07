@@ -1,10 +1,15 @@
 /** @jsx React.DOM */
 define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlift, auth){
+		ML = monlift.getInstance();
 	
-	var Footer = React.createClass({displayName:'Footer', 
-		render: function(){
-			return (
-				<div class ="bar bar-tab">
+		render{
+			
+				IndexFooter: React.createClass({displayName:'IndexFooter',
+				
+				render: function(){
+					return (
+	                  
+	                  <div class ="bar bar-tab">
 					
 					<a class="tab-item">
 					  
@@ -45,10 +50,53 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 					  
 			  </div>
 
-			)
-		}
-	});
+                    );
+                                               
+                }
+   
+                                        
+      })
+		           DriverAccountFooter: React.createClass({displayName:'DriverAccountFooter',
+				
+			    render: function(){
+			            return (
+						
+		              <div class ="bar bar-tab">
+                                  
+                                  <a class="tab-item" href="../index.html">
+                                  
+                                  <img src="img/Search.png"   height="30" weight="30" >
+                                  
+                                  </a>
+                                  
+                                  <a class="tab-item" >
+                                  
+                                  <img src="img/addlift.png" height="30" weight="30" >
+                                  
+                                  </a>
+                                  
+                                  
+                                  <a class="tab-item">
+                                  
+                                  <img src="img/road.svg"  href="#" height="30" weight="30" >
+                                    
+                               </div>
+
+       
+
+
+						
+						);
+						
+				     }
+						
+		         })
 	
-	return Footer;
-	
-});// JavaScript Document
+		
+		
+		
+		
+			
+	}
+
+})// JavaScript Document
