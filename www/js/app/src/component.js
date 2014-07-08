@@ -1,13 +1,13 @@
 
 define(['jquery', 'react', 'app/monlift', 'app/auth', 'components/header', 'components/body', 'components/footer', 'components/forms'], 
-		function($, React, monlift, auth, Header, Body, Footer, forms){
+		function($, React, monlift, auth, headers, Body, Footer, forms){
 	
 	 
 	 ML = monlift.getInstance();
 	 
 	 return {
 		getHeader: function(){
-			return Header;
+			return headers.IndexHeader;
 		},
 		
  		getHomePage: function(){

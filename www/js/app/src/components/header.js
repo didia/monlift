@@ -6,10 +6,10 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 			IndexHeader: React.createClass({displayName:'IndexHeader',
 		    	render: function(){
 		        	return (
-		            	<header class="bar bar-nav">
-                        	<a classeName="btn pull-left" href=""> Help </a>
-                            <h1 classeName="title">MonLift</h1>
-							<a classeName="btn pull-right" href="">Signin </a>
+		            	<header className="bar bar-nav">
+                        	<a className="btn pull-left" href=""> Help </a>
+                            <h1 className="title">MonLift</h1>
+							<a className="btn pull-right" id="signin">Signin </a>
                         </header>
                     );
                                                
@@ -21,9 +21,9 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 			LoginHeader : React.createClass({displayName:'LoginHeader',
 		    	render: function(){
 		        	return (
-						<header classeName="bar bar-nav">
-							<h1 classeName="title">MonLift</h1>
-							<a class="btn pull-right" href="">logout</a>
+						<header className="bar bar-nav">
+							<h1 className="title">MonLift</h1>
+							<a className="btn pull-right" href="">logout</a>
                          </header>
                     );
                                                
