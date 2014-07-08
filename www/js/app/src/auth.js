@@ -16,7 +16,7 @@
  		 * Function to login to the server, return a token
  		 *
  		 */
- 		login: function(email, password, cb)
+ 		login: function(email, password)
  		{
  			if(email && password)
  			{
@@ -26,18 +26,15 @@
 					
 	 		 		if(status == "ok")
 	 		 		{
-	 		 			ML.log(response);
- 						
  						ML.setSession(response);
-
+						EventProvider.fire("auth.login");
 	 		 		}
 	 		 		else
 	 		 		{
-	 		 			ML.log(response);
+	 		 			ML.log("Login failed: " + response);
+						EventProvider.fire("auth.loginFailed", response);
 	 		 		}
 
-	 		 		if(cb)
-	 		 		    cb(response);
 	 		 	});
 
  		 	}
@@ -62,18 +59,15 @@
  				}
 
  				ML.post(endpoint, jsonRequest, function(response, status){
-					console.log("status : " + status);
  					if(status === "ok")
  					{
-						console.log("The post succeeded");
  						ML.setSession(response);
 						EventProvider.fire('auth.login');
 						
  					}
  					else
  					{
-						console.log("The post failed");
- 						ML.log(response);
+						ML.log("Registration failed: " + response);
 						EventProvider.fire('auth.registerFailed', response);
  					}
  					

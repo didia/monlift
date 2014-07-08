@@ -10,6 +10,12 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'app/event'], function($, 
     			return {errorMessage: ''};
   			},
 			
+			loginFailed: function(message){
+				console.log("loginFailed called with message: ");
+				console.log(arguments);
+				this.setState({errorMessage:message});
+			},
+			
 			validateForm: function(email, password){
 				var missing_fields = [];
 				
@@ -21,28 +27,42 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'app/event'], function($, 
 				{
 					missing_fields.push("password");
 				}
+				
 				if(missing_fields.length == 0)
 					return true;
-				if(missing_fileds.length == 1)
+				if(missing_fields.length == 1)
 					var message = "The value for field \"" + missing_fields[0] +" is missing";  
 				else
 					var message = "The values for fields \"" + missing_fields.toString() + " are missing";
 				this.setState({errorMessage:message});
 				return false;
 			},
+			
 			handleSubmit:function(e){
 				e.preventDefault();
 				var email = this.refs.email.getDOMNode().value;
-				var password  = this.email.getDOMNode().value;
+				var password  = this.refs.password.getDOMNode().value;
 				if(this.validateForm(email, password))
 				{
 					auth.login(email, password);
 				}
-				consol.log(ML._session);	
+				console.log(ML._session);	
 			},
+			
+			componentWillUnmount: function(){
+				console.log("Login Form will unmount");
+				EventProvider.clear('auth.loginFailed');
+			},
+			
+			componentDidMount: function(){
+				console.log("Login Form did unmount");
+				var that = this;
+				EventProvider.subscribe('auth.loginFailed', ML.bind(that, 'loginFailed'));
+			},
+			
 			render: function(){
 				return (
-					<form id = "singin-form"  className = "forme-horizontal" onSubmit= {this.handleSubmit}>
+					<form id = "login-form"  className = "forme-horizontal" onSubmit= {this.handleSubmit}>
 						<input type="email" class="input-xlarge" id="email" name="email" placeholder="Email" ref = "email" required />
 						<input type="password" className ="form-control" placeholder="Password" ref = "password" required />
                 		<label className="checkbox pull-left">
@@ -74,21 +94,21 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'app/event'], function($, 
 			},
 			validateForm: function(firstname, lastname, email, password, phone)
 			{
-				var missing_values = [];
+				var missing_fields = [];
 				if(!firstname)
-					missing_values.push("firstname");
+					missing_fields.push("firstname");
 				if(!lastname)
-					missing_values.push("lastname");
+					missing_fields.push("lastname");
 				if(!email)
-					misssing_values.push("email");
+					misssing_fields.push("email");
 				if(!password)
-					missing_Values.push("password");
+					missing_fields.push("password");
 				if(!phone)
-					missing_values.push("phone");
+					missing_fields.push("phone");
 					
 				if(missing_fields.length == 0)
 					return true;
-				if(missing_fileds.length == 1)
+				if(missing_fields.length == 1)
 					var message = "The value for field \"" + missing_fields[0] +" is missing";  
 				else
 					var message = "The values for fields \"" + missing_fields.toString() + " are missing";
