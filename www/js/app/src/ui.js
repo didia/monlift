@@ -67,36 +67,6 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 			
 		},
 		
-		
- 		//TODO
-    	getInitialState: function(){
-        return {
-            user: null
-        };
-    	},
-		
-		logIn: function(){
-        	this.setState({
-            	user: {name: "foobar"}
-        	});
-    	},
-		
-		onLogout:function(){
-			this.setState({
-				user: null
-			});
-		},
-		
-		 render: function() {
-        var user = this.state.user;
- 
-        return Dom.div(null, 
-            user && Dom.span(null, "Hi " + user.name),
-            user && LogOutButton(),
-            !user && Dom.button({onClick: this.logIn},"log in")
-        	);
-    	},
-		//FIN TODO
 		showLoginPage: function()
 		{
 			React.renderComponent(

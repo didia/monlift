@@ -84,15 +84,17 @@
  		logout: function(email, cb)
  		{
  			var endpoint = "oauth/logout";
- 			var jsonRequest= {"email" : email}
+ 			var jsonRequest= {"token" : ML._session.getToken()}
  			ML.post(endpoint, jsonRequest, function(response, status){
  				if(statut === "ok" ){
  					consol.log("The post succeeded");
  					ML.setSession(response);
+ 					EventProvider.fire('Logout')
 				}
 				else
 	 		 		{
 	 		 			ML.log(response);
+	 		 			EventProvider.fire(response);
 	 		 		}
 
 	 		 		if(cb)
