@@ -23,7 +23,7 @@ public class ProfileService {
 	private static UserManager userManager = UserManager.getInstance();
 	
 	@POST
-	@Path("/")
+	@Path("/me")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public UserResponse getUserProfile() throws BaseException
@@ -64,30 +64,17 @@ public class ProfileService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public UserResponse getUserProfileField(@PathParam("userId") Long userId,
 											@PathParam("field") String field) throws BaseException{
-		
+		String[] fields = field.split(",");
 		User user = userManager.getUser(userId);
+		
 		if(user == null)
 		{
 			throw new BaseException("Bad Request: Unknow user id");
 		}
+		
 		UserResponse userResponse = new UserResponse();
-		switch(field){
-			case "username":
-				userResponse.setUsername(user.getUsername());
-				break;
-			case "firstname" :
-				userResponse.setFirstname(user.getFirstname());
-				break;
-			case "lastname":
-				userResponse.setLastname(user.getLastname());
-				break;
-			case "fullname":
-				userResponse.setFullname(user.getFirstname() + " " + user.getLastname());
-				break;
-			default:
-				throw new BaseException("Bad Request: Unknown field: " + field);
-			
-		}
+		userResponse.build(user, fields);
+		userResponse.blurPrivate();
 		
 		return userResponse;
 	}
@@ -102,4 +89,5 @@ public class ProfileService {
 			UserManager.getInstance().createUser(registerData.getFirstname(),registerData.getLastname(),registerData.getEmail(),registerData.getPhone(),registerData.getPassword());
 			return SessionMarshaller.getInstance().marshall(AuthentificationManager.getInstance().createSession(registerData.getEmail(), registerData.getPassword()));
 	}
+	
 }
