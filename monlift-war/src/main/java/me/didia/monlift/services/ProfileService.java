@@ -1,0 +1,105 @@
+package me.didia.monlift.services;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+
+import me.didia.monlift.BaseException;
+import me.didia.monlift.entities.User;
+import me.didia.monlift.managers.UserManager;
+import me.didia.monlift.marshallers.SessionMarshaller;
+import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.responses.SessionResponse;
+import me.didia.monlift.responses.UserResponse;
+import me.didia.monlift.securities.AuthentificationManager;
+
+/**
+ * @author didia
+ *
+ */
+
+@Path("/profile")
+public class ProfileService {
+	
+	private static UserManager userManager = UserManager.getInstance();
+	
+	@POST
+	@Path("/")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public UserResponse getUserProfile() throws BaseException
+	{
+		/*
+		User user = userManager.getUser();
+		if(user == null)
+		{
+			throw new BaseException("Bad Request: Unknown user id");
+		}
+		UserResponse userResponse = new UserResponse();
+		userResponse.build(user);
+		*/
+		UserResponse userResponse = new UserResponse();
+		return userResponse;
+	}
+	
+	@GET
+	@Path("/{userId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public UserResponse getUserProfile(@PathParam("userId") Long userId) throws BaseException
+	{
+		User user = userManager.getUser(userId);
+		if(user == null)
+		{
+			throw new BaseException("Bad Request: Unknown user id");
+		}
+		UserResponse userResponse = new UserResponse();
+		userResponse.build(user);
+		userResponse.blurPrivate();
+		return userResponse;
+	}
+	
+	@GET
+	@Path("/{userId}/{field}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public UserResponse getUserProfileField(@PathParam("userId") Long userId,
+											@PathParam("field") String field) throws BaseException{
+		
+		User user = userManager.getUser(userId);
+		if(user == null)
+		{
+			throw new BaseException("Bad Request: Unknow user id");
+		}
+		UserResponse userResponse = new UserResponse();
+		switch(field){
+			case "username":
+				userResponse.setUsername(user.getUsername());
+				break;
+			case "firstname" :
+				userResponse.setFirstname(user.getFirstname());
+				break;
+			case "lastname":
+				userResponse.setLastname(user.getLastname());
+				break;
+			case "fullname":
+				userResponse.setFullname(user.getFirstname() + " " + user.getLastname());
+				break;
+			default:
+				throw new BaseException("Bad Request: Unknown field: " + field);
+			
+		}
+		
+		return userResponse;
+	}
+	
+	@POST
+	@Path("/edit")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public SessionResponse register(RegisterRequest registerData) throws BaseException{
+
+			registerData.validate();
+			UserManager.getInstance().createUser(registerData.getFirstname(),registerData.getLastname(),registerData.getEmail(),registerData.getPhone(),registerData.getPassword());
+			return SessionMarshaller.getInstance().marshall(AuthentificationManager.getInstance().createSession(registerData.getEmail(), registerData.getPassword()));
+	}
+}
