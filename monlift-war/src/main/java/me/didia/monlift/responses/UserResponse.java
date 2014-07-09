@@ -1,7 +1,12 @@
 package me.didia.monlift.responses;
 
-import me.didia.monlift.BaseException;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import me.didia.monlift.BaseException;
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 	private Long id;
 	private String firstname;
@@ -10,6 +15,7 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 	private String phone;
 	private String username;
 	private String fullname;
+	private Boolean driver;
 	public void build(me.didia.monlift.entities.User user) {
 		id = user.getId();
 		firstname = user.getFirstname();
@@ -17,6 +23,9 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 		email = user.getEmail();
 		phone = user.getPhone();
 		fullname = firstname + " " + lastname;
+		driver = user.isDriver();
+		if(user.isDriver())
+			username = user.getUsername();
 	}
 	/**
 	 * @return the id
@@ -105,6 +114,19 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 	
 	@Override
 	public void blurPrivate() {
-		
+		this.email = null;
+		this.phone = null;
+	}
+	/**
+	 * @return the driver
+	 */
+	public Boolean isDriver() {
+		return driver;
+	}
+	/**
+	 * @param driver the driver to set
+	 */
+	public void setDriver(Boolean driver) {
+		this.driver = driver;
 	}
 }
