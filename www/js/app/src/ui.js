@@ -21,9 +21,6 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 		go:function(){
 			// implements all ui specific functions here
 			
-			
-			mixins: [events.mixinFor("logout")],	// TODO
-			
 			React.renderComponent(
 				<Header />,
 				document.getElementById('header')
