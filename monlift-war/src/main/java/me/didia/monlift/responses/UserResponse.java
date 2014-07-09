@@ -1,12 +1,9 @@
 package me.didia.monlift.responses;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import me.didia.monlift.BaseException;
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 	private Long id;
 	private String firstname;
