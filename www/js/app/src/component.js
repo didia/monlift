@@ -1,6 +1,6 @@
 
-define(['jquery', 'react', 'app/monlift', 'app/auth', 'components/header', 'components/body', 'components/footer', 'components/forms'], 
-		function($, React, monlift, auth, headers, Body, Footer, forms){
+define(['jquery', 'react', 'app/monlift', 'app/auth', 'components/header', 'components/parametter', 'components/body', 'components/footer', 'components/forms'], 
+		function($, React, monlift, auth, headers, parametters, Body, Footer, forms){
 	
 	 
 	 ML = monlift.getInstance();
@@ -52,6 +52,11 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'components/header', 'comp
 		getProfilePage: function()
 		{
 			
+		}
+		
+		getParamettersDiv : function()
+		{
+			return parametters;
 		}
 		
 		 
