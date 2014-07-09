@@ -28,8 +28,19 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
                     );
                                                
                 }
-            })
-		
+            }),
+            logoutHeader: react.createClass({displayName:'logoutHeader'
+            	render:function(){
+            		return(
+            				<header className = "bar bar-nav">
+            				<h1 className = "title">Monlift</h1>
+            				<a className = "btn pull-right" href ="#" Login</a>
+            				</header>
+            				);
+            	}
+            }),
+            
+            
 		}
 		
 })
