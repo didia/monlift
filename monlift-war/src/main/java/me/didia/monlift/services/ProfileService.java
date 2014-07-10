@@ -8,6 +8,7 @@ import me.didia.monlift.entities.User;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.marshallers.SessionMarshaller;
 import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.requests.UpdateUserRequest;
 import me.didia.monlift.responses.SessionResponse;
 import me.didia.monlift.responses.UserResponse;
 import me.didia.monlift.securities.AuthentificationManager;
@@ -41,7 +42,7 @@ public class ProfileService {
 		return userResponse;
 	}
 	
-	@GET
+	@POST
 	@Path("/{userId}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -58,7 +59,7 @@ public class ProfileService {
 		return userResponse;
 	}
 	
-	@GET
+	@POST
 	@Path("/{userId}/{field}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -83,11 +84,9 @@ public class ProfileService {
 	@Path("/edit")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SessionResponse register(RegisterRequest registerData) throws BaseException{
+	public SessionResponse register(UpdateUserRequest registerData) throws BaseException{
 
-			registerData.validate();
-			UserManager.getInstance().createUser(registerData.getFirstname(),registerData.getLastname(),registerData.getEmail(),registerData.getPhone(),registerData.getPassword());
-			return SessionMarshaller.getInstance().marshall(AuthentificationManager.getInstance().createSession(registerData.getEmail(), registerData.getPassword()));
+			return null;
 	}
 	
 }
