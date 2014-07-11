@@ -1,7 +1,9 @@
 package me.didia.monlift.services;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.SecurityContext;
 
 import me.didia.monlift.BaseException;
 import me.didia.monlift.entities.User;
@@ -12,6 +14,7 @@ import me.didia.monlift.requests.UpdateUserRequest;
 import me.didia.monlift.responses.SessionResponse;
 import me.didia.monlift.responses.UserResponse;
 import me.didia.monlift.securities.AuthentificationManager;
+import me.didia.monlift.securities.Session;
 
 /**
  * @author didia
@@ -23,12 +26,16 @@ public class ProfileService {
 	
 	private static UserManager userManager = UserManager.getInstance();
 	
+	@Context
+	SecurityContext securityContext;
+	
 	@POST
 	@Path("/me")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public UserResponse getUserProfile() throws BaseException
 	{
+		
 		/*
 		User user = userManager.getUser();
 		if(user == null)
@@ -38,7 +45,9 @@ public class ProfileService {
 		UserResponse userResponse = new UserResponse();
 		userResponse.build(user);
 		*/
+		User user = (User) securityContext.getUserPrincipal();
 		UserResponse userResponse = new UserResponse();
+		userResponse.setFullname(user.getFirstname());
 		return userResponse;
 	}
 	
