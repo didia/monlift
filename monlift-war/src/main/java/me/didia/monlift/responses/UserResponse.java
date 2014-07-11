@@ -1,12 +1,14 @@
 package me.didia.monlift.responses;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import java.util.ArrayList;
+import java.util.List;
 
 import me.didia.monlift.BaseException;
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 	private Long id;
 	private String firstname;
@@ -16,6 +18,7 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 	private String username;
 	private String fullname;
 	private Boolean driver;
+	
 	public void build(me.didia.monlift.entities.User user) {
 		id = user.getId();
 		firstname = user.getFirstname();
@@ -27,6 +30,49 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 		if(user.isDriver())
 			username = user.getUsername();
 	}
+	
+	public void build(me.didia.monlift.entities.User user, String[] fields) throws BaseException
+	{
+		List<String> unknownFields = new ArrayList<String>();
+		for(int i=0; i<fields.length;i++)
+		{
+			String field = fields[i];
+			switch(field){
+			case "username":
+				username = user.getUsername();
+				break;
+			case "firstname" :
+				firstname = user.getFirstname();
+				break;
+			case "lastname":
+				lastname = user.getLastname();
+				break;
+			case "fullname":
+				fullname = user.getFirstname() + " " + user.getLastname();
+				break;
+			case "driver":
+				driver = user.isDriver();
+				break;
+			case "email":
+				email = user.getEmail();
+				break;
+			case "phone":
+				phone = user.getPhone();
+				break;
+			default:
+				unknownFields.add(field);
+				break;
+			}
+		}
+		
+		if(unknownFields.size() != 0)
+		{
+			throw new BaseException("Bad Request: Unknown field: " + unknownFields.toString());
+		}
+		
+		
+	}
+	
 	/**
 	 * @return the id
 	 */

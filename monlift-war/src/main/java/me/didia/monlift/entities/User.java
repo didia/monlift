@@ -1,5 +1,7 @@
 package me.didia.monlift.entities;
 
+import java.security.Principal;
+
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
@@ -9,7 +11,7 @@ import com.googlecode.objectify.annotation.Index;
  * Abstract to avoid being directly used
  */
 @Entity
-public class User {
+public class User implements Principal {
 
 	@Id private Long id;
 	private String firstname;
@@ -70,5 +72,11 @@ public class User {
 	public void setPassword(String password)
 	{
 		this.password = password;
+	}
+	
+	@Override
+	public String getName() {
+
+		return email;
 	}
 }

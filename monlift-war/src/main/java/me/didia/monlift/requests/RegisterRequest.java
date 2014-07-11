@@ -3,6 +3,7 @@ package me.didia.monlift.requests;
 import me.didia.monlift.inputValidator.InputValidator;
 
 public class RegisterRequest implements IRequest{
+	
 	private String firstname;
 	private String lastname;
 	private String email;
