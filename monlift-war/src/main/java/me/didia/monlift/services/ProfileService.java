@@ -6,6 +6,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.SecurityContext;
 
 import me.didia.monlift.BaseException;
+import me.didia.monlift.MonliftContext;
 import me.didia.monlift.entities.User;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.marshallers.SessionMarshaller;
@@ -25,9 +26,7 @@ import me.didia.monlift.securities.Session;
 public class ProfileService {
 	
 	private static UserManager userManager = UserManager.getInstance();
-	
-	@Context
-	SecurityContext securityContext;
+	private static MonliftContext monliftContext = MonliftContext.getInstance();
 	
 	@POST
 	@Path("/me")
@@ -45,9 +44,9 @@ public class ProfileService {
 		UserResponse userResponse = new UserResponse();
 		userResponse.build(user);
 		*/
-		User user = (User) securityContext.getUserPrincipal();
+		User user = monliftContext.getCurrentUser();
 		UserResponse userResponse = new UserResponse();
-		userResponse.setFullname(user.getFirstname());
+		userResponse.build(user);
 		return userResponse;
 	}
 	
