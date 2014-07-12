@@ -1,6 +1,6 @@
 package me.didia.monlift.requests;
 
-public class LoginRequest implements IRequest{
+public class LoginRequest extends BaseRequest{
 	private String email;
 	private String password;
 	
