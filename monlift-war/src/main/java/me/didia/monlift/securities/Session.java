@@ -14,7 +14,7 @@ import me.didia.monlift.entities.User;
  * @author didia
  *
  */
-public class Session implements SecurityContext{
+public class Session{
 	private User user;
 	private String token;
 	public Session()
@@ -41,30 +41,5 @@ public class Session implements SecurityContext{
 		return token;
 	}
 	
-	@Override
-	public String getAuthenticationScheme() {
 		
-		return null;
-	}
-	
-	@Override
-	public Principal getUserPrincipal() {
-		return user;
-	}
-	
-	@Override
-	public boolean isSecure() {
-		
-		return false;
-	}
-	
-	@Override
-	public boolean isUserInRole(String arg0) {
-		
-		return true;
-	}
-	
-
-
-	
 }
