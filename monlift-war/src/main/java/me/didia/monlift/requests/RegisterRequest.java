@@ -43,7 +43,7 @@ public class RegisterRequest extends BaseRequest{
 	public void validate() throws ValidationErrorException {
 		InputValidator inputValidator = InputValidator.getInstance();
 		if(inputValidator.firstnameValidator(firstname) && inputValidator.lastnameValidator(lastname) && inputValidator.emailValidator(email) && inputValidator.phoneValidator(phone)){
-			
+			//TODO
 		}else{
 			throw new ValidationErrorException("Incorrect input");
 		}
