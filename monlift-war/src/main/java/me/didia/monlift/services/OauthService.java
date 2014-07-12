@@ -7,8 +7,10 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import me.didia.monlift.BaseException;
+import me.didia.monlift.MonliftContext;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.marshallers.SessionMarshaller;
 import me.didia.monlift.requests.BaseRequest;
@@ -21,13 +23,16 @@ import me.didia.monlift.securities.AuthentificationManager;
 @Path("/oauth")
 public class OauthService {
 	
+	private static MonliftContext monliftContext = MonliftContext.getInstance();
+	
 	@POST
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SessionResponse login(LoginRequest user) throws BaseException{
-		String email = user.getEmail();
-		String password = user.getPassword();
+	public SessionResponse login(LoginRequest user) throws Exception{
+		LoginRequest loginRequest = monliftContext.getRequestObject(LoginRequest.class);
+		String email = loginRequest.getEmail();
+		String password = loginRequest.getPassword();
 		AuthentificationManager managerInstance = AuthentificationManager.getInstance();
 		
 		return SessionMarshaller.getInstance().marshall(managerInstance.createSession(email, password));
@@ -41,24 +46,25 @@ public class OauthService {
 	@Path("/register")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SessionResponse register(RegisterRequest registerData) throws BaseException{
+	public SessionResponse register() throws Exception{
 
-			registerData.validate();
-			UserManager.getInstance().createUser(registerData.getFirstname(),registerData.getLastname(),registerData.getEmail(),registerData.getPhone(),registerData.getPassword());
-			return SessionMarshaller.getInstance().marshall(AuthentificationManager.getInstance().createSession(registerData.getEmail(), registerData.getPassword()));
+		
+		RegisterRequest registerData = monliftContext.getRequestObject(RegisterRequest.class);
+		registerData.validate();
+		UserManager.getInstance().createUser(registerData.getFirstname(),registerData.getLastname(),registerData.getEmail(),registerData.getPhone(),registerData.getPassword());
+		return SessionMarshaller.getInstance().marshall(AuthentificationManager.getInstance().createSession(registerData.getEmail(), registerData.getPassword()));
 	}
 	
 	@POST
 	@Path("/logout")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SessionResponse logout(BaseRequest logoutRequest) throws BaseException{
-		SessionResponse response = new SessionResponse();
-		logoutRequest.validate();
-		AuthentificationManager.getInstance().getSession(logoutRequest.getToken());
-		AuthentificationManager.getInstance().deleteSession(logoutRequest.getToken());
-		response.setStatus("logged_out");
-		return response;
+	public Response logout() throws BaseException{
+		String token = monliftContext.getCurrentToken();
+		
+		AuthentificationManager.getInstance().deleteSession(token);
+		
+		return Response.ok("Logged out").status(200).build();
 			
 
 	}

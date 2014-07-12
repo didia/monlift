@@ -1,6 +1,6 @@
 package me.didia.monlift.requests;
 
-public class UpdateUserRequest implements IRequest {
+public class UpdateUserRequest extends BaseRequest {
 	
 	private String firstname;
 	private String lastname;
