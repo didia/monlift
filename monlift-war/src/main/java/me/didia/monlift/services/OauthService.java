@@ -29,7 +29,7 @@ public class OauthService {
 	@Path("/login")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SessionResponse login(LoginRequest user) throws Exception{
+	public SessionResponse login() throws Exception{
 		LoginRequest loginRequest = monliftContext.getRequestObject(LoginRequest.class);
 		String email = loginRequest.getEmail();
 		String password = loginRequest.getPassword();
