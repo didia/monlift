@@ -81,26 +81,14 @@
  		/*
  		 * function to logout user how allready connect
  		 */
- 		logout: function(email, cb)
+ 		logout: function()
  		{
  			var endpoint = "oauth/logout";
- 			var jsonRequest= {"token" : ML._session.getToken()}
- 			ML.post(endpoint, jsonRequest, function(response, status){
- 				if(statut === "ok" ){
- 					consol.log("The post succeeded");
- 					ML.setSession(response);
- 					EventProvider.fire('Logout')
-				}
-				else
-	 		 		{
-	 		 			ML.log(response);
-	 		 			EventProvider.fire(response);
-	 		 		}
-
-	 		 		if(cb)
-	 		 		    cb(response);
-					
- 				
+ 			ML.post(endpoint, null, function(response, status){
+ 				console.log("The post succeeded");
+ 				ML.deleteSession();
+ 				EventProvider.fire('auth.logout')
+	
 			});
  			
  		},

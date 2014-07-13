@@ -22,7 +22,7 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 			// implements all ui specific functions here
 			
 			React.renderComponent(
-				<Header />,
+				<Header page='index' />,
 				document.getElementById('header')
 			);
 			
@@ -36,36 +36,15 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 				document.getElementById('footer')
 			);
 			
-			
-			
-			$("#signin").click(function(e) {
-                e.preventDefault();
-				console.log("signin appélé");
-				if($(this).text() == "Sign in")
-				{
-					React.renderComponent(
-					<LoginForm />,
-					document.getElementById('app-body')
-					);
-					
-					$(this).text("signup");
-				}
-				else
-				{
-					React.renderComponent(
-						<RegisterForm />,
-						document.getElementById('app-body')
-					);
-					$(this).text("Sign in");
-				}
-            });
-			
-			
-			
 		},
 		
 		showLoginPage: function()
 		{
+			React.renderComponent(
+				<Header page='login' />,
+				document.getElementById('header')
+			);
+			
 			React.renderComponent(
 				<LoginForm />,
 				document.getElementById('app-body')
@@ -75,13 +54,27 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 		
 		showHomePage: function()
 		{
+			
 			React.renderComponent(
-				<Header />,
+				<Header page='home' />,
 				document.getElementById('header')
 			);
 			
 			React.renderComponent(
 				<HomePage />,
+				document.getElementById('app-body')
+			);
+		},
+		
+		showRegisterPage: function()
+		{
+			React.renderComponent(
+				<Header page='register' />,
+				document.getElementById('header')
+			);
+			
+			React.renderComponent(
+				<RegisterForm />,
 				document.getElementById('app-body')
 			);
 		}
@@ -92,7 +85,9 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 	 }
 	 
 	 EventProvider.subscribe('auth.login', UI.showHomePage);
-	 
+	 EventProvider.subscribe('auth.logout', UI.showHomePage);
+	 EventProvider.subscribe('ui.showLoginPage', UI.showLoginPage);
+	 EventProvider.subscribe('ui.showRegisterPage', UI.showRegisterPage);
 	 return UI;
  	
  });

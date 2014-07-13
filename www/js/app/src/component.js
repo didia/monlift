@@ -1,13 +1,26 @@
 
-define(['jquery', 'react', 'app/monlift', 'app/auth', 'components/header', 'components/parametter', 'components/body', 'components/footer', 'components/forms'], 
-		function($, React, monlift, auth, headers, parametters, Body, Footer, forms){
+define(['jquery', 'react', 'app/monlift', 'app/auth', 'components/header', 'components/parametters', 'components/body', 'components/footer', 'components/forms', 'components/buttons'], 
+		function($, React, monlift, auth, headers, parametters, Body, footers, forms, buttons){
 	
 	 
 	 ML = monlift.getInstance();
 	 
 	 return {
 		getHeader: function(){
-			return headers.IndexHeader;
+			return headers.Header;
+		},
+		
+		
+		getLogoutButton: function(){
+			return buttons.LogoutButton;
+		},
+		
+		getLoginButton: function(){
+			return buttons.LoginButton;
+		},
+		
+		getRegisterButton: function(){
+			return buttons.RegisterButton;
 		},
 		
  		getHomePage: function(){
@@ -17,20 +30,9 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'components/header', 'comp
 		
 		getFooter: function()
 		{
-			return Footer;
+			return footers.IndexFooter;
 		},
 		
-		getLoginButton:function(){	
-		
-		},
-		
-		getLogoutButton:function(){
-			
-		},
-		
-		getRegisterButton: function(){
-		
-		},
 		
 		getLoginForm: function(){
 		
@@ -52,7 +54,7 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'components/header', 'comp
 		getProfilePage: function()
 		{
 			
-		}
+		},
 		
 		getParamettersDiv : function()
 		{
