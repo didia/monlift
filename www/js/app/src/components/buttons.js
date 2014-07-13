@@ -10,33 +10,39 @@ function($, React, monlift, auth, EventProvider, UI){
 			
 			handleClick: function(e){ 
 				e.preventDefault();
+				console.log("logout clicked");
 				auth.logout();
 			},
 			
 			render: function(){
 				return (
-					<a className = "btn pull-right" href ="#" onclick={this.handleClick}> Logout </a>
+					<a className = "btn pull-right" href ="#" onClick={this.handleClick}> Logout </a>
 				);
 			}
 		
 		}),
 		
 		LoginButton: React.createClass({displayName:'LoginButton',
+			
 			handleClick: function(e){
-				UI.showLoginPage();
+				EventProvider.fire('ui.showLoginPage');
 			},
 			
 			render:function(){
-				<a className="btn pull-right" id="login-button" onclick={this.handleClick}>Log in</a>
+				return (
+					<a className="btn pull-right" id="login-button" onClick={this.handleClick}>Log in</a>
+				);
 			}
 		}),
 		
 		RegisterButton: React.createClass({displayName:'RegisterButton',
 			handleClick:function(e){
-				UI.showRegisterPage();
+				EventProvider.fire('ui.showRegisterPage');
 			},
 			render: function(){
-				<a className="btn pull-right" id="register-button" onclick={this.handleClick}> Register </a>
+				return (
+					<a className="btn pull-right" id="register-button" onClick={this.handleClick}> Register </a>
+				);
 			}
 		})
 	 }
