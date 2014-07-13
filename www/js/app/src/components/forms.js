@@ -6,6 +6,7 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'app/event'], function($, 
 	 return {
  		
 		LoginForm:React.createClass({displayName:'LoginForm',
+			
 			getInitialState: function() {
     			return {errorMessage: ''};
   			},
@@ -50,20 +51,18 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'app/event'], function($, 
 			},
 			
 			componentWillUnmount: function(){
-				console.log("Login Form will unmount");
 				EventProvider.clear('auth.loginFailed');
 			},
 			
 			componentDidMount: function(){
-				console.log("Login Form did unmount");
 				var that = this;
 				EventProvider.subscribe('auth.loginFailed', ML.bind(that, 'loginFailed'));
 			},
 			
 			render: function(){
 				return (
-					<form id = "login-form"  className = "forme-horizontal" onSubmit= {this.handleSubmit}>
-						<input type="email" class="input-xlarge" id="email" name="email" placeholder="Email" ref = "email" required />
+					<form id = "login-form"  className = "form-horizontal" onSubmit= {this.handleSubmit} >
+						<input type="email" className="input-xlarge" id="email" name="email" placeholder="Email" ref= "email" required />
 						<input type="password" className ="form-control" placeholder="Password" ref = "password" required />
                 		<label className="checkbox pull-left">
                 		<input type="checkbox" value="remember-me" />
@@ -127,13 +126,11 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'app/event'], function($, 
   			},
 			
 			componentWillUnmount: function(){
-				console.log("Registration Form will unmount");
 				var that = this;
 				EventProvider.clear('auth.registerFailed');
 			},
 			
 			componentDidMount: function(){
-				console.log("Registration Form did unmount");
 				var that = this;
 				EventProvider.subscribe('auth.registerFailed', ML.bind(that, 'registrationFailed'));
 			},
