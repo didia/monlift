@@ -6,7 +6,7 @@ define(['jquery', 'react', 'app/monlift', 'components/forms', 'components/liftLi
 	var Body = React.createClass({displayName:'Body', 
 		render: function(){
 			return (
-				<div id="content" className="content">
+				<div id="content">
 					<div className="segmented-control">
                 		<a className="control-item active" href="#passenger-welcome">
                      		Passenger
@@ -34,7 +34,7 @@ define(['jquery', 'react', 'app/monlift', 'components/forms', 'components/liftLi
 						</div>
             		</div>
 					
-					<LiftList />
+					
 					
 				</div>
 			)

@@ -77,6 +77,21 @@
 
  			}
  		},
+ 		
+ 		/*
+ 		 * function to logout user how allready connect
+ 		 */
+ 		logout: function()
+ 		{
+ 			var endpoint = "oauth/logout";
+ 			ML.post(endpoint, null, function(response, status){
+ 				console.log("The post succeeded");
+ 				ML.deleteSession();
+ 				EventProvider.fire('auth.logout')
+	
+			});
+ 			
+ 		},
 		
  		/*
  		 * Function to get the login status of the user

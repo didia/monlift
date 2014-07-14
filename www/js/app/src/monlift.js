@@ -52,10 +52,14 @@ define(["jquery"], function($) {
 		 */
 		 post:function(endpoint, request, cb) {
 			 	
+			 if(this._session != null)
+			 {
+				 request != null?request["token"] = ML._session.token:request={"token":ML._session.token};
+			 }
 			 request = JSON.stringify(request);
 		     if(endpoint[0] != "/")
 		    	  endpoint = "/" + endpoint;
-		     endpoint = ML._domain.api + endpoint;
+		     endpoint = this._domain.api + endpoint;
 	
 			 $.ajax({
 			 	type: "POST",
@@ -125,7 +129,19 @@ define(["jquery"], function($) {
 		 
 		 bind: function(toObject, methodName){
     			return function(){toObject[methodName](Array.prototype.slice.call(arguments))};
-	     }
+	     },
+		 
+		 getToken: function()
+		 {
+			return ML._session? ML._session.token:null;
+		 },
+		 
+		 deleteSession: function()
+		 {
+			 this._session = null;
+			 window.localStorage.removeItem('session'); 
+			 this._userStatus = "not connected";
+		 }
 			
 		
 	}
