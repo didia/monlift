@@ -44,6 +44,19 @@ function($, React, monlift, auth, EventProvider, UI){
 					<a className="btn pull-right" id="register-button" onClick={this.handleClick}> Register </a>
 				);
 			}
+		}),
+		
+		FooterButton: React.createClass({displayName:'FooterButton',
+			handleClick:function(e){
+				EventProvider.fire(this.props.event);
+			},
+			render: function(){
+				return (
+					<a className="tab-item" href="#">
+								<img src={this.props.image}   height="30" weight="30"  />
+					</a>
+				);
+			}
 		})
 	 }
  	
