@@ -9,7 +9,7 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
 					render: function(){
 						return (
 	                  
-						  <div className ="bar bar-tab">
+						  <div>
 							<a className="tab-item">
 								<img src="img/Search.png"  href="#" height="30" weight="30" />
 							</a>
