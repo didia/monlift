@@ -2,7 +2,8 @@ package me.didia.monlift.requests;
 
 import me.didia.monlift.inputValidator.InputValidator;
 
-public class RegisterRequest implements IRequest{
+public class RegisterRequest extends BaseRequest{
+	
 	private String firstname;
 	private String lastname;
 	private String email;
@@ -42,7 +43,7 @@ public class RegisterRequest implements IRequest{
 	public void validate() throws ValidationErrorException {
 		InputValidator inputValidator = InputValidator.getInstance();
 		if(inputValidator.firstnameValidator(firstname) && inputValidator.lastnameValidator(lastname) && inputValidator.emailValidator(email) && inputValidator.phoneValidator(phone)){
-			
+			//TODO
 		}else{
 			throw new ValidationErrorException("Incorrect input");
 		}

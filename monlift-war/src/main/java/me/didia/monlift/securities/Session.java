@@ -3,18 +3,24 @@
  */
 package me.didia.monlift.securities;
 
+
+import java.security.Principal;
+
+import javax.ws.rs.core.SecurityContext;
+
 import me.didia.monlift.entities.User;
 
 /**
  * @author didia
  *
  */
-public class Session {
+public class Session{
 	private User user;
 	private String token;
 	public Session()
 	{
-		
+		this.user = null;
+		this.token = null;
 	}
 	public Session(User user, String token)
 	{
@@ -34,6 +40,6 @@ public class Session {
 	public String getToken() {
 		return token;
 	}
-
 	
+		
 }
