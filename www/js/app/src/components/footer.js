@@ -56,77 +56,13 @@ define(['jquery', 'react', 'app/monlift', 'app/auth'], function($, React, monlif
    
                                         
       })
-		           DriverAccountFooter: React.createClass({displayName:'DriverAccountFooter',
-				
-			    render: function(){
-			            return (
-						
-		              <div class ="bar bar-tab">
-                                  
-                                  <a class="tab-item" href="../index.html">
-                                  
-                                  <img src="img/Search.png"   height="30" weight="30" >
-                                  
-                                  </a>
-                                  
-                                  <a class="tab-item" >
-                                  
-                                  <img src="img/addlift.png" height="30" weight="30" >
-                                  
-                                  </a>
-                                  
-                                  
-                                  <a class="tab-item">
-                                  
-                                  <img src="img/road.svg"  href="#" height="30" weight="30" >
-                                  
-                                  </a>
-                               
-                               </div>
+		           
 
        
 
 
 				 		
-						);
-						
-				     }
-						
-		         })
-	                
-	                PassagerAccountFooter: React.createClass({displayName:'DriverAccountFooter',
-				
-			    render: function(){
-			            return (
 		
-		                         <div class ="bar bar-tab">
-                                         <a class="tab-item" href="../index.html">
-
-                                         <img src="img/Search.png"   height="30" weight="30" >
-                                         
-                                         </a>
-
-           
-
-                                       
-                                          </div> 
-        
-
-          
-
-          
-
-
-             
-
- 
-            
-                       );
-						
-	                }
-						
-		 })
-	
 		
 		
 			
