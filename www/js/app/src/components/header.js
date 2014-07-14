@@ -29,11 +29,11 @@ function($, React, monlift, auth, buttons){
 					}
 					
 		        	return (
-		            	<header className="bar bar-nav">
+		            	<div>
                         	<a className="btn pull-left" href=""> Help </a>
-                            <h1 className="title">MonLift</h1>
+                            <h1 className="title">{this.props.page}</h1>
 							{Button != null?<Button />:''}
-                        </header>
+                        </div>
                     );
                                                
               	 }
@@ -44,11 +44,11 @@ function($, React, monlift, auth, buttons){
 		    	render: function(){
 					var Button = ML.isUserLoggedIn()?buttons.LogoutButton:buttons.LoginButton;
 		        	return (
-		            	<header className="bar bar-nav">
+		            	<div>
                         	<a className="btn pull-left" href=""> Help </a>
                             <h1 className="title">MonLift</h1>
 							<Button />
-                        </header>
+                        </div>
                     );
                                                
               	 }
@@ -59,10 +59,10 @@ function($, React, monlift, auth, buttons){
 		    	render: function(){
 					var Button = component.getRegisterButton();
 		        	return (
-						<header className="bar bar-nav">
+						<div>
 							<h1 className="title">MonLift</h1>
 							<Button />
-                         </header>
+                         </div>
                     );
                                                
                 }
@@ -70,10 +70,10 @@ function($, React, monlift, auth, buttons){
             LogoutHeader: React.createClass({displayName:'LogoutHeader',
             	render:function(){
             		return(
-            				<header className = "bar bar-nav">
+            				<div>
             				<h1 className = "title">Monlift</h1>
             				<a className = "btn pull-right" href ="#"> Login</a>
-            				</header>
+            				</div>
             				);
             	}
             }),
