@@ -43,7 +43,7 @@ define(['jquery', 'react', 'app/monlift'], function($, React, monlift){
                 
         
         
-           PassangerProfile: React.createClass({displayName:'PassangerProfile',
+           PassengerProfile: React.createClass({displayName:'PassengerProfile',
                 	render: function(){
                 	        return (
 								<div className="content_Passanger_Profil">

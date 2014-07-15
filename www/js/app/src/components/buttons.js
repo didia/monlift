@@ -52,7 +52,7 @@ function($, React, monlift, auth, EventProvider, UI){
 			},
 			render: function(){
 				return (
-					<a className="tab-item" href="#">
+					<a className="tab-item" onClick={this.handleClick} href="#">
 								<img src={this.props.image}   height="30" weight="30"  />
 					</a>
 				);

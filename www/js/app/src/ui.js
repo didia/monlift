@@ -11,7 +11,7 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 	 var Header = component.getHeader();
 	 var Footer = component.getFooter();
 	 var LogOutButton = component.getLogoutButton();
-	 
+	 var ProfilePage = component.getProfilePage();
 	 
 	 
 	 console.log(Header, HomePage, Footer);
@@ -77,6 +77,14 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 				<RegisterForm />,
 				document.getElementById('app-body')
 			);
+		},
+		
+		showProfilePage: function()
+		{
+			React.renderComponent(
+				<ProfilePage />,
+				document.getElementById('app-body')
+			);
 		}
 		
 		
@@ -88,6 +96,7 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 	 EventProvider.subscribe('auth.logout', UI.showHomePage);
 	 EventProvider.subscribe('ui.showLoginPage', UI.showLoginPage);
 	 EventProvider.subscribe('ui.showRegisterPage', UI.showRegisterPage);
+	 EventProvider.subscribe('ui.showProfilePage', UI.showProfilePage);
 	 return UI;
  	
  });
