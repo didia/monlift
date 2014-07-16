@@ -2,41 +2,73 @@
 define(['jquery', 'react', 'app/monlift'], function($, React, monlift){
 
 	ML = monlift.getInstance();
-	
-	var parametters = React.createClass({displayName:'parametters',
+	return{
+	Parametters :React.createClass({displayName:'parametters',
 	render:function(){
-		retrun(
-		<div className="paramComponents" id = "paramComponents"> 
-		<div className= "segmented-control"> 
-		if ML.isUserLoggedIn(){
-			<a className="control-item active" href = "# ">
-			Ouvrir une session 
-			</a>
+		return(
+				<div className="paramComponents" id = "paramComponents"> 
+				
+				<ul className="table-view">
+				  <li className="table-view-cell media">
+				    <a className="navigate-right">
+				      <span className="media-object pull-right icon icon-person"></span>
+				      <div className="media-body">
+				        Fermer votre session
+				      </div>
+				    </a>
+				  </li>
+				  <li className="table-view-cell">
+				    Notification lift dispo
+				    <div className="toggle active">
+				      <div className="toggle-handle"></div>
+				    </div>
+				  </li>
+				  <li className="table-view-cell media">
+				    <a className="navigate-right ">
+				      <span className="media-object pull-right"> <img class="tab-icon" src="img/enveloppe.png" height="30" weight="30"/></span>
+				      <div className="media-body">
+				      Contacter le soutien technique
+				      </div>
+				    </a>
+				  </li>
+				  <li className="table-view-cell media">
+				    <a className="navigate-right">
+				      <span className="media-object pull-left icon icon-help"></span>
+				      <div class="media-body">
+				        Help
+				      </div>
+				    </a>
+				  </li>
+				  <li className="table-view-cell media">
+				    <a className="navigate-right">
+				      <span className="media-object pull-left icon icon-help"></span>
+				      <div class="media-body">
+				      Partager cette application
+				      </div>
+				    </a>
+				  </li>
+				  <li className="table-view-cell media">
+				    <a className="navigate-right">
+				      <span className="media-object pull-left icon icon-help"></span>
+				      <div class="media-body">
+				      Laisser un commentaire
+				      </div>
+				    </a>
+				  </li>
+				  <li className="table-view-cell media">
+				    <a className="navigate-right">
+				      <span className="media-object pull-left icon icon-help"></span>
+				      <div class="media-body">
+				      Condition d'utilistion
+				      </div>
+				    </a>
+				  </li>
+				</ul>
+				</div>
+				
+				
+			);
 		}
-		else{
-			<a className="control-item active" href = "# ">
-			fermer session 
-		</a>
-		}
-		<img  src="img/profil.png" height="70" weight="70" />
-		</div>
-		<div className= "segmented-control"> 
-		<a className="control-item active" href = "# ">
-			Partager cette application
-		</a>
-		 <a class="icon icon-right-nav" href="#"></a>
-		
-		</div>
-		<div className= "segmented-control"> 
-		<a className="control-item active" href = "#">
-			Laisser un commentaire
-		</a>
-		 <a class="icon icon-right-nav" href="#"></a>
-		
-		</div>
-		</div>
-		)
-		}
-	});
-		return parametters;
-});// JavaScript Document
+	})
+	}
+	})// JavaScript Document

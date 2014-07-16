@@ -45,7 +45,19 @@ function($, React, monlift, auth, EventProvider, UI){
 				);
 			}
 		}),
-		
+		ParametterButton:React.createClass({displayName:'parametterButton',
+			
+			handleClick:function(e){
+				EventProvider.fire(this.props.event);
+				
+			},
+			render:function(){
+				return(
+						<a className="icon icon-list pull-left" onClick={this.handleClick} href="#"> </a>
+				);
+			}
+			
+		}),
 		FooterButton: React.createClass({displayName:'FooterButton',
 			handleClick:function(e){
 				EventProvider.fire(this.props.event);

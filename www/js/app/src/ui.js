@@ -1,8 +1,8 @@
 /** @jsx React.DOM */
-define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/event'], function($,React, auth, component, forms, EventProvider){
+define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/event', 'app/monlift'], function($,React, auth, component, forms, EventProvider, monlift){
 	 
 	 // because JSX component do not understand the "." in forms.X, define a variable for them instead
-	 
+	ML = monlift.getInstance();
 	 console.log(component);
 	 var SearchForm = forms.SearchForm;
 	 var LoginForm = forms.LoginForm;
@@ -12,8 +12,7 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 	 var Footer = component.getFooter();
 	 var LogOutButton = component.getLogoutButton();
 	 var ProfilePage = component.getProfilePage();
-	 
-	 
+	 var ParametterPage = component.getParamettersPage();
 	 console.log(Header, HomePage, Footer);
 	 
 	 UI =  {
@@ -80,11 +79,33 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 		},
 		
 		showProfilePage: function()
-		{
+		{	
+			
 			React.renderComponent(
 				<ProfilePage />,
 				document.getElementById('app-body')
 			);
+				
+		},
+		showParametterPage: function()
+		{	
+			
+			React.renderComponent(
+				<ParametterPage />,
+				document.getElementById('app-body')
+			);
+				
+		},
+		
+		VerifieStatutAndshowProfilePage: function()
+		{	
+			if(ML.isUserLoggedIn())
+				{
+				showProfilePage();
+				}
+			else{
+				showLoginPage();
+			}
 		}
 		
 		
@@ -97,6 +118,8 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 	 EventProvider.subscribe('ui.showLoginPage', UI.showLoginPage);
 	 EventProvider.subscribe('ui.showRegisterPage', UI.showRegisterPage);
 	 EventProvider.subscribe('ui.showProfilePage', UI.showProfilePage);
+	 EventProvider.subscribe('ui.showParametterPage', UI.showParametterPage);
+	 
 	 return UI;
  	
  });

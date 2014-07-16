@@ -10,6 +10,7 @@ function($, React, monlift, auth, buttons){
 				
 		    	render: function(){
 					var Button = null;
+					var ParametterButton = buttons.ParametterButton;
 					switch(this.props.page)
 					{
 						case 'index':
@@ -31,8 +32,8 @@ function($, React, monlift, auth, buttons){
 		        	return (
 		            	<div>
 		            		
-		            	<a className="icon icon-bars pull-left"></a>
-                            <h1 className="title">{this.props.page}</h1>
+		            	<ParametterButton  event="ui.showParametterPage" />
+						      <h1 className="title">{this.props.page}</h1>
 							{Button != null?<Button />:''}
                         </div>
                     );
@@ -41,43 +42,7 @@ function($, React, monlift, auth, buttons){
                         
 			}),
 				
-			IndexHeader: React.createClass({displayName:'IndexHeader',
-		    	render: function(){
-					var Button = ML.isUserLoggedIn()?buttons.LogoutButton:buttons.LoginButton;
-		        	return (
-		            	<div>
-                        	<a className="btn pull-left" href=""> Help </a>
-                            <h1 className="title">MonLift</h1>
-							<Button />
-                        </div>
-                    );
-                                               
-              	 }
-                        
-			}),
-                                  
-			LoginHeader : React.createClass({displayName:'LoginHeader',
-		    	render: function(){
-					var Button = component.getRegisterButton();
-		        	return (
-						<div>
-							<h1 className="title">MonLift</h1>
-							<Button />
-                         </div>
-                    );
-                                               
-                }
-            }),
-            LogoutHeader: React.createClass({displayName:'LogoutHeader',
-            	render:function(){
-            		return(
-            				<div>
-            				<h1 className = "title">Monlift</h1>
-            				<a className = "btn pull-right" href ="#"> Login</a>
-            				</div>
-            				);
-            	}
-            }),
+			
             
             
 		}

@@ -56,9 +56,9 @@ define(['jquery', 'react', 'app/monlift', 'app/auth', 'components/header', 'comp
 			return profile.PassengerProfile;
 		},
 		
-		getParamettersDiv : function()
+		getParamettersPage : function()
 		{
-			return parametters;
+			return parametters.Parametters;
 		}
 		
 		 
