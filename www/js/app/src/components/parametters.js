@@ -31,14 +31,7 @@ define(['jquery', 'react', 'app/monlift'], function($, React, monlift){
 				      </div>
 				    </a>
 				  </li>
-				  <li className="table-view-cell media">
-				    <a className="navigate-right">
-				      <span className="media-object pull-left icon icon-help"></span>
-				      <div class="media-body">
-				        Help
-				      </div>
-				    </a>
-				  </li>
+				  
 				  <li className="table-view-cell media">
 				    <a className="navigate-right">
 				      <span className="media-object pull-left icon icon-help"></span>
@@ -60,6 +53,14 @@ define(['jquery', 'react', 'app/monlift'], function($, React, monlift){
 				      <span className="media-object pull-left icon icon-help"></span>
 				      <div class="media-body">
 				      Condition d'utilistion
+				      </div>
+				    </a>
+				  </li>
+				  <li className="table-view-cell media">
+				    <a className="navigate-right">
+				      <span className="media-object pull-left icon icon-help"></span>
+				      <div class="media-body">
+				        Help
 				      </div>
 				    </a>
 				  </li>
