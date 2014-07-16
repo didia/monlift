@@ -30,7 +30,8 @@ function($, React, monlift, auth, buttons){
 					
 		        	return (
 		            	<div>
-                        	<a className="btn pull-left" href=""> Help </a>
+		            		
+		            	<a className="icon icon-bars pull-left"></a>
                             <h1 className="title">{this.props.page}</h1>
 							{Button != null?<Button />:''}
                         </div>
