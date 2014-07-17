@@ -137,7 +137,15 @@ border-radius: 15px;
 
 }
 #paramComponents{
-	margin-top:50px;
+	
 	
 }
 
+#logo{
+	height: 50px; 
+	background:#FFF;
+	height:80px; 
+	weight:80px;
+	
+	
+}
