@@ -53,7 +53,7 @@ function($, React, monlift, auth, EventProvider, UI){
 			},
 			render:function(){
 				return(
-						<a className="icon icon-list pull-left" onClick={this.handleClick} href="#"> </a>
+						<a className="icon icon-gear pull-left" onClick={this.handleClick} href="#"> </a>
 				);
 			}
 			
