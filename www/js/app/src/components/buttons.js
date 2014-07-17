@@ -60,6 +60,7 @@ function($, React, monlift, auth, EventProvider, UI){
 		}),
 		FooterButton: React.createClass({displayName:'FooterButton',
 			handleClick:function(e){
+				console.log("fire event " + this.props.event );
 				EventProvider.fire(this.props.event);
 			},
 			render: function(){
