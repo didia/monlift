@@ -3,6 +3,8 @@ package me.didia.monlift.listenners;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import me.didia.monlift.entities.Car;
+import me.didia.monlift.entities.Lift;
 import me.didia.monlift.entities.User;
 import me.didia.monlift.helper.UniqueConstraint;
 import me.didia.monlift.securities.UserToken;
@@ -21,13 +23,15 @@ public class InitialisationServlet implements ServletContextListener {
 		registerObjectifyEntities();
 		
 	}
+	
 	private void registerObjectifyEntities()
 	{
 		JodaTimeTranslators.add(ObjectifyService.factory());
 		ObjectifyService.register(User.class);
 		ObjectifyService.register(UniqueConstraint.class);
 		ObjectifyService.register(UserToken.class);
-		
+		ObjectifyService.register(Car.class);
+		ObjectifyService.register(Lift.class);
 	}
 
 }
