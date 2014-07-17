@@ -80,16 +80,25 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 		
 		showProfilePage: function()
 		{	
-			
+			React.renderComponent(
+				<Header page='profil' />,
+				document.getElementById('header')
+			);
 			React.renderComponent(
 				<ProfilePage />,
 				document.getElementById('app-body')
 			);
+
+			
 				
 		},
 		showParametterPage: function()
 		{	
 			
+			React.renderComponent(
+				<Header page='parametters' />,
+				document.getElementById('header')
+			);
 			React.renderComponent(
 				<ParametterPage />,
 				document.getElementById('app-body')

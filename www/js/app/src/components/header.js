@@ -23,6 +23,7 @@ function($, React, monlift, auth, buttons){
 						case 'register':
 							Button = buttons.LoginButton;
 							break;
+						
 						default:
 							Button = ML.isUserLoggedIn()?buttons.LogoutButton:buttons.LoginButton;
 							break;
@@ -34,7 +35,7 @@ function($, React, monlift, auth, buttons){
 		            		
 		            	<ParametterButton  event="ui.showParametterPage" />
 						      <h1 className="title">{this.props.page}</h1>
-							{Button != null?<Button />:''}
+							{(Button != null)?<Button />:''}
                         </div>
                     );
                                                
