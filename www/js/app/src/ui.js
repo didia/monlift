@@ -40,7 +40,7 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 		showLoginPage: function()
 		{
 			React.renderComponent(
-				<Header page='login' />,
+				<Header page='Login' />,
 				document.getElementById('header')
 			);
 			
@@ -55,7 +55,7 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 		{
 			
 			React.renderComponent(
-				<Header page='home' />,
+				<Header page='Home' />,
 				document.getElementById('header')
 			);
 			
@@ -68,7 +68,7 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 		showRegisterPage: function()
 		{
 			React.renderComponent(
-				<Header page='register' />,
+				<Header page='Register' />,
 				document.getElementById('header')
 			);
 			
@@ -81,7 +81,7 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 		showProfilePage: function()
 		{	
 			React.renderComponent(
-				<Header page='profil' />,
+				<Header page='Profil' />,
 				document.getElementById('header')
 			);
 			React.renderComponent(
@@ -89,14 +89,12 @@ define(['jquery','react', 'app/auth', 'app/component','components/forms', 'app/e
 				document.getElementById('app-body')
 			);
 
-			
-				
 		},
 		showParametterPage: function()
 		{	
 			
 			React.renderComponent(
-				<Header page='parametters' />,
+				<Header page='Parametters' />,
 				document.getElementById('header')
 			);
 			React.renderComponent(

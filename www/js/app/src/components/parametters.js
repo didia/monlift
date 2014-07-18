@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-define(['jquery', 'react', 'app/monlift'], function($, React, monlift){
+define(['jquery', 'react', 'app/monlift', 'app/auth', 'components/buttons'], function($, React, monlift, auth, buttons){
 
 	ML = monlift.getInstance();
 	return{
@@ -14,26 +14,37 @@ define(['jquery', 'react', 'app/monlift'], function($, React, monlift){
 					<a className="pull-right">
 					<div className="slider" id = "logo">
 					  
-					      <img src="img/logoTest.png"  height="100" weight="100" />
+					 <img src="img/logoTest.png"  height="100" weight="100" />
 					    
 					</div>
 					</a>
 					</li>
-				  <li className="table-view-cell media">
-				    <a className="navigate-right">
+					
+					
+				  {(ML.isUserLoggedIn())?<li className="table-view-cell media">
+				    <a className="navigate-right" href="#" onClick={auth.logout}>
 				      <span className="media-object pull-right icon icon-person"></span>
 				      <div className="media-body">
 				    	  Fermer votre session
 				      </div>
 				    </a>
-				  </li>
+				  </li>:
+				  <li className="table-view-cell media">
+				    <a className="navigate-right">
+				      <span className="media-object pull-right icon icon-person"></span>
+				      <div className="media-body">
+				    	  ouvrir une session
+				      </div>
+				    </a>
+				  </li>}
 				  
-				  <li className="table-view-cell">
+				  
+				  {(ML.isUserLoggedIn())? <li className="table-view-cell">
 				    Notification lift dispo
 				    <div className="toggle active">
 				      <div className="toggle-handle"></div>
 				    </div>
-				  </li>
+				  </li>:''}
 				  
 				  <li className="table-view-cell media">
 				    <a className="navigate-right ">
@@ -47,7 +58,7 @@ define(['jquery', 'react', 'app/monlift'], function($, React, monlift){
 				  <li className="table-view-cell media">
 				    <a className="navigate-right">
 				      <span className="media-object pull-left icon icon-help"></span>
-				      <div class="media-body">
+				      <div className="media-body">
 				      Partager cette application
 				      </div>
 				    </a>
@@ -56,7 +67,7 @@ define(['jquery', 'react', 'app/monlift'], function($, React, monlift){
 				  <li className="table-view-cell media">
 				    <a className="navigate-right">
 				      <span className="media-object pull-left icon icon-help"></span>
-				      <div class="media-body">
+				      <div className="media-body">
 				      Laisser un commentaire
 				      </div>
 				    </a>

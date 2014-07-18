@@ -33,7 +33,8 @@ function($, React, monlift, auth, buttons){
 		        	return (
 		            	<div>
 		            		
-		            	<ParametterButton  event="ui.showParametterPage" />
+		            			<ParametterButton  event = "ui.showParametterPage" />
+		            	
 						      <h1 className="title">{this.props.page}</h1>
 							{(Button != null)?<Button />:''}
                         </div>
