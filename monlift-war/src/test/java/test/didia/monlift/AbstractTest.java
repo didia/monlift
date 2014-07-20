@@ -1,7 +1,9 @@
 package test.didia.monlift;
 
 import me.didia.monlift.entities.User;
+import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.helper.UniqueConstraint;
+import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.securities.UserToken;
 
 import org.junit.After;
@@ -19,6 +21,7 @@ public class AbstractTest {
 	private final LocalServiceTestHelper helper =
 	        new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 	
+	private static User m_userInstance;
 	
 	/**
 	 * keeps all the local data in memory
@@ -40,4 +43,23 @@ public class AbstractTest {
     public void tearDown() {
         helper.tearDown();
     }
+    
+    /*
+     * Get a random user for testing purpose
+     */
+    public User getUserForTest()
+    {
+    	if (m_userInstance  == null)
+    	{
+    		try {
+				m_userInstance = UserManager.getInstance().getUser(UserManager.getInstance().createUser("John", "Doe", "johndoe@monlift.ca", "15819999", "test"));
+			} catch (DuplicateValueException e) {
+
+				e.printStackTrace();
+			}
+    	}
+    	
+    	return m_userInstance;
+    }
+    
 }

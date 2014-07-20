@@ -1,6 +1,11 @@
 package me.didia.monlift.factories;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
+
+import java.util.Map;
+
+import org.apache.commons.beanutils.BeanMap;
+
 import me.didia.monlift.entities.User;
 import me.didia.monlift.managers.UniqueConstraintManager;
 
@@ -54,9 +59,24 @@ public class UserFactory {
 		return newUser.getId();
 	}
 	
+	public Long createUser(BeanMap data) throws DuplicateValueException
+	{
+		User newUser = new User();
+		newUser.setFirstname((String)data.get(UserAttributes.FIRSTNAME));
+		newUser.setLastname((String)data.get(UserAttributes.LASTNAME));
+		newUser.setPhone((String)data.get(UserAttributes.PHONE));
+		newUser.setEmail((String)data.get(UserAttributes.EMAIL));
+		newUser.setPassword((String)data.get(UserAttributes.PASSWORD));
+		setUniqueConstraint(newUser, UserAttributes.EMAIL, newUser.getEmail());
+		save(newUser);
+		return newUser.getId();
+		
+		
+		
+	}
 	/**
 	 * function to return user from an Id
-	 * @return UserResponse object 
+	 * @return User object 
 	 */
 	public User getUser(Long id){
 		User user = ofy().load().type(User.class).id(id).now();
@@ -65,11 +85,11 @@ public class UserFactory {
 	
 	/**
 	 * function to return user from an email
-	 * @return UserResponse object 
+	 * @return User object 
 	 */
 	public User getUserByEmail(String email) {
 		
-		return ofy().load().type(User.class).filter("email", email).first().now();
+		return ofy().load().type(User.class).filter(UserAttributes.EMAIL, email).first().now();
 	}
 	
 	/**
