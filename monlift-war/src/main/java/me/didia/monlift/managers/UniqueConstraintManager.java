@@ -10,15 +10,8 @@ import me.didia.monlift.helper.UniqueConstraint;
 public class UniqueConstraintManager {
 	private static UniqueConstraintManager instance = null;
 	
-	private UniqueConstraintManager(){}
 	
-	public static  UniqueConstraintManager getInstance(){
-		if(instance == null)
-			instance = new UniqueConstraintManager();
-		return instance;
-	}
-	
-	public boolean create(Object object, String fieldname, String value)
+	public static boolean create(Object object, String fieldname, String value)
 	{
 		final String key = String.format("%s.%s:%s", object.getClass().toString(), fieldname, value);
 		final UniqueConstraint newUniqueConstraint = new UniqueConstraint();

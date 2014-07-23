@@ -52,7 +52,7 @@ public class AbstractTest {
     	if (m_userInstance  == null)
     	{
     		try {
-				m_userInstance = UserManager.getInstance().getUser(UserManager.getInstance().createUser("John", "Doe", "johndoe@monlift.ca", "15819999", "test"));
+				m_userInstance = UserManager.getUser(UserManager.createUser("John", "Doe", "johndoe@monlift.ca", "15819999", "test"));
 			} catch (DuplicateValueException e) {
 
 				e.printStackTrace();

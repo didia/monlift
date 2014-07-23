@@ -13,15 +13,13 @@ import static org.junit.Assert.*;
 
 public class AuthentificationManagerTest extends AbstractTest {
 		
-	private static AuthentificationManager authManager = AuthentificationManager.getInstance();
-	private static UserManager userManager = UserManager.getInstance();
 	private static String EMAIL = "test@monlift.ca";
 	private static String PASSWORD = "1234monlift";
 	
 	private static User getUser()
 	{
 		try {
-			return userManager.getUser(userManager.createUser("John", "Doe", EMAIL, "15819999", PASSWORD));
+			return UserManager.getUser(UserManager.createUser("John", "Doe", EMAIL, "15819999", PASSWORD));
 		} catch (DuplicateValueException e) {
 			// TODO Auto-generated catch block
 			return null;
@@ -33,7 +31,7 @@ public class AuthentificationManagerTest extends AbstractTest {
 		User user = getUser();
 		assert user != null;
 		try {
-			return authManager.createSession(EMAIL, PASSWORD);
+			return AuthentificationManager.createSession(EMAIL, PASSWORD);
 		} catch (AuthentificationErrorException e){
 			return null;
 		}
@@ -46,7 +44,7 @@ public class AuthentificationManagerTest extends AbstractTest {
 		User user = getUser();
 		assert user!= null;
 		try {
-			Session session = authManager.createSession(EMAIL, PASSWORD);
+			Session session = AuthentificationManager.createSession(EMAIL, PASSWORD);
 			assertEquals(session.getUser().getEmail(), user.getEmail());
 			assertEquals(session.getUser().getId(), user.getId());
 			
@@ -63,7 +61,7 @@ public class AuthentificationManagerTest extends AbstractTest {
 		User user = getUser();
 		assert user!= null;
 		try {
-			authManager.createSession(EMAIL, "badpassword");
+			AuthentificationManager.createSession(EMAIL, "badpassword");
 			fail("The creation of session with invalid password should raise an exception");
 			
 			
@@ -79,7 +77,7 @@ public class AuthentificationManagerTest extends AbstractTest {
 		User user = getUser();
 		assert user!= null;
 		try {
-			authManager.createSession("test2@monlift.ca", PASSWORD);
+			AuthentificationManager.createSession("test2@monlift.ca", PASSWORD);
 			fail("The creation of session with invalid email should raise an exception");
 			
 			
@@ -94,8 +92,8 @@ public class AuthentificationManagerTest extends AbstractTest {
 		User user = getUser();
 		assert user!= null;
 		try {
-			Session session = authManager.createSession(EMAIL, PASSWORD);
-			Session session2 = authManager.getSession(session.getToken());
+			Session session = AuthentificationManager.createSession(EMAIL, PASSWORD);
+			Session session2 = AuthentificationManager.getSession(session.getToken());
 			assertEquals(session2.getUser().getEmail(), user.getEmail());
 			assertEquals(session2.getUser().getId(), user.getId());
 			
@@ -112,8 +110,8 @@ public class AuthentificationManagerTest extends AbstractTest {
 		User user = getUser();
 		assert user!= null;
 		try {
-			String token = authManager.createSession(EMAIL, PASSWORD).getToken();
-			authManager.getSession(token + "abc");
+			String token = AuthentificationManager.createSession(EMAIL, PASSWORD).getToken();
+			AuthentificationManager.getSession(token + "abc");
 			fail("The retrieval of a session with an invalid token should always fail");
 			
 			
@@ -128,9 +126,9 @@ public class AuthentificationManagerTest extends AbstractTest {
 	{
 		Session session = generateSession();
 		assert session != null;
-		authManager.deleteSession(session.getToken());
+		AuthentificationManager.deleteSession(session.getToken());
 		try {
-			session = authManager.getSession(session.getToken());
+			session = AuthentificationManager.getSession(session.getToken());
 			fail("The getSession with deleted token should raise AuthentificationErrorException");
 		} catch (AuthentificationErrorException e) {
 			assertTrue(true);

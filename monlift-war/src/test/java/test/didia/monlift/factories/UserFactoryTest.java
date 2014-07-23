@@ -26,12 +26,12 @@ public class UserFactoryTest extends AbstractTest {
 	 */
 	User p;
 	Long id;
-	UserFactory uf = UserFactory.getInstance();
+
 	@Test
 	public void testCreateUser(){
 		try {
-			id= uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
-			p = uf.getUser(id);
+			id= UserFactory.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
+			p = UserFactory.getUser(id);
 			assertEquals(p.getFirstname(),"Jake");
 			assertEquals(p.getLastname(),"Massa");
 			assertEquals(p.getEmail(),"jac.massa0908@gmail.com");
@@ -48,12 +48,12 @@ public class UserFactoryTest extends AbstractTest {
 	public void testCreateUserDuplicate()
 	{
 		try{
-			id= uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
+			id= UserFactory.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
 		} catch (DuplicateValueException e) {
 			fail(e.getMessage());
 		}
 		try{
-			id= uf.createUser("Jake", "Didia", "jac.massa0908@gmail.com", "7838073831","12345678");
+			id= UserFactory.createUser("Jake", "Didia", "jac.massa0908@gmail.com", "7838073831","12345678");
 			fail("Expected function createUser to throw DuplicateValueException");
 		} catch(DuplicateValueException e){
 			assertTrue(true);
@@ -68,8 +68,8 @@ public class UserFactoryTest extends AbstractTest {
 			String firstname = "Jake";
 			String lastname = "Massa";
 			String email = "jac.massa0908@gmail.com";
-			id = uf.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
-			User user = uf.getUser(id);
+			id = UserFactory.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
+			User user = UserFactory.getUser(id);
 			assertNotNull(user);
 			assertEquals(user.getFirstname(),firstname);
 			assertEquals(user.getLastname(), lastname);
@@ -89,8 +89,8 @@ public class UserFactoryTest extends AbstractTest {
 			String firstname = "Jake";
 			String lastname = "Massa";
 			String email = "jac.massa0908@gmail.com";
-			id = uf.createUser(firstname, lastname, email, "7838073831","12345678");
-			User user = uf.getUserByEmail(email);
+			id = UserFactory.createUser(firstname, lastname, email, "7838073831","12345678");
+			User user = UserFactory.getUserByEmail(email);
 			assertNotNull(user);
 			assertEquals(user.getFirstname(), firstname);
 			assertEquals(user.getLastname(), lastname);

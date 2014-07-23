@@ -14,21 +14,12 @@ import me.didia.monlift.managers.UserManager;
 
 public class AuthentificationManager {
 	
-	private static AuthentificationManager instance = null;
+
 	private static SecureRandom random = new SecureRandom();
-	private static UserManager userManager = UserManager.getInstance();
+
 	private static final int HASH_STRENGTH = 16;
-	private AuthentificationManager(){};
 	
-	public static AuthentificationManager getInstance()
-	{
-		if(instance == null)
-		{
-			instance = new AuthentificationManager();
-		}
-		return instance;
-	}
-	
+
 	private static String nextSessionId(){
 	    return new BigInteger(130, random).toString(32);
 	}
@@ -44,7 +35,7 @@ public class AuthentificationManager {
 		return BCrypt.checkpw(password, generatedPassword);
 	}
 	
-	private UserToken createUserToken(User user, String subject)
+	private static UserToken createUserToken(User user, String subject)
 	{
 		UserToken userToken = new UserToken();
 		String token = nextSessionId();
@@ -61,15 +52,15 @@ public class AuthentificationManager {
 	}
 	
 	
-	private void updateToken(UserToken userToken)
+	private static void updateToken(UserToken userToken)
 	{
 		userToken.date_updated = new DateTime();
 		ofy().save().entity(userToken);
 	}
 	
-	private User getUserByPassword(String email, String password) throws AuthentificationErrorException
+	private static User getUserByPassword(String email, String password) throws AuthentificationErrorException
 	{
-		User user = userManager.getUserByEmail(email);
+		User user = UserManager.getUserByEmail(email);
 
 		if (user != null && checkPassword(password, user.getPassword()))
 		{
@@ -80,7 +71,7 @@ public class AuthentificationManager {
 			throw new AuthentificationErrorException("The email/password combination cannot be found");
 		}
 	}
-	private User getUserByToken(String token,String subject) throws AuthentificationErrorException
+	private static User getUserByToken(String token,String subject) throws AuthentificationErrorException
 	{
 		UserToken userToken = getUserToken(token, subject);
 		if (userToken == null)
@@ -96,13 +87,13 @@ public class AuthentificationManager {
 		return user;
 	}
 	
-	private UserToken getUserToken(String token, String subject)
+	private static UserToken getUserToken(String token, String subject)
 	{
 		
 		return ofy().load().type(UserToken.class).filter("token", token).filter("subject",subject).first().now();
 	}
 	
-	public Session createSession(String email, String password) throws AuthentificationErrorException
+	public static Session createSession(String email, String password) throws AuthentificationErrorException
 	{
 		User user = getUserByPassword(email, password);
 		UserToken userToken = createUserToken(user, UserToken.AUTHENTIFICATION);
@@ -110,14 +101,14 @@ public class AuthentificationManager {
 		return newSession;
 	}
 	
-	public Session getSession(String token) throws AuthentificationErrorException
+	public static Session getSession(String token) throws AuthentificationErrorException
 	{
 		User user = getUserByToken(token,UserToken.AUTHENTIFICATION);
 		Session newSession = new Session(user, token);
 		return newSession;
 	}
 	
-	public void deleteSession(String token)
+	public static void deleteSession(String token)
 	{
 		UserToken userToken = getUserToken(token, UserToken.AUTHENTIFICATION);
 		ofy().delete().entity(userToken).now();

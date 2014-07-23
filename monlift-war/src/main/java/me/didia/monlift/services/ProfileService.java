@@ -25,7 +25,6 @@ import me.didia.monlift.securities.Session;
 @Path("/profile")
 public class ProfileService {
 	
-	private static UserManager userManager = UserManager.getInstance();
 	private static MonliftContext monliftContext = MonliftContext.getInstance();
 	
 	@POST
@@ -56,7 +55,7 @@ public class ProfileService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public UserResponse getUserProfile(@PathParam("userId") Long userId) throws BaseException
 	{
-		User user = userManager.getUser(userId);
+		User user = UserManager.getUser(userId);
 		if(user == null)
 		{
 			throw new BaseException("Bad Request: Unknown user id");
@@ -74,7 +73,7 @@ public class ProfileService {
 	public UserResponse getUserProfileField(@PathParam("userId") Long userId,
 											@PathParam("field") String field) throws BaseException{
 		String[] fields = field.split(",");
-		User user = userManager.getUser(userId);
+		User user = UserManager.getUser(userId);
 		
 		if(user == null)
 		{

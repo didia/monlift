@@ -5,7 +5,12 @@ package me.didia.monlift.factories;
 
 import java.util.ArrayList;
 
+import com.googlecode.objectify.Key;
+
+import me.didia.monlift.entities.Car;
 import me.didia.monlift.entities.Lift;
+import me.didia.monlift.requests.CreateCarRequest;
+import me.didia.monlift.requests.CreateLiftRequest;
 
 /**
  * @author didia
@@ -22,7 +27,7 @@ public class LiftFactory {
 		return m_instance;
 	}
 	
-	public Integer createLift() throws DuplicateValueException{
+	public Integer createLift(CreateLiftRequest createRequest) throws DuplicateValueException{
 		return null;
 	}
 	
@@ -45,4 +50,14 @@ public class LiftFactory {
 	{
 		return null;
 	}
+	
+	public Car createCar(CreateCarRequest request)
+	{
+		return null;
+	}
+	
+	public Key<Car> saveCar(Car car){
+		return null;
+	}
+	
 }

@@ -19,24 +19,7 @@ import com.googlecode.objectify.Key;
  *
  */
 public class UserFactory {
-	/**
-	 * single instance of the UserFactory class.
-	 */
-	
-	private static UserFactory instance = null;
-	private static UniqueConstraintManager uniqueConstraintManager = UniqueConstraintManager.getInstance();
-	private UserFactory(){};
-	
-	/**
-	 * Singleton method to return an instance of the UserFactory class
-	 * @return UserFactory object
-	 */
-	public static UserFactory getInstance(){
-		if (instance == null){
-			instance = new UserFactory();
-		}
-		return instance;
-	}
+
 	
 	/**
 	 * function to create a passenger
@@ -47,7 +30,7 @@ public class UserFactory {
 	 * @return UserResponse object
 	 * @throws DuplicateValueException 
 	 */
-	public Long createUser(String firstname,String lastname, String email,String phone, String password) throws DuplicateValueException{
+	public static Long createUser(String firstname,String lastname, String email,String phone, String password) throws DuplicateValueException{
 		User newUser= new User();
 		newUser.setFirstname(firstname);
 		newUser.setLastname(lastname);
@@ -59,7 +42,7 @@ public class UserFactory {
 		return newUser.getId();
 	}
 	
-	public Long createUser(BeanMap data) throws DuplicateValueException
+	public static Long createUser(BeanMap data) throws DuplicateValueException
 	{
 		User newUser = new User();
 		newUser.setFirstname((String)data.get(UserAttributes.FIRSTNAME));
@@ -78,7 +61,7 @@ public class UserFactory {
 	 * function to return user from an Id
 	 * @return User object 
 	 */
-	public User getUser(Long id){
+	public static User getUser(Long id){
 		User user = ofy().load().type(User.class).id(id).now();
 		return user;
 	}
@@ -87,7 +70,7 @@ public class UserFactory {
 	 * function to return user from an email
 	 * @return User object 
 	 */
-	public User getUserByEmail(String email) {
+	public static User getUserByEmail(String email) {
 		
 		return ofy().load().type(User.class).filter(UserAttributes.EMAIL, email).first().now();
 	}
@@ -97,13 +80,13 @@ public class UserFactory {
 	 * @param u user object
 	 * @return id the id of the newly saved object
 	 */
-	public Key<User> save(User user){
+	public static Key<User> save(User user){
 		return ofy().save().entity(user).now();
 	}
 
-	public void setUniqueConstraint(Object object, String fieldname, String value) throws DuplicateValueException
+	public static void setUniqueConstraint(Object object, String fieldname, String value) throws DuplicateValueException
 	{
-		if(!uniqueConstraintManager.create(object, fieldname, value))
+		if(!UniqueConstraintManager.create(object, fieldname, value))
 		{
 			String errorMessage = String.format("User with %s \"%s\" already exists", fieldname, value);
 			throw new DuplicateValueException(errorMessage);

@@ -33,9 +33,8 @@ public class OauthService {
 		LoginRequest loginRequest = monliftContext.getRequestObject(LoginRequest.class);
 		String email = loginRequest.getEmail();
 		String password = loginRequest.getPassword();
-		AuthentificationManager managerInstance = AuthentificationManager.getInstance();
 		
-		return SessionMarshaller.getInstance().marshall(managerInstance.createSession(email, password));
+		return SessionMarshaller.getInstance().marshall(AuthentificationManager.createSession(email, password));
 	
 		
 	}
@@ -51,8 +50,8 @@ public class OauthService {
 		
 		RegisterRequest registerData = monliftContext.getRequestObject(RegisterRequest.class);
 		registerData.validate();
-		UserManager.getInstance().createUser(registerData.getFirstname(),registerData.getLastname(),registerData.getEmail(),registerData.getPhone(),registerData.getPassword());
-		return SessionMarshaller.getInstance().marshall(AuthentificationManager.getInstance().createSession(registerData.getEmail(), registerData.getPassword()));
+		UserManager.createUser(registerData.getFirstname(),registerData.getLastname(),registerData.getEmail(),registerData.getPhone(),registerData.getPassword());
+		return SessionMarshaller.getInstance().marshall(AuthentificationManager.createSession(registerData.getEmail(), registerData.getPassword()));
 	}
 	
 	@POST
@@ -62,7 +61,7 @@ public class OauthService {
 	public Response logout() throws BaseException{
 		String token = monliftContext.getCurrentToken();
 		
-		AuthentificationManager.getInstance().deleteSession(token);
+		AuthentificationManager.deleteSession(token);
 		
 		return Response.ok("Logged out").status(200).build();
 			
