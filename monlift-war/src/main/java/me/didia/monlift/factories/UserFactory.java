@@ -1,13 +1,9 @@
 package me.didia.monlift.factories;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
-
-import java.util.Map;
-
-import org.apache.commons.beanutils.BeanMap;
-
 import me.didia.monlift.entities.User;
 import me.didia.monlift.managers.UniqueConstraintManager;
+import me.didia.monlift.requests.RegisterRequest;
 
 import com.googlecode.objectify.Key;
 
@@ -42,19 +38,17 @@ public class UserFactory {
 		return newUser.getId();
 	}
 	
-	public static Long createUser(BeanMap data) throws DuplicateValueException
+	public static User createUser(RegisterRequest request) throws DuplicateValueException
 	{
 		User newUser = new User();
-		newUser.setFirstname((String)data.get(UserAttributes.FIRSTNAME));
-		newUser.setLastname((String)data.get(UserAttributes.LASTNAME));
-		newUser.setPhone((String)data.get(UserAttributes.PHONE));
-		newUser.setEmail((String)data.get(UserAttributes.EMAIL));
-		newUser.setPassword((String)data.get(UserAttributes.PASSWORD));
-		setUniqueConstraint(newUser, UserAttributes.EMAIL, newUser.getEmail());
+		newUser.setFirstname(request.getFirstname());
+		newUser.setLastname(request.getLastname());
+		newUser.setPhone(request.getPhone());
+		newUser.setEmail(request.getEmail());
+		newUser.setPassword(request.getPassword());
+		setUniqueConstraint(newUser, UserAttributes.EMAIL, request.getEmail());
 		save(newUser);
-		return newUser.getId();
-		
-		
+		return newUser;
 		
 	}
 	/**

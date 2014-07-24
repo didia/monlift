@@ -1,21 +1,19 @@
 package me.didia.monlift.managers;
 
+import me.didia.monlift.entities.Car;
+import me.didia.monlift.factories.LiftFactory;
+import me.didia.monlift.requests.CreateCarRequest;
+
 /**
  * @author didia
  *
  */
 public class LiftManager {
 	
-	private static LiftManager m_instance = null;
-	
-	private LiftManager(){}
-	
-	public static LiftManager getInstance()
+	public static Car createCar(CreateCarRequest request)
 	{
-		if(m_instance == null)
-		{
-			m_instance = new LiftManager();
-		}
-		return m_instance;
+		return LiftFactory.createCar(request);
 	}
+	
+	
 }

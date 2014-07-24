@@ -13,7 +13,6 @@ import me.didia.monlift.BaseException;
 import me.didia.monlift.MonliftContext;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.marshallers.SessionMarshaller;
-import me.didia.monlift.requests.BaseRequest;
 import me.didia.monlift.requests.LoginRequest;
 import me.didia.monlift.requests.RegisterRequest;
 import me.didia.monlift.responses.SessionResponse;
@@ -50,7 +49,7 @@ public class OauthService {
 		
 		RegisterRequest registerData = monliftContext.getRequestObject(RegisterRequest.class);
 		registerData.validate();
-		UserManager.createUser(registerData.getFirstname(),registerData.getLastname(),registerData.getEmail(),registerData.getPhone(),registerData.getPassword());
+		UserManager.createUser(registerData);
 		return SessionMarshaller.getInstance().marshall(AuthentificationManager.createSession(registerData.getEmail(), registerData.getPassword()));
 	}
 	

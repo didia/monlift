@@ -7,6 +7,12 @@ import java.io.StringWriter;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Response;
 
+import me.didia.monlift.entities.User;
+import me.didia.monlift.requests.BaseRequest;
+import me.didia.monlift.securities.AuthentificationErrorException;
+import me.didia.monlift.securities.AuthentificationManager;
+import me.didia.monlift.securities.Session;
+
 import org.apache.commons.io.IOUtils;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -14,13 +20,6 @@ import org.codehaus.jettison.json.JSONObject;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import me.didia.monlift.entities.User;
-import me.didia.monlift.requests.BaseRequest;
-import me.didia.monlift.requests.IRequest;
-import me.didia.monlift.securities.AuthentificationErrorException;
-import me.didia.monlift.securities.AuthentificationManager;
-import me.didia.monlift.securities.Session;
 
 /**
  * @author didia
@@ -83,7 +82,7 @@ public class MonliftContext {
 			token = json.getString("token");
 			if(token != null)
 			{
-				session = AuthentificationManager.getInstance().getSession(token);	
+				session = AuthentificationManager.getSession(token);	
 			}
 			
 		} catch (JSONException e) {

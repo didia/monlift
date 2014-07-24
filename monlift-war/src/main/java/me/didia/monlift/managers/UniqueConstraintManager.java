@@ -8,9 +8,7 @@ import com.googlecode.objectify.Work;
 import me.didia.monlift.helper.UniqueConstraint;
 
 public class UniqueConstraintManager {
-	private static UniqueConstraintManager instance = null;
-	
-	
+		
 	public static boolean create(Object object, String fieldname, String value)
 	{
 		final String key = String.format("%s.%s:%s", object.getClass().toString(), fieldname, value);

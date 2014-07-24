@@ -23,11 +23,6 @@ public class BaseRequest implements IRequest{
 		}
 	}
 
-	
-	@Override
-	public BeanMap toMap() {
-		
-		return new org.apache.commons.beanutils.BeanMap(this); 
-	}
+
 		
 }

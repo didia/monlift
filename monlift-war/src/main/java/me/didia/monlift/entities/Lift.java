@@ -2,8 +2,10 @@ package me.didia.monlift.entities;
 
 import org.joda.time.DateTime;
 
+import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Load;
 
 /**
  * @author didia
@@ -12,110 +14,89 @@ import com.googlecode.objectify.annotation.Id;
 @Entity
 public class Lift {
 	
-	@Id private Long id;
-	private String from;
-	private String to;
-	private DateTime time;
-	private Double price;
-	private String meeting_place;
-	private Integer total_place;
-	private Integer available_place;
-	private Car car;
+	@Id private Long m_id;
+	private String m_from;
+	private String m_to;
+	private DateTime m_time;
+	private Double m_price;
+	private String m_meetingPlace;
+	private Integer m_totalPlace;
+	private Integer m_availablePlace;
+	@Load private Ref<User> m_driver;
+	@Load private Ref<Car> m_car;
 	
-	/**
-	 * @return the from
-	 */
+
 	public String getFrom() {
-		return from;
+		return m_from;
 	}
-	/**
-	 * @param from the from to set
-	 */
-	public void setFrom(String from) {
-		this.from = from;
+
+	public void setFrom(String p_from) {
+		m_from = p_from;
 	}
-	/**
-	 * @return the to
-	 */
+
 	public String getTo() {
-		return to;
+		return m_to;
 	}
-	/**
-	 * @param to the to to set
-	 */
-	public void setTo(String to) {
-		this.to = to;
+
+	public void setTo(String p_to) {
+		m_to = p_to;
 	}
-	/**
-	 * @return the time
-	 */
+
 	public DateTime getTime() {
-		return time;
+		return m_time;
 	}
-	/**
-	 * @param time the time to set
-	 */
-	public void setTime(DateTime time) {
-		this.time = time;
+
+	public void setTime(DateTime p_time) {
+		m_time = p_time;
 	}
-	/**
-	 * @return the price
-	 */
+
 	public Double getPrice() {
-		return price;
+		return m_price;
 	}
-	/**
-	 * @param price the price to set
-	 */
-	public void setPrice(Double price) {
-		this.price = price;
+
+	public void setPrice(Double p_price) {
+		m_price = p_price;
 	}
-	/**
-	 * @return the meeting_place
-	 */
+
 	public String getMeetingPlace() {
-		return meeting_place;
+		return m_meetingPlace;
 	}
-	/**
-	 * @param meeting_place the meeting_place to set
-	 */
-	public void setMeetingPlace(String meeting_place) {
-		this.meeting_place = meeting_place;
+
+	public void setMeetingPlace(String p_meetingPlace) {
+		m_meetingPlace = p_meetingPlace;
 	}
-	/**
-	 * @return the total_place
-	 */
+
 	public Integer getTotalPlace() {
-		return total_place;
+		return m_totalPlace;
 	}
-	/**
-	 * @param total_place the total_place to set
-	 */
-	public void setTotalPlace(Integer total_place) {
-		this.total_place = total_place;
+
+	public void setTotalPlace(Integer p_totalPlace) {
+		m_totalPlace = p_totalPlace;
 	}
-	/**
-	 * @return the available_place
-	 */
+
 	public Integer getAvailablePlace() {
-		return available_place;
+		return m_availablePlace;
 	}
-	/**
-	 * @param available_place the available_place to set
-	 */
-	public void setAvailablePlace(Integer available_place) {
-		this.available_place = available_place;
+
+	public void setAvailablePlace(Integer p_availablePlace) {
+		m_availablePlace = p_availablePlace;
 	}
-	/**
-	 * @return the car
-	 */
+
 	public Car getCar() {
-		return car;
+		return m_car.get();
 	}
-	/**
-	 * @param car the car to set
-	 */
-	public void setCar(Car car) {
-		this.car = car;
+
+	public void setCar(Car p_car) {
+		m_car = Ref.create(p_car);
 	}
+	
+	public User getDriver(){
+		return m_driver.get();
+	}
+	
+	public void setDriver(User p_user)
+	{
+		m_driver = Ref.create(p_user);
+	}
+	
 }

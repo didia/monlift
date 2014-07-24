@@ -3,13 +3,17 @@ package me.didia.monlift.managers;
 import me.didia.monlift.entities.User;
 import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.factories.UserFactory;
+import me.didia.monlift.requests.RegisterRequest;
 import me.didia.monlift.securities.AuthentificationManager;
 
 public class UserManager {
 	
-	public static  Long createUser(String firstname,String lastname, String email,String phone, String password) throws DuplicateValueException{
-		password = AuthentificationManager.generateHashedPassword(password);
-		return UserFactory.createUser(firstname, lastname, email,phone, password);
+	
+	public static User createUser(RegisterRequest request) throws DuplicateValueException
+	{
+		String password = AuthentificationManager.generateHashedPassword(request.getPassword());
+		request.setPassword(password);
+		return UserFactory.createUser(request);
 	}
 	
 	 /* function to promote user to a driver
@@ -42,4 +46,5 @@ public class UserManager {
 	{
 		return UserFactory.getUserByEmail(email);
 	}
+	
 }
