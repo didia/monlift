@@ -12,6 +12,9 @@ import me.didia.monlift.managers.LiftManager;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.requests.CreateCarRequest;
 import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.securities.AuthentificationErrorException;
+import me.didia.monlift.securities.AuthentificationManager;
+import me.didia.monlift.securities.Session;
 
 /**
  * @author didia
@@ -21,7 +24,6 @@ import me.didia.monlift.requests.RegisterRequest;
 public class MockFactory {
 	public static final String MOCK_CAR_NAME = "Volvo new model";
 	public static final String MOCK_CAR_DESCRIPTION = "5 seat, imatriculation 483 CKR, Blue";
-	public static final String MOCK_USER_EMAIL = "johndoe@example.com";
 	public static final String MOCK_USER_FIRSTNAME = "John";
 	public static final String MOCK_USER_LASTNAME = "Doe";
 	public static final String MOCK_USER_NUMBER = "15819999999";
@@ -108,5 +110,19 @@ public class MockFactory {
 		request.setEmail(email);
 		
 		return request;
+	}
+	
+	public static Session getSession() 
+	{
+		User user = getUser();
+		if(user == null)
+		{
+			return null;
+		}
+		try {
+			return AuthentificationManager.createSession(user.getEmail(), MOCK_USER_PASSWORD);
+		} catch (AuthentificationErrorException e){
+			return null;
+		}
 	}
 }

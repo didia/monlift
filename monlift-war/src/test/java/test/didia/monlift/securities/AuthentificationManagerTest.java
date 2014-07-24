@@ -1,50 +1,31 @@
 package test.didia.monlift.securities;
 
-import org.junit.Test;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import me.didia.monlift.entities.User;
-import me.didia.monlift.factories.DuplicateValueException;
-import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.securities.AuthentificationErrorException;
 import me.didia.monlift.securities.AuthentificationManager;
 import me.didia.monlift.securities.Session;
+
+import org.junit.Test;
+
 import test.didia.monlift.AbstractTest;
-import static org.junit.Assert.*;
+import test.didia.monlift.MockFactory;
 
 public class AuthentificationManagerTest extends AbstractTest {
 		
-	private static String EMAIL = "test@monlift.ca";
-	private static String PASSWORD = "1234monlift";
-	
-	private static User getUser()
-	{
-		try {
-			return UserManager.getUser(UserManager.createUser("John", "Doe", EMAIL, "15819999", PASSWORD));
-		} catch (DuplicateValueException e) {
-			// TODO Auto-generated catch block
-			return null;
-		}
-	}
-	
-	private static Session generateSession()
-	{
-		User user = getUser();
-		assert user != null;
-		try {
-			return AuthentificationManager.createSession(EMAIL, PASSWORD);
-		} catch (AuthentificationErrorException e){
-			return null;
-		}
+
 		
-	}
-	
 	@Test
 	public void testCreateSession()
 	{
-		User user = getUser();
+		User user = MockFactory.getUser();
 		assert user!= null;
+		
+		//create with valid password
 		try {
-			Session session = AuthentificationManager.createSession(EMAIL, PASSWORD);
+			Session session = AuthentificationManager.createSession(user.getEmail(), MockFactory.MOCK_USER_PASSWORD);
 			assertEquals(session.getUser().getEmail(), user.getEmail());
 			assertEquals(session.getUser().getId(), user.getId());
 			
@@ -52,16 +33,11 @@ public class AuthentificationManagerTest extends AbstractTest {
 			
 			fail("The creation of session with valid email and password should not raise an exception\n"
 					+ "Error Message: " + e.getMessage());
-		}		
-	}
-	
-	@Test
-	public void testCreateSessionInvalidPassword()
-	{
-		User user = getUser();
-		assert user!= null;
+		}
+		
+		//create with invalid password
 		try {
-			AuthentificationManager.createSession(EMAIL, "badpassword");
+			AuthentificationManager.createSession(user.getEmail(), "badpassword");
 			fail("The creation of session with invalid password should raise an exception");
 			
 			
@@ -69,15 +45,10 @@ public class AuthentificationManagerTest extends AbstractTest {
 			assertTrue(true);
 			
 		}
-	}
-	
-	@Test
-	public void testCreateSessionInvalidEmail()
-	{
-		User user = getUser();
-		assert user!= null;
+		
+		//create with invalid email
 		try {
-			AuthentificationManager.createSession("test2@monlift.ca", PASSWORD);
+			AuthentificationManager.createSession("test2@monlift.ca", MockFactory.MOCK_USER_PASSWORD);
 			fail("The creation of session with invalid email should raise an exception");
 			
 			
@@ -85,17 +56,18 @@ public class AuthentificationManagerTest extends AbstractTest {
 			assertTrue(true);
 			
 		}
+		
 	}
+	
 	
 	public void testGetSession()
 	{
-		User user = getUser();
-		assert user!= null;
+
 		try {
-			Session session = AuthentificationManager.createSession(EMAIL, PASSWORD);
-			Session session2 = AuthentificationManager.getSession(session.getToken());
-			assertEquals(session2.getUser().getEmail(), user.getEmail());
-			assertEquals(session2.getUser().getId(), user.getId());
+			Session session = MockFactory.getSession();
+			Session sameSession = AuthentificationManager.getSession(session.getToken());
+			assertEquals(session.getUser().getEmail(), sameSession.getUser().getEmail());
+			assertEquals(session.getUser().getId(), sameSession.getUser().getId());
 			
 		} catch (AuthentificationErrorException e) {
 			
@@ -107,10 +79,8 @@ public class AuthentificationManagerTest extends AbstractTest {
 	@Test
 	public void testGetSessionInvalidToken()
 	{
-		User user = getUser();
-		assert user!= null;
 		try {
-			String token = AuthentificationManager.createSession(EMAIL, PASSWORD).getToken();
+			String token = MockFactory.getSession().getToken();
 			AuthentificationManager.getSession(token + "abc");
 			fail("The retrieval of a session with an invalid token should always fail");
 			
@@ -124,7 +94,7 @@ public class AuthentificationManagerTest extends AbstractTest {
 	@Test
 	public void testDeleteSession()
 	{
-		Session session = generateSession();
+		Session session = MockFactory.getSession();
 		assert session != null;
 		AuthentificationManager.deleteSession(session.getToken());
 		try {

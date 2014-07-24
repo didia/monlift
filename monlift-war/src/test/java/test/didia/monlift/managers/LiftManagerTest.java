@@ -8,6 +8,6 @@ import me.didia.monlift.managers.LiftManager;
  */
 public class LiftManagerTest {
 	
-	LiftManager liftManager = LiftManager.getInstance();
+	
 	
 }

@@ -8,10 +8,12 @@ import static org.junit.Assert.fail;
 import me.didia.monlift.entities.User;
 import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.factories.UserFactory;
+import me.didia.monlift.requests.RegisterRequest;
 
 import org.junit.Test;
 
 import test.didia.monlift.AbstractTest;
+import test.didia.monlift.MockFactory;
 
 /**
  * Test for the UserFactory class
@@ -24,81 +26,59 @@ public class UserFactoryTest extends AbstractTest {
 	/**
 	 * Test of the Create passenger function
 	 */
-	User p;
-	Long id;
+
 
 	@Test
 	public void testCreateUser(){
+		// Testing normal procedure
+		RegisterRequest request = MockFactory.getRegisterUserRequest();
 		try {
-			id= UserFactory.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
-			p = UserFactory.getUser(id);
-			assertEquals(p.getFirstname(),"Jake");
-			assertEquals(p.getLastname(),"Massa");
-			assertEquals(p.getEmail(),"jac.massa0908@gmail.com");
-			assertEquals(p.getPhone(),"7838073831");
-			assertFalse(p.isDriver());
+			
+			User user = UserFactory.createUser(request);
+			assertNotNull(user.getId());
+			assertEquals(user.getFirstname(),request.getFirstname());
+			assertEquals(user.getLastname(),request.getLastname());
+			assertEquals(user.getEmail(), request.getEmail());
+			assertEquals(user.getPhone(), request.getPhone());
+			assertFalse(user.isDriver());
 		} catch (DuplicateValueException e) {
 			// TODO Auto-generated catch block
 			fail(e.getMessage());
 		}
 		
+		//Testing in case duplicate: Should throw DuplicateValueException
 		
-	}
-	@Test
-	public void testCreateUserDuplicate()
-	{
 		try{
-			id= UserFactory.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
-		} catch (DuplicateValueException e) {
-			fail(e.getMessage());
-		}
-		try{
-			id= UserFactory.createUser("Jake", "Didia", "jac.massa0908@gmail.com", "7838073831","12345678");
+			 UserFactory.createUser(request);
 			fail("Expected function createUser to throw DuplicateValueException");
 		} catch(DuplicateValueException e){
 			assertTrue(true);
 		}
+		
 	}
-	
-	
+		
 	@Test
 	public void testGetUser(){
-		
-		try {
-			String firstname = "Jake";
-			String lastname = "Massa";
-			String email = "jac.massa0908@gmail.com";
-			id = UserFactory.createUser("Jake", "Massa", "jac.massa0908@gmail.com", "7838073831","12345678");
-			User user = UserFactory.getUser(id);
-			assertNotNull(user);
-			assertEquals(user.getFirstname(),firstname);
-			assertEquals(user.getLastname(), lastname);
-			assertEquals(user.getEmail(), email);
-		} catch (DuplicateValueException e) {
-			
-			fail(e.getMessage());
-		}
-		
-		
+		User aUser = MockFactory.getUser();
+		assertNotNull(aUser);
+		User sameUser = UserFactory.getUser(aUser.getId());
+		assertNotNull(sameUser);
+		assertEquals(aUser.getEmail(), sameUser.getEmail()); //is enough already
+		assertEquals(aUser.getFirstname(), sameUser.getFirstname());
+		assertEquals(aUser.getLastname(), sameUser.getLastname());
 	}
 	
 	@Test
 	public void testGetUserByEmail()
 	{
-		try {
-			String firstname = "Jake";
-			String lastname = "Massa";
-			String email = "jac.massa0908@gmail.com";
-			id = UserFactory.createUser(firstname, lastname, email, "7838073831","12345678");
-			User user = UserFactory.getUserByEmail(email);
-			assertNotNull(user);
-			assertEquals(user.getFirstname(), firstname);
-			assertEquals(user.getLastname(), lastname);
-			assertEquals(user.getEmail(), email);
-		} catch (DuplicateValueException e) {
-	
-			fail(e.getMessage());
-		}
+		User aUser = MockFactory.getUser();
+		assertNotNull(aUser);
+		User sameUser = UserFactory.getUserByEmail(aUser.getEmail());
+		assertNotNull(sameUser);
+		assertEquals(aUser.getId(), sameUser.getId()); // is enough already
+		assertEquals(aUser.getPhone(), sameUser.getPhone());
+		assertEquals(aUser.getPassword(), sameUser.getPassword());
+		
 	}
 	
 }

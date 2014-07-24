@@ -1,8 +1,9 @@
 package test.didia.monlift.managers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import me.didia.monlift.entities.User;
 import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.managers.UserManager;
@@ -10,6 +11,7 @@ import me.didia.monlift.managers.UserManager;
 import org.junit.Test;
 
 import test.didia.monlift.AbstractTest;
+import test.didia.monlift.MockFactory;
 
 public class UserManagerTest extends AbstractTest {
 
@@ -23,14 +25,13 @@ public class UserManagerTest extends AbstractTest {
 	@Test
 	public void testPromoteToDriver() {
 		String username = "jakeIbee";
-
+		User user = MockFactory.getUser();
 		try {
-			id = UserManager.createUser("Jake", "Massa",
-					"jac.massa0908@gmail.com", "7838073831", "12345678");
-			UserManager.promoteToDriver(id, username);
-			p = UserManager.getUser(id);
-			assertEquals(p.getUsername(), username);
-			assertTrue(p.isDriver());
+
+			UserManager.promoteToDriver(user.getId(), username);
+			User sameUser = UserManager.getUser(user.getId());
+			assertEquals(sameUser.getUsername(), username);
+			assertTrue(sameUser.isDriver());
 		} catch (DuplicateValueException e) {
 
 			fail(e.getMessage());
@@ -40,14 +41,16 @@ public class UserManagerTest extends AbstractTest {
 	@Test
 	public void testPromoteDriverDuplicate() {
 		String username = "TheBlaze";
+		ArrayList<User> users = MockFactory.getMultipleUser(2);
+		for (User user: users)
+		{
+			assertNotNull(user);
+		}
 		try {
-			id = UserManager.createUser("Jake", "Massa",
-					"jac.massa0908@gmail.com", "7838073831", "12345678");
-			second_id = UserManager.createUser("Jake", "Massa",
-					"jac.massa0904@gmail.com", "7838073831", "12345678");
-			UserManager.promoteToDriver(id, username);
+			
+			UserManager.promoteToDriver(users.get(0).getId(), username);
 			try {
-				UserManager.promoteToDriver(second_id, username);
+				UserManager.promoteToDriver(users.get(1).getId(), username);
 				fail("Exception DuplicateValueException should be thrown as user is promoted with an existing username");
 			} catch (DuplicateValueException e) {
 				assertTrue(true);

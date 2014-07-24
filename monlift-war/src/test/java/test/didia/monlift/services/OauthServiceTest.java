@@ -6,9 +6,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import me.didia.monlift.requests.BaseRequest;
 import me.didia.monlift.requests.LoginRequest;
 import me.didia.monlift.requests.RegisterRequest;
-
-import org.junit.Test;
-
 import test.didia.monlift.AbstractTest;
 
 /**

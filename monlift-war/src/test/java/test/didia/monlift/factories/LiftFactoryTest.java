@@ -11,6 +11,8 @@ import java.util.Date;
 import org.junit.Test;
 
 import test.didia.monlift.AbstractTest;
+import test.didia.monlift.MockFactory;
+import me.didia.monlift.entities.Car;
 import me.didia.monlift.entities.Lift;
 import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.factories.LiftFactory;
@@ -23,12 +25,13 @@ import me.didia.monlift.requests.CreateLiftRequest;
  */
 public class LiftFactoryTest extends AbstractTest {
 	
-	LiftFactory liftFactory = LiftFactory.getInstance();
 	private final String from = "Québec";
 	private final String to = "Montréal";
 	private final Double price = 15.0;
 	private final String meetingPlace = "Pavillon DesjarDins, Université Laval";
 	private final int totalPlace = 20;
+	
+	private Car car_instance = MockFactory.getCar();
 	
 
 	
@@ -40,10 +43,10 @@ public class LiftFactoryTest extends AbstractTest {
 		
 		Integer id;
 		try {
-			id = liftFactory.createLift(testRequest);
+			id = LiftFactory.createLift(testRequest);
 			if(id == null)
 				fail("createLift returned a null value instead of the Lift id");
-			Lift newLift = liftFactory.getLiftById(id);
+			Lift newLift = LiftFactory.getLiftById(id);
 			if(newLift == null)
 				fail("Calling getLiftById with the id returned by createLift returned a null value");
 		} catch (DuplicateValueException e) {
