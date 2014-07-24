@@ -35,7 +35,7 @@ public class LiftFactoryTest extends AbstractTest {
 	
 
 	
-	@Test
+	
 	public void testCreateLift()
 	{
 		
@@ -55,7 +55,7 @@ public class LiftFactoryTest extends AbstractTest {
 		
 	}
 	
-	@Test
+	
 	public void testGetLiftById()
 	{
 		
