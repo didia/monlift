@@ -1,4 +1,4 @@
-monlift [![Build Status](https://travis-ci.org/thefuture2092/monlift.svg?branch=master)](https://travis-ci.org/thefuture2092/monlift)
+monlift [![Build Status](https://travis-ci.org/thefuture2092/monlift.svg?branch=master)](https://travis-ci.org/thefuture2092/monlift) [![Coverage Status](https://img.shields.io/coveralls/thefuture2092/monlift.svg)](https://coveralls.io/r/thefuture2092/monlift)
 =============================
 
 Monlift is an application which allows users to offer and find car-pooling offers.
