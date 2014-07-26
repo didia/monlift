@@ -11,7 +11,7 @@ import com.googlecode.objectify.annotation.Parent;
  */
 
 @Entity
-public class Car {
+public class Car extends AbstractEntity {
 	@Id private Long m_id;
 	private String m_name;
 	private String m_description;

@@ -12,7 +12,7 @@ import com.googlecode.objectify.annotation.Load;
  *
  */
 @Entity
-public class Lift {
+public class Lift extends AbstractEntity{
 	
 	@Id private Long m_id;
 	private String m_from;
@@ -25,7 +25,14 @@ public class Lift {
 	@Load private Ref<User> m_driver;
 	@Load private Ref<Car> m_car;
 	
-
+	
+	public Long getId() {
+		return m_id;
+	}
+	
+	public void setId(Long p_id) {
+		m_id = p_id;
+	}
 	public String getFrom() {
 		return m_from;
 	}

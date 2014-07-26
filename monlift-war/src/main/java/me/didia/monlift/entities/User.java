@@ -11,7 +11,7 @@ import com.googlecode.objectify.annotation.Index;
  * Abstract to avoid being directly used
  */
 @Entity
-public class User implements Principal {
+public class User extends AbstractEntity implements Principal {
 
 	@Id private Long id;
 	private String firstname;
