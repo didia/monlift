@@ -1,5 +1,7 @@
 package test.didia.monlift;
 
+import me.didia.monlift.entities.Car;
+import me.didia.monlift.entities.Lift;
 import me.didia.monlift.entities.User;
 import me.didia.monlift.helper.UniqueConstraint;
 import me.didia.monlift.securities.UserToken;
@@ -29,6 +31,8 @@ public class AbstractTest {
 		ObjectifyService.register(User.class);
 		ObjectifyService.register(UniqueConstraint.class);
 		ObjectifyService.register(UserToken.class);
+		ObjectifyService.register(Car.class);
+		ObjectifyService.register(Lift.class);
 		
         helper.setUp();
     }
