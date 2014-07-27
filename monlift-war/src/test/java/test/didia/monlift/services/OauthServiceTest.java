@@ -3,6 +3,10 @@ package test.didia.monlift.services;
 import static com.jayway.restassured.RestAssured.expect;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.notNullValue;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import me.didia.monlift.requests.BaseRequest;
 import me.didia.monlift.requests.LoginRequest;
 import me.didia.monlift.requests.RegisterRequest;
@@ -68,13 +72,13 @@ public class OauthServiceTest extends AbstractTest {
 	
 	//@Test
 	public void oauthServiceLogout() {
-		BaseRequest logoutRequest = new BaseRequest();
-		logoutRequest.setToken("hf184vbvk3gfnr66oct7vaq");
+		Map<String, String> request = new HashMap<String, String >();
+		request.put("token", "hf184vbvk3gfnr66oct7vaq");
 		expect().
 			body("status", equalTo("logged_out")).
 		given().
 			contentType("application/json; charset=UTF-8").
-			body(logoutRequest).
+			body(request).
 		when().
 			post("/api/oauth/logout");
 	}

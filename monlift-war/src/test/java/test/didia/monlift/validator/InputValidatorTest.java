@@ -2,7 +2,7 @@ package test.didia.monlift.validator;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import me.didia.monlift.inputValidator.InputValidator;
+import me.didia.monlift.visitor.RequestValidatorVisitor;
 
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import test.didia.monlift.AbstractTest;
 
 
 public class InputValidatorTest extends AbstractTest {
-	private InputValidator inputValidator = InputValidator.getInstance();
+	private RequestValidatorVisitor inputValidator = RequestValidatorVisitor.getInstance();
 
 	/**
 	 * test of firstnameValidator function
