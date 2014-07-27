@@ -41,10 +41,6 @@ public class UpdateUserRequest extends BaseRequest {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	@Override
-	public void validate() throws ValidationErrorException {
-		
-		
-	}
+
 	
 }

@@ -16,8 +16,8 @@ public class LoginRequest extends BaseRequest{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public void validate() throws ValidationErrorException {
-		// TODO Auto-generated method stub
+	public void validate() {
+		
 		
 	}
 }

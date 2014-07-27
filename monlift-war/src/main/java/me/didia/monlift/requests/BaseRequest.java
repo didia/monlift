@@ -1,27 +1,34 @@
 package me.didia.monlift.requests;
 
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.apache.commons.beanutils.BeanMap;
 
-public class BaseRequest implements IRequest{
-	private String token;
+import me.didia.monlift.visitor.RequestVisitor;
 
+
+public abstract class BaseRequest implements IRequest{
+	protected String m_token;
+	protected boolean m_valid = false;
 	public String getToken() {
-		return token;
+		return m_token;
 	}
 
 	public void setToken(String token) {
-		this.token = token;
+		this.m_token = token;
 	}
 
-	public void validate() throws ValidationErrorException {
-		if(token.isEmpty() || token == ""){
-			throw new ValidationErrorException("empty token provided");
+	public void validate(){
+		if(m_token.isEmpty() || m_token == ""){
+			m_valid = false;
 		}
 	}
+	
+	public boolean isValid()
+	{
+		return m_valid;
+	}
+
+	@Override
+	public void accept(RequestVisitor visitor) {}
 
 
 		

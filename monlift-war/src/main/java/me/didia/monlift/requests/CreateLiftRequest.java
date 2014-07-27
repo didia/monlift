@@ -1,15 +1,32 @@
 package me.didia.monlift.requests;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import me.didia.monlift.entities.Car;
+import me.didia.monlift.entities.User;
+import me.didia.monlift.visitor.RequestValidatorVisitor;
+import me.didia.monlift.visitor.RequestVisitor;
+
 public class CreateLiftRequest extends BaseRequest {
+	public static final String FROM_FIELD = "from";
+	public static final String TO_FIELD = "to";
+	public static final String TIME_FIELD = "time";
+	public static final String PRICE_FIELD = "price";
+	public static final String MEETING_PLACE_FIELD = "meeting place";
+	public static final String TOTAL_PLACE_FIELD = "total number of place";
+	public static final String CAR_ID_FIELD = "car";
+	
 	private String m_from;
 	private String m_to;
 	private Date m_time;
 	private Double m_price;
 	private String m_meetingPlace;
 	private Integer m_totalPlace;
-	private Integer m_carId;
+	private Long m_carId;
+	private Car m_car = null;
+	private User m_driver = null;
+	
 	
 	/**
 	 * @return the from
@@ -86,14 +103,48 @@ public class CreateLiftRequest extends BaseRequest {
 	/**
 	 * @return the carId
 	 */
-	public Integer getCarId() {
+	public Long getCarId() {
 		return m_carId;
 	}
 	/**
 	 * @param carId the carId to set
 	 */
-	public void setCarId(Integer carId) {
+	public void setCarId(Long carId) {
 		m_carId = carId;
 	}
+
+	/**
+	 * @return the driver
+	 */
+	public User getDriver() {
+		return m_driver;
+	}
+	/**
+	 * @param driver the driver to set
+	 */
+	public void setDriver(User driver) {
+		m_driver = driver;
+	}
+	/**
+	 * @return the car
+	 */
+	public Car getCar() {
+		return m_car;
+	}
+	
+	@Override
+	public void accept(RequestVisitor visitor)
+	{
+		visitor.visit(this);
+	}
+	@Override
+	public void validate(){
+		
+		accept(RequestValidatorVisitor.getInstance());
+	}
+	
+
+	
+	
 	
 }
