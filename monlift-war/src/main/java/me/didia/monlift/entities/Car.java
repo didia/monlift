@@ -7,27 +7,36 @@ import com.googlecode.objectify.annotation.Parent;
 
 /**
  * @author didia
- *
+ * 
  */
 
 @Entity
 public class Car extends AbstractEntity {
-	@Id private Long m_id;
+	@Id
+	private Long m_id;
 	private String m_name;
 	private String m_description;
-	@Parent Key<User> m_owner;
-	
-	public Long getId(){
+	@Parent
+	Key<User> m_owner;
+
+	public Long getId() {
 		return m_id;
 	}
+
+	public void setId(Long id) {
+		m_id = id; 
+	}
+
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return m_name;
 	}
+
 	/**
-	 * @param name the name to set
+	 * @param name
+	 *            the name to set
 	 */
 	public void setName(String name) {
 		m_name = name;
@@ -39,10 +48,17 @@ public class Car extends AbstractEntity {
 	public String getDescription() {
 		return m_description;
 	}
+
 	/**
-	 * @param description the description to set
+	 * @param description
+	 *            the description to set
 	 */
 	public void setDescription(String description) {
 		m_description = description;
 	}
+
+	public void setOwner(User user) {
+		m_owner = Key.create(User.class, user.getId());
+	}
+
 }

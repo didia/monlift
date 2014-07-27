@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Load;
 
 /**
@@ -15,14 +16,14 @@ import com.googlecode.objectify.annotation.Load;
 public class Lift extends AbstractEntity{
 	
 	@Id private Long m_id;
-	private String m_from;
-	private String m_to;
-	private DateTime m_time;
+	@Index private String m_from;
+	@Index private String m_to;
+	@Index private DateTime m_time;
 	private Double m_price;
 	private String m_meetingPlace;
 	private Integer m_totalPlace;
-	private Integer m_availablePlace;
-	@Load private Ref<User> m_driver;
+	@Index private Integer m_availablePlace;
+	@Index @Load private Ref<User> m_driver;
 	@Load private Ref<Car> m_car;
 	
 	

@@ -3,12 +3,18 @@
  */
 package me.didia.monlift.factories;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import org.joda.time.DateTime;
 
 import com.googlecode.objectify.Key;
 
 import me.didia.monlift.entities.Car;
 import me.didia.monlift.entities.Lift;
+import me.didia.monlift.entities.User;
 import me.didia.monlift.requests.CreateCarRequest;
 import me.didia.monlift.requests.CreateLiftRequest;
 
@@ -19,37 +25,57 @@ import me.didia.monlift.requests.CreateLiftRequest;
 public class LiftFactory {
 	
 
-	public static Integer createLift(CreateLiftRequest createRequest) throws DuplicateValueException{
-		return null;
+	public static Lift createLift(User p_user, CreateLiftRequest p_createRequest) throws DuplicateValueException{
+		
+		Lift lift = new Lift();
+		lift.setDriver(p_user);
+		lift.setFrom(p_createRequest.getFrom());
+		lift.setTo(p_createRequest.getTo());
+		lift.setTime(new DateTime(p_createRequest.getTime()));
+		lift.setTotalPlace(p_createRequest.getTotalPlace());
+		lift.setAvailablePlace(lift.getTotalPlace());
+		lift.setMeetingPlace(p_createRequest.getMeetingPlace());
+		lift.setPrice(p_createRequest.getPrice());
+		lift.setCar(getCar(p_user, p_createRequest.getCarId()));
+		save(lift);
+		return lift;
 	}
 	
-	public static Lift getLiftById(Integer id)
+	public static Lift getLiftById(Long p_id)
 	{
-		return null;
+		return ofy().load().type(Lift.class).id(p_id).now();
 	}
 	
-	public static ArrayList<Lift> getLiftsByIds(ArrayList<Integer> ids)
+	public static List<Lift> getLiftsByUser(User p_user)
 	{
-		return null;
+		List<Lift> lifts = ofy().load().type(Lift.class).filter("m_driver", p_user).list();
+		return lifts;
 	}
 	
-	public static ArrayList<Lift> getLiftsByUser(Integer id)
+
+	
+	public static Car createCar(User user, CreateCarRequest p_request)
 	{
-		return null;
+		Car car = new Car();
+		car.setName(p_request.getName());
+		car.setDescription(p_request.getDescription());
+		car.setOwner(user);
+		saveCar(car);
+		
+		return car;	
 	}
 	
-	public static ArrayList<Lift> getLiftsByUsers(ArrayList<Integer> ids)
-	{
-		return null;
-	}
-	
-	public static Car createCar(CreateCarRequest request)
-	{
-		return null;
+	public static Car getCar(User owner, Long p_id){
+		return ofy().load().type(Car.class).parent(owner).id(p_id).now();
+		
 	}
 	
 	public static Key<Car> saveCar(Car car){
-		return null;
+		return ofy().save().entity(car).now();
+	}
+	
+	public static Key<Lift> save(Lift lift){
+		return ofy().save().entity(lift).now();
 	}
 	
 }
