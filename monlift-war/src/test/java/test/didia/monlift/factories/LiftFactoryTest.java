@@ -83,10 +83,11 @@ public class LiftFactoryTest extends AbstractTest {
 		//test with one lift
 		Lift lift = MockFactory.getLift();
 		assert lift != null;
-		
 		List<Lift> lifts = LiftFactory.getLiftsByUser(lift.getDriver());
-		assertEquals(lifts.size(), 1);
+		
+		assertEquals(1, lifts.size());
 		assertEquals(lifts.get(0), lift);
+		
 		
 		
 	}
