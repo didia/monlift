@@ -3,7 +3,10 @@ package test.didia.monlift;
 import me.didia.monlift.entities.Car;
 import me.didia.monlift.entities.Lift;
 import me.didia.monlift.entities.User;
+import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.helper.UniqueConstraint;
+import me.didia.monlift.managers.UserManager;
+import me.didia.monlift.requests.RegisterRequest;
 import me.didia.monlift.securities.UserToken;
 
 import org.junit.After;
@@ -20,8 +23,24 @@ public class AbstractTest {
 	 */
 	private final LocalServiceTestHelper helper =
 	        new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-	
-	
+	public User m_userInstance;
+	public User getUser() {
+		if(m_userInstance != null)
+		{
+			return m_userInstance;
+		}
+		
+		try {
+			RegisterRequest request = MockFactory.getRegisterUserRequest();
+			m_userInstance = UserManager.createUser(request);
+			return m_userInstance;
+		} catch (DuplicateValueException e) {
+			
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	/**
 	 * keeps all the local data in memory
 	 */
@@ -34,7 +53,8 @@ public class AbstractTest {
 		ObjectifyService.register(Car.class);
 		ObjectifyService.register(Lift.class);
 		
-        helper.setUp();
+		helper.setUp();	
+        
     }
 
 	/**

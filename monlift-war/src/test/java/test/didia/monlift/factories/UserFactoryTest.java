@@ -10,6 +10,7 @@ import me.didia.monlift.factories.DuplicateValueException;
 import me.didia.monlift.factories.UserFactory;
 import me.didia.monlift.requests.RegisterRequest;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import test.didia.monlift.AbstractTest;
@@ -26,7 +27,7 @@ public class UserFactoryTest extends AbstractTest {
 	/**
 	 * Test of the Create passenger function
 	 */
-
+	
 
 	@Test
 	public void testCreateUser(){
@@ -59,8 +60,7 @@ public class UserFactoryTest extends AbstractTest {
 		
 	@Test
 	public void testGetUser(){
-		User aUser = MockFactory.getUser();
-		assertNotNull(aUser);
+		User aUser = getUser();
 		User sameUser = UserFactory.getUser(aUser.getId());
 		assertNotNull(sameUser);
 		assertEquals(aUser.getEmail(), sameUser.getEmail()); //is enough already
@@ -71,8 +71,7 @@ public class UserFactoryTest extends AbstractTest {
 	@Test
 	public void testGetUserByEmail()
 	{
-		User aUser = MockFactory.getUser();
-		assertNotNull(aUser);
+		User aUser = getUser();
 		User sameUser = UserFactory.getUserByEmail(aUser.getEmail());
 		assertNotNull(sameUser);
 		assertEquals(aUser.getId(), sameUser.getId()); // is enough already
