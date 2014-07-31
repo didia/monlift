@@ -45,49 +45,9 @@ public class MockFactory {
 	
 	private static Lift m_lift;
 	
-	public static User getUser() {
-		if(m_userInstance != null)
-		{
-			return m_userInstance;
-		}
-		try {
-			RegisterRequest request = getRegisterUserRequest();
-			m_userInstance = UserManager.createUser(request);
-			return m_userInstance;
-		} catch (DuplicateValueException e) {
-			
-			e.printStackTrace();
-			return null;
-		}
-	}
-	public static ArrayList<User> getMultipleUser(int number) {
-		ArrayList<User> users = new ArrayList<User>(number);
-		
-		List<RegisterRequest> requests = getMultipleRegisterRequest(number);
-		for(RegisterRequest request : requests)
-		{
-			try{
-				users.add(UserManager.createUser(request));
-			}catch(DuplicateValueException e){
-				e.printStackTrace();
-				users.add(null);
-			}
-			
-		}
-		
-		return users;
-	}
-	public static Car getCar() {
-		User user = getUser();
-		CreateCarRequest request = getCreateCarRequest();
-		if(user == null || request == null)
-		{
-			return null;
-		}
-		  
-		return LiftManager.createCar(user, request);
-	}
+
 	
+
 	public static CreateCarRequest getCreateCarRequest() {
 		CreateCarRequest request = new CreateCarRequest();
 		request.setName(MOCK_CAR_NAME);
@@ -138,25 +98,12 @@ public class MockFactory {
 		return request;
 	}
 	
-	public static Session getSession() {
-		User user = getUser();
-		if(user == null)
-		{
-			return null;
-		}
-		try {
-			return AuthentificationManager.createSession(user.getEmail(), MOCK_USER_PASSWORD);
-		} catch (AuthentificationErrorException e){
-			return null;
-		}
-	}
+
 	
 	public static CreateLiftRequest getCreateLiftRequest() {
-		Car car = getCar();
-		if(car == null)
-			return null;
+
 		Calendar.getInstance().add(Calendar.DAY_OF_MONTH, 1);
-		return getCreateLiftRequest(car.getId(), MOCK_LIFT_FROM, MOCK_LIFT_TO, 
+		return getCreateLiftRequest(MOCK_LIFT_FROM, MOCK_LIFT_TO, 
 								  MOCK_LIFT_MEETING_PLACE, MOCK_LIFT_PRICE,
 								  MOCK_LIFT_TOTAL_PLACE, Calendar.getInstance().getTime());
 
@@ -184,7 +131,7 @@ public class MockFactory {
 		return requests;
 	}
 	
-	private static CreateLiftRequest getCreateLiftRequest(long p_carId,
+	private static CreateLiftRequest getCreateLiftRequest(
 														  String p_from,
 														  String p_to,
 														  String p_meetingPlace,
@@ -193,7 +140,6 @@ public class MockFactory {
 														  Date p_date ) {
 		
 		CreateLiftRequest request = new CreateLiftRequest();
-		request.setCarId(p_carId);
 		request.setFrom(p_from);
 		request.setTo(p_to);
 		request.setMeetingPlace(p_meetingPlace);
@@ -204,28 +150,6 @@ public class MockFactory {
 		return request;
 	}
 	
-	public static Lift getLift() {
-		if(m_lift != null){
-			return m_lift;
-		}
-		CreateLiftRequest request = getCreateLiftRequest();
-		User user = getUser();
-		if(request == null || user == null)
-		{
-			return null;
-		}
-		
-		try {
-			Lift lift = LiftManager.createLift(user, request);
-			m_lift = lift;
-			return m_lift;
-		} catch (DuplicateValueException e) {
-			
-			e.printStackTrace();
-			return null;
-		}
-		
-	}
 	
 	public static ArrayList<Lift> getMultipleLifts() {
 		

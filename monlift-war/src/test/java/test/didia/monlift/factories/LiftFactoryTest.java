@@ -29,10 +29,39 @@ import me.didia.monlift.requests.CreateLiftRequest;
  */
 public class LiftFactoryTest extends AbstractTest {
 	
+	private Lift m_liftInstance;
+	private Car m_carInstance;
+	
+	public Car getCar(){
+		if(m_carInstance != null)
+			return m_carInstance;
+		CreateCarRequest request = MockFactory.getCreateCarRequest();
+		User user = getUser();
+		m_carInstance = LiftFactory.createCar(user,request);
+		
+		return m_carInstance;
+		
+	
+	}
+	public Lift getLift(){
+		if (m_liftInstance != null){
+			return m_liftInstance;
+		}
+		CreateLiftRequest request = MockFactory.getCreateLiftRequest();
+		request.setCar(getCar());
+		request.setDriver(getUser());
+		try {
+			m_liftInstance = LiftFactory.createLift(request);
+		} catch (DuplicateValueException e) {
+			e.printStackTrace();
+		}
+		
+		return m_liftInstance;
+	}
 	@Test 
 	public void testCreateCar(){
 		CreateCarRequest testRequest = MockFactory.getCreateCarRequest();
-		User user = MockFactory.getUser();
+		User user = getUser();
 		Car car =  LiftFactory.createCar(user, testRequest);
 		assertNotNull(car.getId());
 		assertEquals(car.getName(), testRequest.getName());
@@ -44,12 +73,15 @@ public class LiftFactoryTest extends AbstractTest {
 	{
 		
 		CreateLiftRequest testRequest = MockFactory.getCreateLiftRequest();
-		User user = MockFactory.getUser();
+		User user = getUser();
+		testRequest.setDriver(user);
+		testRequest.setCar(getCar());
+		
 		assert user != null;
 		assert testRequest != null;
 		
 		try {
-			Lift lift = LiftFactory.createLift(user, testRequest);
+			Lift lift = LiftFactory.createLift(testRequest);
 			assertNotNull(lift.getId());
 			assertEquals(lift.getFrom(), testRequest.getFrom());
 			assertEquals(lift.getDriver(), user);
@@ -63,7 +95,7 @@ public class LiftFactoryTest extends AbstractTest {
 	@Test
 	public void testGetLiftById()
 	{
-		Lift lift = MockFactory.getLift();
+		Lift lift = getLift();
 		assert lift != null;
 		Lift sameLift = LiftFactory.getLiftById(lift.getId());
 		assertEquals(lift.getFrom(), sameLift.getFrom());
@@ -81,7 +113,7 @@ public class LiftFactoryTest extends AbstractTest {
 	public void testGetLiftsByUser()
 	{
 		//test with one lift
-		Lift lift = MockFactory.getLift();
+		Lift lift = getLift();
 		assert lift != null;
 		List<Lift> lifts = LiftFactory.getLiftsByUser(lift.getDriver());
 		

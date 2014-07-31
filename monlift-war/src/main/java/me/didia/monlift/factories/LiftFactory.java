@@ -25,10 +25,10 @@ import me.didia.monlift.requests.CreateLiftRequest;
 public class LiftFactory {
 	
 
-	public static Lift createLift(User p_user, CreateLiftRequest p_createRequest) throws DuplicateValueException{
+	public static Lift createLift(CreateLiftRequest p_createRequest) throws DuplicateValueException{
 		
 		Lift lift = new Lift();
-		lift.setDriver(p_user);
+		lift.setDriver(p_createRequest.getDriver());
 		lift.setFrom(p_createRequest.getFrom());
 		lift.setTo(p_createRequest.getTo());
 		lift.setTime(new DateTime(p_createRequest.getTime()));
@@ -36,7 +36,7 @@ public class LiftFactory {
 		lift.setAvailablePlace(lift.getTotalPlace());
 		lift.setMeetingPlace(p_createRequest.getMeetingPlace());
 		lift.setPrice(p_createRequest.getPrice());
-		lift.setCar(getCar(p_user, p_createRequest.getCarId()));
+		lift.setCar(p_createRequest.getCar());
 		save(lift);
 		return lift;
 	}

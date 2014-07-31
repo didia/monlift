@@ -132,6 +132,9 @@ public class CreateLiftRequest extends BaseRequest {
 		return m_car;
 	}
 	
+	public void setCar(Car p_car) {
+		m_car = p_car;
+	}
 	@Override
 	public void accept(RequestVisitor visitor)
 	{

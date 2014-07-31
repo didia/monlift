@@ -21,9 +21,10 @@ public class LiftManager {
 		return LiftFactory.createCar(user, request);
 	}
 	
-	public static Lift createLift(User user, CreateLiftRequest request) throws DuplicateValueException
+	public static Lift createLift(User p_driver, CreateLiftRequest p_request) throws DuplicateValueException
 	{ 
-		return LiftFactory.createLift(user, request);
+		p_request.setDriver(p_driver);
+		return LiftFactory.createLift(p_request);
 	}
 	
 	public static Car getCar(User p_owner, Long p_id){

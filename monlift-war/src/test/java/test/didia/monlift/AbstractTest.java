@@ -1,5 +1,8 @@
 package test.didia.monlift;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.didia.monlift.entities.Car;
 import me.didia.monlift.entities.Lift;
 import me.didia.monlift.entities.User;
@@ -24,6 +27,8 @@ public class AbstractTest {
 	private final LocalServiceTestHelper helper =
 	        new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 	public User m_userInstance;
+	
+	
 	public User getUser() {
 		if(m_userInstance != null)
 		{
@@ -39,6 +44,24 @@ public class AbstractTest {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static ArrayList<User> getMultipleUser(int number) {
+		ArrayList<User> users = new ArrayList<User>(number);
+		
+		List<RegisterRequest> requests = MockFactory.getMultipleRegisterRequest(number);
+		for(RegisterRequest request : requests)
+		{
+			try{
+				users.add(UserManager.createUser(request));
+			}catch(DuplicateValueException e){
+				e.printStackTrace();
+				users.add(null);
+			}
+			
+		}
+		
+		return users;
 	}
 
 	/**
