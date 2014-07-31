@@ -5,7 +5,14 @@ import me.didia.monlift.entities.User;
 import me.didia.monlift.managers.UniqueConstraintManager;
 import me.didia.monlift.requests.RegisterRequest;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
 import com.googlecode.objectify.Key;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 
 
@@ -16,6 +23,7 @@ import com.googlecode.objectify.Key;
  */
 public class UserFactory {
 
+	static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	
 	/**
 	 * function to create a passenger
@@ -65,6 +73,7 @@ public class UserFactory {
 	 * @return User object 
 	 */
 	public static User getUserByEmail(String email) {
+		
 		
 		return ofy().load().type(User.class).filter(UserAttributes.EMAIL, email).first().now();
 	}

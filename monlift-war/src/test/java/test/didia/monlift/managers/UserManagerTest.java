@@ -25,7 +25,7 @@ public class UserManagerTest extends AbstractTest {
 	@Test
 	public void testPromoteToDriver() {
 		String username = "jakeIbee";
-		User user = MockFactory.getUser();
+		User user = getUser();
 		try {
 
 			UserManager.promoteToDriver(user.getId(), username);
@@ -41,7 +41,7 @@ public class UserManagerTest extends AbstractTest {
 	@Test
 	public void testPromoteDriverDuplicate() {
 		String username = "TheBlaze";
-		ArrayList<User> users = MockFactory.getMultipleUser(2);
+		ArrayList<User> users = getMultipleUser(2);
 		for (User user: users)
 		{
 			assertNotNull(user);
