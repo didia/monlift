@@ -3,6 +3,8 @@
  */
 package me.didia.monlift.entities;
 
+import com.googlecode.objectify.annotation.Entity;
+
 /**
  * @author didia
  *

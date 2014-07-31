@@ -22,6 +22,9 @@ public class User extends AbstractEntity implements Principal {
 	private String password;
 	@Index private boolean isDriver = false;
 	
+	public User(){
+		
+	}
 	public Long getId() {
 		return id;
 	}

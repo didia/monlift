@@ -43,7 +43,6 @@ public class UserFactoryTest extends AbstractTest {
 			assertEquals(user.getPhone(), request.getPhone());
 			assertFalse(user.isDriver());
 		} catch (DuplicateValueException e) {
-			// TODO Auto-generated catch block
 			fail(e.getMessage());
 		}
 		

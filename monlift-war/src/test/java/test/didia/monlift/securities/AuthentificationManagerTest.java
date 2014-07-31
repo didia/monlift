@@ -16,11 +16,26 @@ import test.didia.monlift.MockFactory;
 public class AuthentificationManagerTest extends AbstractTest {
 		
 
+	private Session m_session;
+	
+	public Session getSession(){
+		if(m_session != null)
+			return m_session;
 		
+		try {
+			m_session = AuthentificationManager.createSession(getUser().getEmail(), MockFactory.MOCK_USER_PASSWORD);
+		} catch (AuthentificationErrorException e) {
+			e.printStackTrace();
+		}
+		
+		return m_session;
+		
+		
+	}
 	@Test
 	public void testCreateSession()
 	{
-		User user = MockFactory.getUser();
+		User user = getUser();
 		assert user!= null;
 		
 		//create with valid password
@@ -64,7 +79,7 @@ public class AuthentificationManagerTest extends AbstractTest {
 	{
 
 		try {
-			Session session = MockFactory.getSession();
+			Session session = getSession();
 			Session sameSession = AuthentificationManager.getSession(session.getToken());
 			assertEquals(session.getUser().getEmail(), sameSession.getUser().getEmail());
 			assertEquals(session.getUser().getId(), sameSession.getUser().getId());
@@ -80,7 +95,7 @@ public class AuthentificationManagerTest extends AbstractTest {
 	public void testGetSessionInvalidToken()
 	{
 		try {
-			String token = MockFactory.getSession().getToken();
+			String token = getSession().getToken();
 			AuthentificationManager.getSession(token + "abc");
 			fail("The retrieval of a session with an invalid token should always fail");
 			
@@ -94,7 +109,7 @@ public class AuthentificationManagerTest extends AbstractTest {
 	@Test
 	public void testDeleteSession()
 	{
-		Session session = MockFactory.getSession();
+		Session session = getSession();
 		assert session != null;
 		AuthentificationManager.deleteSession(session.getToken());
 		try {
