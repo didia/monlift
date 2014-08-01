@@ -43,6 +43,9 @@ public class User extends AbstractEntity implements Principal {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+	public String getFullName(){
+		return this.firstname + " " + this.lastname;
+	}
 	public String getEmail() {
 		return email;
 	}
