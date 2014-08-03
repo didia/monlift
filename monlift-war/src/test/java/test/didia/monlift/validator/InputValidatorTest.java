@@ -1,7 +1,10 @@
 package test.didia.monlift.validator;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import me.didia.monlift.entities.User;
 import me.didia.monlift.visitor.RequestValidatorVisitor;
 
 import org.junit.Test;
@@ -64,6 +67,18 @@ public class InputValidatorTest extends AbstractTest {
 		assertTrue(inputValidator.phoneValidator(validePhone));
 		assertFalse(inputValidator.phoneValidator(unValidePhone));
 
+	}
+	
+	/**
+	 * outside test. Test if Entity reflection works
+	 */
+	@Test
+	public void testEntityReflection(){
+		User user = getUser();
+		assertEquals(user.getFirstname(), user.getField("firstname"));
+		assertEquals(user.getEmail(), user.getField("email"));
+		assertNull(user.getField("inexistent_field"));
+	
 	}
 	
 }
