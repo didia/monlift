@@ -1,6 +1,9 @@
 package me.didia.monlift.marshallers;
 
-import me.didia.monlift.BaseException;
+import java.util.ArrayList;
+import java.util.List;
+
+import me.didia.monlift.exceptions.MonliftException;
 import me.didia.monlift.responses.SessionResponse;
 import me.didia.monlift.securities.Session;
 
@@ -26,6 +29,12 @@ public class SessionMarshaller implements IMarshaller<SessionResponse, Session> 
 		return response;
 		
 		
+	}
+
+	@Override
+	public List<SessionResponse> marshall(List<Session> p_sessions) {
+		//NOT IMPLEMENTED cannot return multiple session
+		return null;
 	}
 
 
