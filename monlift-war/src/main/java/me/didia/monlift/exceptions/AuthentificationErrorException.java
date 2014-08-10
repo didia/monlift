@@ -1,9 +1,8 @@
-package me.didia.monlift.securities;
+package me.didia.monlift.exceptions;
 
-import me.didia.monlift.BaseException;
 
 @SuppressWarnings("serial")
-public class AuthentificationErrorException extends BaseException {
+public class AuthentificationErrorException extends MonliftException {
 
 	public AuthentificationErrorException()
 	{

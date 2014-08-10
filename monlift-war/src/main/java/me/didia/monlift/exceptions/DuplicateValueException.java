@@ -1,9 +1,8 @@
-package me.didia.monlift.factories;
+package me.didia.monlift.exceptions;
 
-import me.didia.monlift.BaseException;
 
 @SuppressWarnings("serial")
-public class DuplicateValueException extends BaseException {
+public class DuplicateValueException extends MonliftException {
 	
 	public DuplicateValueException()
 	{
