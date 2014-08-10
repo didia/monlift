@@ -6,8 +6,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import me.didia.monlift.entities.User;
-import me.didia.monlift.factories.DuplicateValueException;
+import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.factories.UserFactory;
+import me.didia.monlift.managers.UserManager;
+import me.didia.monlift.requests.PromoteUserRequest;
 import me.didia.monlift.requests.RegisterRequest;
 
 import org.junit.Before;
@@ -76,6 +78,24 @@ public class UserFactoryTest extends AbstractTest {
 		assertEquals(aUser.getId(), sameUser.getId()); // is enough already
 		assertEquals(aUser.getPhone(), sameUser.getPhone());
 		assertEquals(aUser.getPassword(), sameUser.getPassword());
+		
+	}
+	
+	@Test
+	public void testGetUserByUserName(){
+		User aUser = getUser();
+		try {
+			PromoteUserRequest request = MockFactory.getPromoteUserRequest();
+			if(request == null) {
+				fail("MockFactory returned a null PromoteUserRequest");
+			}
+			UserManager.promoteToDriver(aUser, request);
+			User sameUser = UserFactory.getUserByUsername(request.getUsername());
+			assertEquals(aUser.getId(), sameUser.getId());
+		} catch (DuplicateValueException e) {
+			
+			fail("PromoteToDriver raised a Duplicate Value Exception");
+		}
 		
 	}
 	

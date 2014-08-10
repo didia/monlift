@@ -1,12 +1,16 @@
 package test.didia.monlift.managers;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
 import me.didia.monlift.entities.User;
-import me.didia.monlift.factories.DuplicateValueException;
+import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.managers.UserManager;
+import me.didia.monlift.requests.PromoteUserRequest;
 
 import org.junit.Test;
 
@@ -24,13 +28,12 @@ public class UserManagerTest extends AbstractTest {
 
 	@Test
 	public void testPromoteToDriver() {
-		String username = "jakeIbee";
 		User user = getUser();
 		try {
-
-			UserManager.promoteToDriver(user.getId(), username);
+			PromoteUserRequest request = MockFactory.getPromoteUserRequest();
+			UserManager.promoteToDriver(user, request);
 			User sameUser = UserManager.getUser(user.getId());
-			assertEquals(sameUser.getUsername(), username);
+			assertEquals(sameUser.getUsername(), request.getUsername());
 			assertTrue(sameUser.isDriver());
 		} catch (DuplicateValueException e) {
 
@@ -40,7 +43,7 @@ public class UserManagerTest extends AbstractTest {
 
 	@Test
 	public void testPromoteDriverDuplicate() {
-		String username = "TheBlaze";
+		PromoteUserRequest request = MockFactory.getPromoteUserRequest();
 		ArrayList<User> users = getMultipleUser(2);
 		for (User user: users)
 		{
@@ -48,9 +51,9 @@ public class UserManagerTest extends AbstractTest {
 		}
 		try {
 			
-			UserManager.promoteToDriver(users.get(0).getId(), username);
+			UserManager.promoteToDriver(users.get(0), request);
 			try {
-				UserManager.promoteToDriver(users.get(1).getId(), username);
+				UserManager.promoteToDriver(users.get(1), request);
 				fail("Exception DuplicateValueException should be thrown as user is promoted with an existing username");
 			} catch (DuplicateValueException e) {
 				assertTrue(true);

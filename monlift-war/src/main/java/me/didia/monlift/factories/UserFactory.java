@@ -2,6 +2,7 @@ package me.didia.monlift.factories;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 import me.didia.monlift.entities.User;
+import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.managers.UniqueConstraintManager;
 import me.didia.monlift.requests.RegisterRequest;
 
@@ -76,6 +77,11 @@ public class UserFactory {
 		
 		
 		return ofy().load().type(User.class).filter(UserAttributes.EMAIL, email).first().now();
+	}
+	
+	public static User getUserByUsername(String p_username) {
+		
+		return ofy().load().type(User.class).filter(UserAttributes.USERNAME, p_username).first().now();
 	}
 	
 	/**

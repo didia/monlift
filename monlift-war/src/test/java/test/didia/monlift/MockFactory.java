@@ -11,13 +11,14 @@ import java.util.List;
 import me.didia.monlift.entities.Car;
 import me.didia.monlift.entities.Lift;
 import me.didia.monlift.entities.User;
-import me.didia.monlift.factories.DuplicateValueException;
+import me.didia.monlift.exceptions.AuthentificationErrorException;
+import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.managers.LiftManager;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.requests.CreateCarRequest;
 import me.didia.monlift.requests.CreateLiftRequest;
+import me.didia.monlift.requests.PromoteUserRequest;
 import me.didia.monlift.requests.RegisterRequest;
-import me.didia.monlift.securities.AuthentificationErrorException;
 import me.didia.monlift.securities.AuthentificationManager;
 import me.didia.monlift.securities.Session;
 
@@ -129,6 +130,13 @@ public class MockFactory {
 		
 		
 		return requests;
+	}
+	
+	public static PromoteUserRequest getPromoteUserRequest() {
+		PromoteUserRequest request = new PromoteUserRequest("Zuckerberg");
+		request.validate();
+		return request;
+
 	}
 	
 	private static CreateLiftRequest getCreateLiftRequest(
