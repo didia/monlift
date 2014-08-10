@@ -9,8 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import me.didia.monlift.BaseException;
 import me.didia.monlift.MonliftContext;
+import me.didia.monlift.exceptions.MonliftException;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.marshallers.SessionMarshaller;
 import me.didia.monlift.requests.LoginRequest;
@@ -57,7 +57,7 @@ public class OauthService {
 	@Path("/logout")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response logout() throws BaseException{
+	public Response logout() throws MonliftException{
 		String token = monliftContext.getCurrentToken();
 		
 		AuthentificationManager.deleteSession(token);

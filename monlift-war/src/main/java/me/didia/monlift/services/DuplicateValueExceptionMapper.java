@@ -7,10 +7,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-
 import org.apache.http.HttpStatus;
 
-import me.didia.monlift.factories.DuplicateValueException;
+import me.didia.monlift.exceptions.DuplicateValueException;
 
 /**
  * @author didia

@@ -7,8 +7,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-
-import me.didia.monlift.BaseException;
+import me.didia.monlift.exceptions.MonliftException;
 
 /**
  * @author didia
@@ -16,10 +15,10 @@ import me.didia.monlift.BaseException;
  */
 @Provider
 public class BaseExceptionMapper implements
-ExceptionMapper<BaseException> { 
+ExceptionMapper<MonliftException> { 
 	
 	@Override
-	public Response toResponse(BaseException ex) {
+	public Response toResponse(MonliftException ex) {
 		return Response.status(404).entity(ex.getMessage()).type("application/json")
 	            .build();
 	}

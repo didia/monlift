@@ -1,6 +1,7 @@
 package me.didia.monlift.requests;
 
-import me.didia.monlift.visitor.RequestVisitor;
+import me.didia.monlift.exceptions.ValidationErrorException;
+import me.didia.monlift.visitors.RequestVisitor;
 
 
 public interface IRequest {

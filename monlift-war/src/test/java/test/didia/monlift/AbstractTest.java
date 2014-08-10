@@ -6,7 +6,7 @@ import java.util.List;
 import me.didia.monlift.entities.Car;
 import me.didia.monlift.entities.Lift;
 import me.didia.monlift.entities.User;
-import me.didia.monlift.factories.DuplicateValueException;
+import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.helper.UniqueConstraint;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.requests.RegisterRequest;

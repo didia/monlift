@@ -8,8 +8,8 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Response;
 
 import me.didia.monlift.entities.User;
+import me.didia.monlift.exceptions.AuthentificationErrorException;
 import me.didia.monlift.requests.BaseRequest;
-import me.didia.monlift.securities.AuthentificationErrorException;
 import me.didia.monlift.securities.AuthentificationManager;
 import me.didia.monlift.securities.Session;
 

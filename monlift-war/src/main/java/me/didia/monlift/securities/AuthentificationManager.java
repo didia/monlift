@@ -10,6 +10,7 @@ import org.joda.time.DateTime;
 import com.googlecode.objectify.Ref;
 
 import me.didia.monlift.entities.User;
+import me.didia.monlift.exceptions.AuthentificationErrorException;
 import me.didia.monlift.managers.UserManager;
 
 public class AuthentificationManager {

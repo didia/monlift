@@ -7,10 +7,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-
 import org.apache.http.HttpStatus;
 
-import me.didia.monlift.securities.AuthentificationErrorException;
+import me.didia.monlift.exceptions.AuthentificationErrorException;
 
 
 /**

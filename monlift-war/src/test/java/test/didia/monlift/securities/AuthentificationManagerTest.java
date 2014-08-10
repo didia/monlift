@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import me.didia.monlift.entities.User;
-import me.didia.monlift.securities.AuthentificationErrorException;
+import me.didia.monlift.exceptions.AuthentificationErrorException;
 import me.didia.monlift.securities.AuthentificationManager;
 import me.didia.monlift.securities.Session;
 

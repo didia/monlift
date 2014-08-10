@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import me.didia.monlift.entities.User;
-import me.didia.monlift.visitor.RequestValidatorVisitor;
+import me.didia.monlift.visitors.RequestValidatorVisitor;
 
 import org.junit.Test;
 

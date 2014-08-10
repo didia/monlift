@@ -3,7 +3,7 @@ package me.didia.monlift.responses;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.didia.monlift.BaseException;
+import me.didia.monlift.exceptions.MonliftException;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -31,7 +31,7 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 			username = user.getUsername();
 	}
 	
-	public void build(me.didia.monlift.entities.User user, String[] fields) throws BaseException
+	public void build(me.didia.monlift.entities.User user, String[] fields) throws MonliftException
 	{
 		List<String> unknownFields = new ArrayList<String>();
 		for(int i=0; i<fields.length;i++)
@@ -67,7 +67,7 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 		
 		if(unknownFields.size() != 0)
 		{
-			throw new BaseException("Bad Request: Unknown field: " + unknownFields.toString());
+			throw new MonliftException("Bad Request: Unknown field: " + unknownFields.toString());
 		}
 		
 		
