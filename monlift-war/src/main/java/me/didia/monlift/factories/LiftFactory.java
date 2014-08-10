@@ -15,6 +15,7 @@ import com.googlecode.objectify.Key;
 import me.didia.monlift.entities.Car;
 import me.didia.monlift.entities.Lift;
 import me.didia.monlift.entities.User;
+import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.requests.CreateCarRequest;
 import me.didia.monlift.requests.CreateLiftRequest;
 
@@ -41,14 +42,17 @@ public class LiftFactory {
 		return lift;
 	}
 	
-	public static Lift getLiftById(Long p_id)
+	public static Lift getLiftById(User user, Long p_id)
 	{
-		return ofy().load().type(Lift.class).id(p_id).now();
+		Key<Lift> key = Key.create(user.getKey(), Lift.class, p_id);
+	
+		return ofy().load().key(key).now();
 	}
 	
-	public static List<Lift> getLiftsByUser(User p_user)
+	public static List<Lift> getLiftsByDriver(User p_driver)
 	{
-		List<Lift> lifts = ofy().load().type(Lift.class).filter("m_driver", p_user).list();
+		List<Lift> lifts = ofy().load().type(Lift.class).ancestor(p_driver).list();
+	
 		return lifts;
 	}
 	

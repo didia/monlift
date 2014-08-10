@@ -17,7 +17,7 @@ import test.didia.monlift.MockFactory;
 import me.didia.monlift.entities.Car;
 import me.didia.monlift.entities.Lift;
 import me.didia.monlift.entities.User;
-import me.didia.monlift.factories.DuplicateValueException;
+import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.factories.LiftFactory;
 import me.didia.monlift.requests.CreateCarRequest;
 import me.didia.monlift.requests.CreateLiftRequest;
@@ -97,7 +97,7 @@ public class LiftFactoryTest extends AbstractTest {
 	{
 		Lift lift = getLift();
 		assert lift != null;
-		Lift sameLift = LiftFactory.getLiftById(lift.getId());
+		Lift sameLift = LiftFactory.getLiftById(getUser(), lift.getId());
 		assertEquals(lift.getFrom(), sameLift.getFrom());
 		assertEquals(lift.getAvailablePlace(),sameLift.getAvailablePlace());
 		assertEquals(lift.getTo(), sameLift.getTo());
@@ -115,7 +115,7 @@ public class LiftFactoryTest extends AbstractTest {
 		//test with one lift
 		Lift lift = getLift();
 		assert lift != null;
-		List<Lift> lifts = LiftFactory.getLiftsByUser(lift.getDriver());
+		List<Lift> lifts = LiftFactory.getLiftsByDriver(lift.getDriver());
 		
 		assertEquals(1, lifts.size());
 		assertEquals(lifts.get(0), lift);
