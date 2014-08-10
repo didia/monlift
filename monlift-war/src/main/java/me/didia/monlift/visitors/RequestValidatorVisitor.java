@@ -1,19 +1,27 @@
-package me.didia.monlift.visitor;
+package me.didia.monlift.visitors;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+
+import me.didia.monlift.managers.UserManager;
+import me.didia.monlift.requests.BaseRequest;
 import me.didia.monlift.requests.CreateCarRequest;
 import me.didia.monlift.requests.CreateLiftRequest;
+import me.didia.monlift.requests.IRequest;
 import me.didia.monlift.requests.LoginRequest;
+import me.didia.monlift.requests.PromoteUserRequest;
 import me.didia.monlift.requests.RegisterRequest;
 import me.didia.monlift.requests.UpdateUserRequest;
-import me.didia.monlift.visitor.RequestValidatorVisitor;
+import me.didia.monlift.visitors.RequestValidatorVisitor;
 
 
 
 public class RequestValidatorVisitor implements RequestVisitor {
+	private List<String> m_errors = new ArrayList<String>();
 	private static RequestValidatorVisitor instance = null;
 		private RequestValidatorVisitor(){};
 
@@ -51,9 +59,21 @@ public class RequestValidatorVisitor implements RequestVisitor {
 	}
 	
 	private boolean validateEmail(String p_email){
-		String emailPattern = 
+		if(p_email != null)
+		{
+			String emailPattern = 
+		
                 "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-		return p_email.matches(emailPattern);
+			if(p_email.matches(emailPattern))
+			{
+				return true;
+			};
+			
+			m_errors.add("The email: " + p_email + " is not a valid email.");
+			
+			return false;
+		}
+		return true;
 	}
 	
 	private boolean validatePhoneNumber(String p_phone){
@@ -105,8 +125,18 @@ public class RequestValidatorVisitor implements RequestVisitor {
 	}
 
 	@Override
-	public void visit(RegisterRequest request) {
-		// TODO Auto-generated method stub
+	public void visit(RegisterRequest p_request) {
+		String[] required_fields = {"firstname", "lastname", "email", "phone", "phone"};
+		if(!validateFieldsNonEmpty(p_request, required_fields)){
+			p_request.setValid(false);
+		}
+		if(!validateEmail(p_request.getEmail())){
+			p_request.setValid(false);
+		}
+		if(!validateString(p_request.getFirstname())) {
+			p_request.setValid(false);
+		}
+		
 		
 	}
 
@@ -117,20 +147,41 @@ public class RequestValidatorVisitor implements RequestVisitor {
 	}
 
 	@Override
-	public void visit(CreateLiftRequest request) {
-		ArrayList<String> missing_fields = new ArrayList<String>();
-		if(request.getFrom() == null || request.getFrom().equals(""))
-		{
-			missing_fields.add(CreateLiftRequest.FROM_FIELD);
+	public void visit(CreateLiftRequest p_request) {
+		String[] requiredFields =  {"from","to","time","price","carId","totalPlace"};
+		if(!validateFieldsNonEmpty(p_request, requiredFields)){
+			p_request.setValid(false);
+		}	
+		
+	}
+	
+	private boolean validateFieldsNonEmpty(BaseRequest request, String... p_fieldNames){
+		List<String> missing_fields = new ArrayList<String>();
+		for(String field:p_fieldNames){
+			if(request.getField(field) == null){
+				missing_fields.add(field);
+			}
 		}
-		if( ! validateStringNonEmpty(request.getFrom()))
-		{
-			missing_fields.add(CreateLiftRequest.FROM_FIELD);
+		if(missing_fields.isEmpty()){
+			return true;
 		}
-		if(!validateStringNonEmpty(request.getTo()))
-		{
-			missing_fields.add(CreateLiftRequest.TO_FIELD);
-		}		
+		String message = "Fields: " + StringUtils.join(",", missing_fields) + " are missing";
+		m_errors.add(message);
+		
+		return false;
+	}
+
+	@Override
+	public void visit(PromoteUserRequest p_request) {
+		String[] requiredFields = {"username"};
+		if(!validateFieldsNonEmpty(p_request, requiredFields)){
+			p_request.setValid(false);
+		}
+		
+		if(UserManager.isUserNameTaken(p_request.getUsername())){
+			m_errors.add("The username "+p_request.getUsername() + " is already taken");
+			p_request.setValid(false);
+		}
 		
 	}
 	

@@ -2,7 +2,10 @@ package me.didia.monlift.requests;
 
 
 
-import me.didia.monlift.visitor.RequestVisitor;
+import java.lang.reflect.Field;
+
+import me.didia.monlift.visitors.RequestValidatorVisitor;
+import me.didia.monlift.visitors.RequestVisitor;
 
 
 public abstract class BaseRequest implements IRequest{
@@ -16,20 +19,33 @@ public abstract class BaseRequest implements IRequest{
 		this.m_token = token;
 	}
 
+	@Override
 	public void validate(){
-		if(m_token.isEmpty() || m_token == ""){
-			m_valid = false;
-		}
+		accept(RequestValidatorVisitor.getInstance());
 	}
 	
 	public boolean isValid()
 	{
 		return m_valid;
 	}
-
+	
+	public void setValid(boolean p_valid){
+		m_valid = p_valid;
+	}
+	
 	@Override
 	public void accept(RequestVisitor visitor) {}
 
+	public Object getField(String name) {
+		
+		try {
+			Field thefield = this.getClass().getDeclaredField(name);
+			thefield.setAccessible(true);
+			return thefield.getType().cast(thefield.get(this));
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+			return null;
+		}
+	}
 
 		
 }

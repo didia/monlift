@@ -5,6 +5,7 @@ package me.didia.monlift.requests;
  *
  */
 public class CreateCarRequest extends BaseRequest {
+	private String m_username;
 	private String m_name;
 	private String m_description;
 
@@ -32,6 +33,18 @@ public class CreateCarRequest extends BaseRequest {
 	 */
 	public void setDescription(String description) {
 		m_description = description;
+	}
+	/**
+	 * @return the username
+	 */
+	public String getUsername() {
+		return m_username;
+	}
+	/**
+	 * @param username the username to set
+	 */
+	public void setUsername(String username) {
+		m_username = username;
 	}
 }
 

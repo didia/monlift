@@ -1,6 +1,5 @@
 package me.didia.monlift.requests;
 
-import me.didia.monlift.visitor.RequestValidatorVisitor;
 
 public class RegisterRequest extends BaseRequest{
 	
@@ -40,14 +39,6 @@ public class RegisterRequest extends BaseRequest{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public void validate() {
-		RequestValidatorVisitor inputValidator = RequestValidatorVisitor.getInstance();
-		if(inputValidator.firstnameValidator(firstname) && inputValidator.lastnameValidator(lastname) && inputValidator.emailValidator(email) && inputValidator.phoneValidator(phone)){
-			m_valid = true;
-		}else{
-			m_valid = false;
-		}
-		
-	}
+
 
 }
