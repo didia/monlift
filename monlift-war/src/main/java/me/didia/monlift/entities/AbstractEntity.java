@@ -2,6 +2,8 @@ package me.didia.monlift.entities;
 
 import java.lang.reflect.Field;
 
+import com.googlecode.objectify.Key;
+
 /**
  * @author didia
  *
@@ -22,5 +24,9 @@ public abstract class AbstractEntity {
 		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
 			return null;
 		}
+	}
+
+	public Key<AbstractEntity> getKey(){
+		return Key.create(this.getClass(), getId());
 	}
 }

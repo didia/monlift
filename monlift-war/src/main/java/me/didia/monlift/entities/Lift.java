@@ -1,12 +1,16 @@
 package me.didia.monlift.entities;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import org.joda.time.DateTime;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.Ref;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 import com.googlecode.objectify.annotation.Load;
+import com.googlecode.objectify.annotation.Parent;
 
 /**
  * @author didia
@@ -23,7 +27,7 @@ public class Lift extends AbstractEntity{
 	private String m_meetingPlace;
 	private Integer m_totalPlace;
 	@Index private Integer m_availablePlace;
-	@Index @Load private Ref<User> m_driver;
+	@Load @Parent private Key<User> m_driver;
 	@Load private Ref<Car> m_car;
 	
 	
@@ -99,12 +103,19 @@ public class Lift extends AbstractEntity{
 	}
 	
 	public User getDriver(){
-		return m_driver.get();
+		return ofy().load().key(m_driver).now();
 	}
 	
+	public Long getDriverId(){
+		return Key.create(Lift.class, m_id).getParent().getId();
+	}
+	
+	public Key<User> getDriverKey(){
+		return Key.create(Lift.class, m_id).getParent();
+	}
 	public void setDriver(User p_user)
 	{
-		m_driver = Ref.create(p_user);
+		m_driver = Key.create(User.class, p_user.getId());
 	}
 	
 }

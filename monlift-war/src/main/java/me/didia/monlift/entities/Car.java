@@ -1,5 +1,7 @@
 package me.didia.monlift.entities;
 
+import static com.googlecode.objectify.ObjectifyService.ofy;
+
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -12,12 +14,10 @@ import com.googlecode.objectify.annotation.Parent;
 
 @Entity
 public class Car extends AbstractEntity {
-	@Id
-	private Long m_id;
+	@Id private Long m_id;
 	private String m_name;
 	private String m_description;
-	@Parent
-	Key<User> m_owner;
+	@Parent Key<User> m_owner;
 
 	public Long getId() {
 		return m_id;
@@ -59,6 +59,10 @@ public class Car extends AbstractEntity {
 
 	public void setOwner(User user) {
 		m_owner = Key.create(User.class, user.getId());
+	}
+	
+	public User getOwner(){
+		return ofy().load().key(m_owner).now();
 	}
 
 }
