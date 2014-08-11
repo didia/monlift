@@ -124,6 +124,15 @@ public class LiftFactoryTest extends AbstractTest {
 		
 	}
 	
+	@Test
+	public void testGetLiftsByQuery(){
+		Lift lift = getLift();
+		assert lift != null;
+		List<Lift> lifts = LiftFactory.getLiftByQuery("Québec", "Montréal");
+		assertNotNull(lifts);
+		assertEquals(1,lifts.size());
+	}
+	
 	
 	
 }

@@ -18,6 +18,7 @@ import me.didia.monlift.entities.User;
 import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.requests.CreateCarRequest;
 import me.didia.monlift.requests.CreateLiftRequest;
+import com.googlecode.objectify.cmd.Query;
 
 /**
  * @author didia
@@ -54,6 +55,13 @@ public class LiftFactory {
 		List<Lift> lifts = ofy().load().type(Lift.class).ancestor(p_driver).list();
 	
 		return lifts;
+	}
+	
+	public static List<Lift> getLiftByQuery(String from, String to){
+		Query<Lift> query = ofy().load().type(Lift.class);
+		query = query.filter("m_from",from);
+		query = query.filter("m_to",to);
+		return query.list();
 	}
 	
 

@@ -10,16 +10,34 @@ public class StatusService {
 	
 	private static final String api_version = "00.01.00";
 	@GET
-	@Produces(MediaType.TEXT_HTML)
-	public String returnTitle(){
-		return "<p>Java Web Service</p>";
+	@Produces(MediaType.APPLICATION_JSON)
+	public StatusResponse returnTitle( ){
+		StatusResponse response = new StatusResponse("Java web application");
+		return response;
+		
 	}
 	
 	@Path("/version")
 	@GET
-	@Produces(MediaType.TEXT_HTML)
-	public String returnVersion(){
-		return "<p>Version: </p>"+ api_version;
+	@Produces(MediaType.APPLICATION_JSON)
+	public StatusResponse returnVersion(){
+		StatusResponse response = new StatusResponse("<p>Version: </p>"+ api_version);
+		return response;
+	}
+	
+	class StatusResponse{
+		
+		private String message;
+		
+		public StatusResponse(String message){
+			this.message = message;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+
+		
 	}
 	
 }
