@@ -12,8 +12,9 @@ import javax.ws.rs.core.MediaType;
 
 import me.didia.monlift.MonliftContext;
 import me.didia.monlift.entities.Lift;
-import me.didia.monlift.factories.DuplicateValueException;
+import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.managers.LiftManager;
+import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.requests.CreateLiftRequest;
 import me.didia.monlift.responses.LiftResponse;
 
@@ -35,11 +36,13 @@ public class LiftService {
 	}
 	
 	@GET
-	@Path("/{id}")
+	@Path("{userid}/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public LiftResponse getLift(@PathParam("liftId") Long p_liftId){
-		Lift lift = LiftManager.getLift(p_liftId);
+	public LiftResponse getLift(@PathParam("id") Long p_liftId,
+								@PathParam("userid") Long p_userId){
+		
+		Lift lift = LiftManager.getLift(UserManager.getUser(p_userId), p_liftId);
 		LiftResponse liftResponse = new LiftResponse();
 		liftResponse.build(lift);
 		
