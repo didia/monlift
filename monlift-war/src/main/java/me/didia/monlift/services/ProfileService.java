@@ -77,6 +77,20 @@ public class ProfileService {
 	}
 	
 	@POST
+	@Path(MonliftPath.USER_PROMOTE_PATH)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public SuccessResponse promoteToDriver() throws MonliftException {
+		PromoteUserRequest request = monliftContext.getRequestObject(PromoteUserRequest.class);
+		request.validate();
+		UserManager.promoteToDriver(monliftContext.getCurrentUser(), request);
+		
+		return new SuccessResponse("User successfully promoted to Driver");
+		
+		
+	}
+ 	
+	@POST
 	@Path(MonliftPath.USER_FIELD_PATH)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -116,16 +130,5 @@ public class ProfileService {
 			return null;
 	}
 	
-	@POST
-	@Path(MonliftPath.USER_PROMOTE_PATH)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public SuccessResponse promoteToDriver(PromoteUserRequest p_request) throws MonliftException {
-		p_request.validate();
-		UserManager.promoteToDriver(monliftContext.getCurrentUser(), p_request);
-		
-		return new SuccessResponse("User successfully promoted to Driver");
-		
-		
-	}
+
 }
