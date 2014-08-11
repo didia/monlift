@@ -1,6 +1,7 @@
 package me.didia.monlift.responses;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import me.didia.monlift.exceptions.MonliftException;
@@ -10,14 +11,15 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
-	private Long id;
-	private String firstname;
-	private String lastname;
-	private String email;
-	private String phone;
-	private String username;
-	private String fullname;
-	private Boolean driver;
+	public Long id;
+	public String firstname;
+	public String lastname;
+	public String email;
+	public String phone;
+	public String username;
+	public String fullname;
+	public Boolean driver;
+	public HashMap<String, String> linkTo = new HashMap<String, String>();
 	
 	public void build(me.didia.monlift.entities.User user) {
 		id = user.getId();
@@ -174,5 +176,11 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 	 */
 	public void setDriver(Boolean driver) {
 		this.driver = driver;
+	}
+
+	@Override
+	public void setLinkTo(HashMap<String, String> p_linkTo) {
+		linkTo = p_linkTo;
+		
 	}
 }

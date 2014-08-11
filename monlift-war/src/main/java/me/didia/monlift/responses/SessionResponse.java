@@ -1,14 +1,18 @@
 package me.didia.monlift.responses;
 
+import java.util.HashMap;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SessionResponse  implements IResponse<me.didia.monlift.securities.Session>{
-	private UserResponse user;
-	private String token;
-	private String status;
+	public UserResponse user;
+	public String token;
+	public String status;
+	public HashMap<String, String> linkTo = new HashMap<String, String>();
+	
 	public void build(me.didia.monlift.securities.Session session) {
 		user = new UserResponse();
 		user.build(session.getUser());
@@ -51,6 +55,11 @@ public class SessionResponse  implements IResponse<me.didia.monlift.securities.S
 	@Override
 	public void blurPrivate() {
 		
+	}
+
+	@Override
+	public void setLinkTo(HashMap<String, String> p_linkTo) {
+		linkTo = p_linkTo;
 	}
 	
 

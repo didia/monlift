@@ -3,6 +3,8 @@
  */
 package me.didia.monlift.responses;
 
+import java.util.HashMap;
+
 import me.didia.monlift.entities.Car;
 
 /**
@@ -11,21 +13,28 @@ import me.didia.monlift.entities.Car;
  */
 public class CarResponse implements IResponse<Car> {
 
-	public String m_name;
-	public Long m_id;
-	public String m_description;
+	public String name;
+	public Long id;
+	public String description;
+	public HashMap<String, String> linkTo = new HashMap<String, String>() ;
+	
 	@Override
 	public void build(Car p_car) {
 		
-		m_name = p_car.getName();
-		m_id = p_car.getId();
-		m_description = p_car.getDescription();
-		
+		name = p_car.getName();
+		id = p_car.getId();
+		description = p_car.getDescription();
 	}
 
 	@Override
 	public void blurPrivate() {
 		// No private attributes in car yet
+		
+	}
+
+	@Override
+	public void setLinkTo(HashMap<String, String> p_linkTo) {
+		linkTo = p_linkTo;
 		
 	}
 
