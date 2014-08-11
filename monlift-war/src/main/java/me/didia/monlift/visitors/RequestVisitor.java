@@ -1,6 +1,3 @@
-/**
- * 
- */
 package me.didia.monlift.visitors;
 
 import me.didia.monlift.requests.CreateCarRequest;

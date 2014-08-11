@@ -97,11 +97,16 @@ public class MonliftContext {
 		}		
 	}
 	
-	public  <T extends BaseRequest> T getRequestObject(Class<T> type) throws JsonParseException, JsonMappingException, IOException
-	{
+	public  <T extends BaseRequest> T getRequestObject(Class<T> type) {
 		if(inputString == null)
 			return null;
-		return  objectMapper.readValue(inputString, type);
+		try {
+			return  objectMapper.readValue(inputString, type);
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 }
