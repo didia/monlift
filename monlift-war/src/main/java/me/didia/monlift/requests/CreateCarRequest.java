@@ -5,46 +5,48 @@ package me.didia.monlift.requests;
  *
  */
 public class CreateCarRequest extends BaseRequest {
-	private String m_username;
-	private String m_name;
-	private String m_description;
+
+	private String name;
+	private String description;
+	private String matricule;
 
 	/**
 	 * @return the name
 	 */
 	public String getName() {
-		return m_name;
+		return name;
 	}
 	/**
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
-		m_name = name;
+	public void setName(String p_name) {
+		name = p_name;
 	}
 
 	/**
 	 * @return the description
 	 */
 	public String getDescription() {
-		return m_description;
+		return description;
 	}
 	/**
 	 * @param description the description to set
 	 */
-	public void setDescription(String description) {
-		m_description = description;
+	public void setDescription(String p_description) {
+		description = p_description;
 	}
 	/**
-	 * @return the username
+	 * @return the matricule
 	 */
-	public String getUsername() {
-		return m_username;
+	public String getMatricule() {
+		return matricule;
 	}
 	/**
-	 * @param username the username to set
+	 * @param matricule the matricule to set
 	 */
-	public void setUsername(String username) {
-		m_username = username;
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
 	}
+
 }
 

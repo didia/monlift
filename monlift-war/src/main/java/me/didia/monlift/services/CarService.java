@@ -29,12 +29,13 @@ public class CarService {
 	@Path("/create")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public CarResponse createCar(CreateCarRequest p_request) throws MonliftException{
+	public CarResponse createCar() throws MonliftException{
+		CreateCarRequest request = MonliftContext.getInstance().getRequestObject(CreateCarRequest.class);
 		User user = MonliftContext.getInstance().getCurrentUser();
 		if (!user.isDriver()){
 			throw new NotADriverException("User must be a driver to add a car");
 		}
-		Car car = LiftManager.createCar(user, p_request);
+		Car car = LiftManager.createCar(user, request);
 		CarResponse response = new CarResponse();
 		response.build(car);
 		
