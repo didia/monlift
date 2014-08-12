@@ -17,6 +17,7 @@ public class Car extends AbstractEntity {
 	@Id private Long m_id;
 	private String m_name;
 	private String m_description;
+	private String m_matricule;
 	@Parent Key<User> m_owner;
 
 	public Long getId() {
@@ -63,6 +64,20 @@ public class Car extends AbstractEntity {
 	
 	public User getOwner(){
 		return ofy().load().key(m_owner).now();
+	}
+
+	/**
+	 * @return the matricule
+	 */
+	public String getMatricule() {
+		return m_matricule;
+	}
+
+	/**
+	 * @param matricule the matricule to set
+	 */
+	public void setMatricule(String matricule) {
+		m_matricule = matricule;
 	}
 
 }

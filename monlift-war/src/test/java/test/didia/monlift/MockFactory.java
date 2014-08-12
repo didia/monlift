@@ -30,6 +30,7 @@ import me.didia.monlift.securities.Session;
 public class MockFactory {
 	public static final String MOCK_CAR_NAME = "Volvo new model";
 	public static final String MOCK_CAR_DESCRIPTION = "5 seat, imatriculation 483 CKR, Blue";
+	public static final String MOCK_CAR_MATRICULE = "483 CKR";
 	
 	public static final String MOCK_USER_FIRSTNAME = "John";
 	public static final String MOCK_USER_LASTNAME = "Doe";
@@ -53,6 +54,7 @@ public class MockFactory {
 		CreateCarRequest request = new CreateCarRequest();
 		request.setName(MOCK_CAR_NAME);
 		request.setDescription(MOCK_CAR_DESCRIPTION);
+		request.setMatricule(MOCK_CAR_MATRICULE);
 		
 		return request;
 	}

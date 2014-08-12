@@ -71,7 +71,9 @@ public class LiftFactory {
 		Car car = new Car();
 		car.setName(p_request.getName());
 		car.setDescription(p_request.getDescription());
+		car.setMatricule(p_request.getMatricule());
 		car.setOwner(user);
+		
 		saveCar(car);
 		
 		return car;	
