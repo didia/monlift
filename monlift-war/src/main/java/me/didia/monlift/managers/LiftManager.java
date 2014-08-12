@@ -40,6 +40,10 @@ public class LiftManager {
 		return LiftFactory.getLiftsByDriver(p_driver);
 	}
 	
+	public static List<Lift> getLift(String from, String to){
+		return LiftFactory.getLiftByQuery(from, to);
+	}
+	
 	
 	
 }
