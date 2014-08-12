@@ -18,7 +18,7 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 	public String phone;
 	public String username;
 	public String fullname;
-	public Boolean driver;
+	public Boolean isDriver;
 	public HashMap<String, String> linkTo = new HashMap<String, String>();
 	
 	public void build(me.didia.monlift.entities.User user) {
@@ -28,7 +28,7 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 		email = user.getEmail();
 		phone = user.getPhone();
 		fullname = firstname + " " + lastname;
-		driver = user.isDriver();
+		isDriver = user.isDriver();
 		if(user.isDriver())
 			username = user.getUsername();
 	}
@@ -53,7 +53,7 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 				fullname = user.getFirstname() + " " + user.getLastname();
 				break;
 			case "driver":
-				driver = user.isDriver();
+				isDriver = user.isDriver();
 				break;
 			case "email":
 				email = user.getEmail();
@@ -169,13 +169,13 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 	 * @return the driver
 	 */
 	public Boolean isDriver() {
-		return driver;
+		return isDriver;
 	}
 	/**
 	 * @param driver the driver to set
 	 */
 	public void setDriver(Boolean driver) {
-		this.driver = driver;
+		this.isDriver = driver;
 	}
 
 	@Override
