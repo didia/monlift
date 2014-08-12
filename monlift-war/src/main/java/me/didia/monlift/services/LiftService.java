@@ -54,7 +54,8 @@ public class LiftService {
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public LiftResponse createLift(CreateLiftRequest p_request) throws DuplicateValueException{
+	public LiftResponse createLift() throws DuplicateValueException{
+		CreateLiftRequest p_request = MonliftContext.getInstance().getRequestObject(CreateLiftRequest.class);
 		p_request.validate();
 		Lift lift = LiftManager.createLift(MonliftContext.getInstance().getCurrentUser(), p_request);
 		LiftResponse response = new LiftResponse();
