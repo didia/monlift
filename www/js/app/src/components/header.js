@@ -24,6 +24,15 @@ function($, React, monlift, auth, buttons){
 							Button = buttons.LoginButton;
 							break;
 						
+						case 'Decline':
+							Button = buttons.DeclineButton;
+							break;
+						
+						case 'Accept':
+							Button = buttons.AcceptButton;
+							break;
+							
+							
 						default:
 							Button = ML.isUserLoggedIn()?buttons.LogoutButton:buttons.LoginButton;
 							break;
