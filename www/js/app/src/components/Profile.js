@@ -72,8 +72,92 @@ define(['jquery', 'react', 'app/monlift'], function($, React, monlift){
                                                
                }
                 
-          })
-                   
+          }),
+          
+          
+          
+          Request  :React.createClass({displayName:'Request',
+                	render: function(){
+                	        return (       <div class="containe">
+
+
+                                     <div class="user_profil">
+                                      </div>
+                                      
+                                      <div class= "traject">
+                                      
+                                     </div>
+                                     
+                                     <div class= "Passanger">
+                                     
+                                     </div>
+                                     
+                                     
+                                     <div class= "note">
+                                      
+                                     </div>
+                                     
+                                     
+                                     <div class= "Depart">
+                                     
+                                     </div>
+                                     
+                                     
+                                     <div class= "Arrivee">
+                                     
+                                     </div>
+                                     
+                                     
+                                    </div>
+                                    
+                                    
+                                    
+                                );
+                                               
+               }
+                
+          }),
+
+
+     
+
+
+    
+
+
+
+      
+
+      
+
+
+
+     
+
+     
+
+
+
+      
+
+      
+
+
+      
+      
+
+      
+
+
+
+      
+  
+
+
+
+
+
+
       }
 
 })
