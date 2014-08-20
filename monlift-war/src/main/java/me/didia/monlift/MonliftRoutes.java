@@ -6,15 +6,16 @@ import java.util.HashMap;
  * @author didia
  *
  */
-public class MonliftPath {
+public class MonliftRoutes {
 	
 	static final public String BASE_PATH = "api";
 	static final public String PROFILE_SELF_PATH = "me";
 	static final public String USER_PATH = "{id}";
 	static final public String USER_FIELD_PATH = "{id}/{field}";
-	static final public String USER_LIFTS_PATH = "{id}/lifts";
+	static final public String LIFTS_BY_USER_PATH = "{id}/lifts";
 	static final public String USER_EDIT_PATH = "{id}/edit";
 	static final public String USER_PROMOTE_PATH = "{id}/promote";
+	static final public String USER_CARS_PATH = "{id}/cars";
 	
 	static public String buildPath(String p_path, HashMap<String, String> p_values)
 	{

@@ -9,7 +9,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 import me.didia.monlift.MonliftContext;
-import me.didia.monlift.MonliftPath;
+import me.didia.monlift.MonliftRoutes;
+import me.didia.monlift.entities.Car;
 import me.didia.monlift.entities.Lift;
 import me.didia.monlift.entities.User;
 import me.didia.monlift.exceptions.MonliftException;
@@ -20,6 +21,7 @@ import me.didia.monlift.marshallers.SessionMarshaller;
 import me.didia.monlift.requests.PromoteUserRequest;
 import me.didia.monlift.requests.RegisterRequest;
 import me.didia.monlift.requests.UpdateUserRequest;
+import me.didia.monlift.responses.CarResponse;
 import me.didia.monlift.responses.LiftResponse;
 import me.didia.monlift.responses.SessionResponse;
 import me.didia.monlift.responses.SuccessResponse;
@@ -38,7 +40,7 @@ public class ProfileService {
 	private static MonliftContext monliftContext = MonliftContext.getInstance();
 	
 	@POST
-	@Path(MonliftPath.PROFILE_SELF_PATH)
+	@Path(MonliftRoutes.PROFILE_SELF_PATH)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public UserResponse getUserProfile() throws MonliftException
@@ -60,7 +62,7 @@ public class ProfileService {
 	}
 	
 	@POST
-	@Path(MonliftPath.USER_PATH)
+	@Path(MonliftRoutes.USER_PATH)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public UserResponse getUserProfile(@PathParam("id") Long userId) throws MonliftException
@@ -77,7 +79,7 @@ public class ProfileService {
 	}
 	
 	@POST
-	@Path(MonliftPath.USER_PROMOTE_PATH)
+	@Path(MonliftRoutes.USER_PROMOTE_PATH)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public SuccessResponse promoteToDriver() throws MonliftException {
@@ -91,7 +93,7 @@ public class ProfileService {
 	}
  	
 	@POST
-	@Path(MonliftPath.USER_FIELD_PATH)
+	@Path(MonliftRoutes.USER_FIELD_PATH)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public UserResponse getUserProfileField(@PathParam("id") Long userId,
@@ -112,17 +114,26 @@ public class ProfileService {
 	}
 	
 	@POST
-	@Path(MonliftPath.USER_LIFTS_PATH)
+	@Path(MonliftRoutes.LIFTS_BY_USER_PATH)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<LiftResponse> getUserLifts(@PathParam("id") Long p_id){
 		
-		List<Lift> userLifts = LiftManager.getLift(UserManager.getUser(p_id));
+		List<Lift> userLifts = LiftManager.getLifts(UserManager.getUser(p_id));
 		return new LiftMarshaller().marshall(userLifts);
 	}
 	
 	@POST
-	@Path(MonliftPath.USER_EDIT_PATH)
+	@Path(MonliftRoutes.USER_CARS_PATH)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public List<CarResponse> getUserCars(@PathParam("id") Long p_id) {
+		List<Car> userCars = LiftManager.getCars(UserManager.getUser(p_id));
+		return null;
+	}
+	
+	@POST
+	@Path(MonliftRoutes.USER_EDIT_PATH)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public SessionResponse register(UpdateUserRequest registerData) throws MonliftException{

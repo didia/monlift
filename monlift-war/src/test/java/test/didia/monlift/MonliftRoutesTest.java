@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 
-import me.didia.monlift.MonliftPath;
+import me.didia.monlift.MonliftRoutes;
 
 import org.junit.Test;
 
-public class MonliftPathTest extends AbstractTest {
+public class MonliftRoutesTest extends AbstractTest {
 	
 	@Test
 	public void testBuildPath()
@@ -20,11 +20,11 @@ public class MonliftPathTest extends AbstractTest {
 		values.put("field", field);
 				
 		String expected = "api/" + id + "/" + field;
-		assertEquals(expected, MonliftPath.buildPath(MonliftPath.USER_FIELD_PATH, values));
+		assertEquals(expected, MonliftRoutes.buildPath(MonliftRoutes.USER_FIELD_PATH, values));
 		
 		// test with null values
 		
-		assertEquals(expected, MonliftPath.buildPath(id + "/" + field, null));
+		assertEquals(expected, MonliftRoutes.buildPath(id + "/" + field, null));
 	}
 
 }
