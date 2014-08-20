@@ -5,6 +5,8 @@ package me.didia.monlift.responses;
 
 import java.util.HashMap;
 
+import me.didia.monlift.visitors.ResponseVisitor;
+
 /**
  * @author didia
  *
@@ -31,6 +33,16 @@ public class SuccessResponse implements IResponse<String> {
 	@Override
 	public void setLinkTo(HashMap<String, String> p_linkTo) {
 		linkTo = p_linkTo;
+	}
+	@Override
+	public void accept(ResponseVisitor p_visitor) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void buildLinkTo() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

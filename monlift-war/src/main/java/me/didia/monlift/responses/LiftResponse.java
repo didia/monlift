@@ -2,7 +2,10 @@ package me.didia.monlift.responses;
 
 import java.util.HashMap;
 
+import org.joda.time.format.DateTimeFormatter;
+
 import me.didia.monlift.entities.Lift;
+import me.didia.monlift.visitors.ResponseVisitor;
 
 public class LiftResponse implements IResponse<Lift> {
 	
@@ -40,6 +43,18 @@ public class LiftResponse implements IResponse<Lift> {
 	@Override
 	public void setLinkTo(HashMap<String, String> p_linkTo) {
 		linkTo = p_linkTo;
+	}
+
+	@Override
+	public void accept(ResponseVisitor p_visitor) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void buildLinkTo() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

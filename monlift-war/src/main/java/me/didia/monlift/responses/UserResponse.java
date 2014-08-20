@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import me.didia.monlift.exceptions.MonliftException;
+import me.didia.monlift.visitors.ResponseLinkToVisitor;
+import me.didia.monlift.visitors.ResponseVisitor;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -31,6 +33,10 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 		isDriver = user.isDriver();
 		if(user.isDriver())
 			username = user.getUsername();
+		buildLinkTo();
+		
+		
+		
 	}
 	
 	public void build(me.didia.monlift.entities.User user, String[] fields) throws MonliftException
@@ -183,4 +189,18 @@ public class UserResponse implements IResponse<me.didia.monlift.entities.User> {
 		linkTo = p_linkTo;
 		
 	}
+
+	@Override
+	public void accept(ResponseVisitor p_visitor) {
+		p_visitor.visit(this);
+		
+	}
+
+	@Override
+	public void buildLinkTo() {
+		accept(new ResponseLinkToVisitor());
+		
+	}
+	
+	
 }
