@@ -125,6 +125,17 @@ public class LiftFactoryTest extends AbstractTest {
 	}
 	
 	@Test
+	public void testGetCarsByUser() {
+		
+		Car car = getCar();
+		assert car != null;
+		List<Car> cars = LiftFactory.getCarsByDriver(car.getOwner());
+		assertEquals(1, cars.size());
+		assertEquals(cars.get(0), car);
+		
+	}
+	
+	@Test
 	public void testGetLiftsByQuery(){
 		Lift lift = getLift();
 		assert lift != null;

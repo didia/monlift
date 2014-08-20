@@ -32,17 +32,21 @@ public class LiftManager {
 		return LiftFactory.getCar(p_owner, p_id);
 	}
 	
+	public static List<Car> getCars(User p_driver) {
+		return LiftFactory.getCarsByDriver(p_driver);
+	}
 	public static Lift getLift(User p_user, Long p_id){
 		return LiftFactory.getLiftById(p_user, p_id);
 	}
 	
-	public static List<Lift> getLift(User p_driver){
+	public static List<Lift> getLifts(User p_driver){
 		return LiftFactory.getLiftsByDriver(p_driver);
 	}
 	
 	public static List<Lift> getLift(String from, String to){
 		return LiftFactory.getLiftByQuery(from, to);
 	}
+	
 	
 	
 	

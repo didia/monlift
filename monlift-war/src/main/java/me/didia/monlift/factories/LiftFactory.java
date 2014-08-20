@@ -74,7 +74,7 @@ public class LiftFactory {
 		car.setMatricule(p_request.getMatricule());
 		car.setOwner(user);
 		
-		saveCar(car);
+		save(car);
 		
 		return car;	
 	}
@@ -84,12 +84,17 @@ public class LiftFactory {
 		
 	}
 	
-	public static Key<Car> saveCar(Car car){
-		return ofy().save().entity(car).now();
-	}
+
 	
-	public static Key<Lift> save(Lift lift){
-		return ofy().save().entity(lift).now();
+	public static Key<?> save(Object entity) {
+		return ofy().save().entity(entity).now();
+	}
+
+	public static List<Car> getCarsByDriver(User p_driver) {
+		
+		List<Car> cars = ofy().load().type(Car.class).ancestor(p_driver).list();
+		
+		return cars;
 	}
 	
 }
