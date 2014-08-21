@@ -79,7 +79,8 @@ public class MonliftContext {
     	String token = null;
     	try {
 			JSONObject json = new JSONObject(theString);
-			token = json.getString("token");
+			token = json.optString("token", null);
+			
 			if(token != null)
 			{
 				session = AuthentificationManager.getSession(token);	

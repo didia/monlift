@@ -120,8 +120,6 @@ public class LiftFactoryTest extends AbstractTest {
 		assertEquals(1, lifts.size());
 		assertEquals(lifts.get(0), lift);
 		
-		
-		
 	}
 	
 	@Test

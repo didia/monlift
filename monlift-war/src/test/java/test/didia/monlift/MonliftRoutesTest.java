@@ -19,7 +19,8 @@ public class MonliftRoutesTest extends AbstractTest {
 		values.put("id", id);
 		values.put("field", field);
 				
-		String expected = "api/" + id + "/" + field;
+		//String expected = "api/" + id + "/" + field;
+		String expected = "/" + id + "/" + field; //Because client doesn't support full path
 		assertEquals(expected, MonliftRoutes.buildPath(MonliftRoutes.USER_FIELD_PATH, values));
 		
 		// test with null values

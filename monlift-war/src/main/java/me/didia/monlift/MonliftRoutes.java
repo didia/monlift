@@ -8,7 +8,8 @@ import java.util.HashMap;
  */
 public class MonliftRoutes {
 	
-	static final public String BASE_PATH = "api";
+	//static final public String BASE_PATH = "api";
+	static final public String BASE_PATH = ""; //small hack until the client stop building manually the path
 	static final public String PROFILE_SELF_PATH = "me";
 	static final public String USER_PATH = "{id}";
 	static final public String USER_FIELD_PATH = "{id}/{field}";
