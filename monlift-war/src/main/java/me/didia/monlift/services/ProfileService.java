@@ -2,11 +2,12 @@ package me.didia.monlift.services;
 
 import java.util.List;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
 
 import me.didia.monlift.MonliftContext;
 import me.didia.monlift.MonliftRoutes;
@@ -16,18 +17,13 @@ import me.didia.monlift.entities.User;
 import me.didia.monlift.exceptions.MonliftException;
 import me.didia.monlift.managers.LiftManager;
 import me.didia.monlift.managers.UserManager;
+import me.didia.monlift.marshallers.CarMarshaller;
 import me.didia.monlift.marshallers.LiftMarshaller;
-import me.didia.monlift.marshallers.SessionMarshaller;
 import me.didia.monlift.requests.PromoteUserRequest;
-import me.didia.monlift.requests.RegisterRequest;
-import me.didia.monlift.requests.UpdateUserRequest;
 import me.didia.monlift.responses.CarResponse;
 import me.didia.monlift.responses.LiftResponse;
-import me.didia.monlift.responses.SessionResponse;
 import me.didia.monlift.responses.SuccessResponse;
 import me.didia.monlift.responses.UserResponse;
-import me.didia.monlift.securities.AuthentificationManager;
-import me.didia.monlift.securities.Session;
 
 /**
  * @author didia
@@ -129,17 +125,9 @@ public class ProfileService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<CarResponse> getUserCars(@PathParam("id") Long p_id) {
 		List<Car> userCars = LiftManager.getCars(UserManager.getUser(p_id));
-		return null;
+		return new CarMarshaller().marshall(userCars);
 	}
 	
-	@POST
-	@Path(MonliftRoutes.USER_EDIT_PATH)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public SessionResponse register(UpdateUserRequest registerData) throws MonliftException{
-
-			return null;
-	}
 	
 
 }

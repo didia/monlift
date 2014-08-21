@@ -3,17 +3,12 @@
  */
 package test.didia.monlift.factories;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
-
-import test.didia.monlift.AbstractTest;
-import test.didia.monlift.MockFactory;
 import me.didia.monlift.entities.Car;
 import me.didia.monlift.entities.Lift;
 import me.didia.monlift.entities.User;
@@ -21,6 +16,11 @@ import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.factories.LiftFactory;
 import me.didia.monlift.requests.CreateCarRequest;
 import me.didia.monlift.requests.CreateLiftRequest;
+
+import org.junit.Test;
+
+import test.didia.monlift.AbstractTest;
+import test.didia.monlift.MockFactory;
 
 
 /**
