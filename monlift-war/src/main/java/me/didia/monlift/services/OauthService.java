@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import me.didia.monlift.MonliftContext;
+import me.didia.monlift.entities.User;
 import me.didia.monlift.exceptions.MonliftException;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.marshallers.SessionMarshaller;
@@ -17,6 +18,7 @@ import me.didia.monlift.requests.LoginRequest;
 import me.didia.monlift.requests.RegisterRequest;
 import me.didia.monlift.responses.SessionResponse;
 import me.didia.monlift.securities.AuthentificationManager;
+import me.didia.monlift.securities.Session;
 
 
 @Path("/oauth")
@@ -49,8 +51,10 @@ public class OauthService {
 		
 		RegisterRequest registerData = monliftContext.getRequestObject(RegisterRequest.class);
 		registerData.validate();
-		UserManager.createUser(registerData);
-		return SessionMarshaller.getInstance().marshall(AuthentificationManager.createSession(registerData.getEmail(), registerData.getPassword()));
+		
+		User user = UserManager.createUser(registerData);
+		Session session = AuthentificationManager.createSession(user);
+		return SessionMarshaller.getInstance().marshall(session);
 	}
 	
 	@POST

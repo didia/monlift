@@ -94,13 +94,22 @@ public class AuthentificationManager {
 		return ofy().load().type(UserToken.class).filter("token", token).filter("subject",subject).first().now();
 	}
 	
-	public static Session createSession(String email, String password) throws AuthentificationErrorException
+	public static Session createSession(String p_email, String p_password) throws AuthentificationErrorException
 	{
-		User user = getUserByPassword(email, password);
-		UserToken userToken = createUserToken(user, UserToken.AUTHENTIFICATION);
-		Session newSession = new Session(user, userToken.token);
+		User user = getUserByPassword(p_email, p_password);
+		return createSessionForUser(user);
+	}
+	
+	public static Session createSession(User p_user) {
+		return createSessionForUser(p_user);
+	}
+	
+	private static Session createSessionForUser(User p_user) {
+		UserToken userToken = createUserToken(p_user, UserToken.AUTHENTIFICATION);
+		Session newSession = new Session(p_user, userToken.token);
 		return newSession;
 	}
+	
 	
 	public static Session getSession(String token) throws AuthentificationErrorException
 	{

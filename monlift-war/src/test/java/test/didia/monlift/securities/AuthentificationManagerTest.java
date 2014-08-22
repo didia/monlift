@@ -32,8 +32,19 @@ public class AuthentificationManagerTest extends AbstractTest {
 		
 		
 	}
+	
 	@Test
-	public void testCreateSession()
+	public void testCreateSessionWithUser() {
+		User user = getUser();
+		assert user != null;
+		
+		Session session = AuthentificationManager.createSession(user);
+		assertEquals(session.getUser().getEmail(), user.getEmail());
+		assertEquals(session.getUser().getId(), user.getId());
+	}
+	
+	@Test
+	public void testCreateSessionWithEmailAndPassword()
 	{
 		User user = getUser();
 		assert user!= null;
