@@ -26,6 +26,7 @@ public class SessionMarshaller implements IMarshaller<SessionResponse, Session> 
 	public SessionResponse marshall(Session session) {
 		SessionResponse response = new SessionResponse();
 		response.build(session);
+		
 		return response;
 		
 		

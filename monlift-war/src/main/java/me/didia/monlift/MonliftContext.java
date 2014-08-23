@@ -3,6 +3,7 @@ package me.didia.monlift;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.util.logging.Logger;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Response;
@@ -31,6 +32,7 @@ public class MonliftContext {
 	private String inputString = null;
 	private static MonliftContext instance;
 	private static ObjectMapper objectMapper = new ObjectMapper();
+	private static final Logger log = Logger.getLogger(MonliftContext.class.getName());
 	
 	public static MonliftContext getInstance()
 	{
@@ -62,6 +64,7 @@ public class MonliftContext {
 	
 	public void initialize(ContainerRequestContext requestContext) throws IOException
 	{
+		log.info("Incoming Request for: " + requestContext.getUriInfo().getAbsolutePath().toString());
 		initializeSession(requestContext);
 	}
 	

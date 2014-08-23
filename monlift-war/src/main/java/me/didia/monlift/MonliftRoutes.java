@@ -18,10 +18,20 @@ public class MonliftRoutes {
 	static final public String USER_PROMOTE_PATH = "{id}/promote";
 	static final public String USER_CARS_PATH = "{id}/cars";
 	
+	static final public String OAUTH_BASE_PATH = "/oauth";
+	static final public String OAUTH_LOGIN_PATH = "/login";
+	static final public String OAUTH_REGISTER_PATH = "/register";
+	static final public String OAUTH_LOGOUT_PATH = "/logout";
+	
 	static public String buildPath(String p_path, HashMap<String, String> p_values)
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append(BASE_PATH).append("/").append(p_path);
+		sb.append(BASE_PATH);
+		if(!p_path.startsWith("/")) {
+			sb.append("/");
+		}
+		
+		sb.append(p_path);
 		String newPath = sb.toString();
 		if(p_values == null)
 		{

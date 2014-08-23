@@ -2,6 +2,7 @@ package me.didia.monlift.responses;
 
 import java.util.HashMap;
 
+import me.didia.monlift.visitors.ResponseLinkToVisitor;
 import me.didia.monlift.visitors.ResponseVisitor;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -19,7 +20,8 @@ public class SessionResponse  implements IResponse<me.didia.monlift.securities.S
 		user = new UserResponse();
 		user.build(session.getUser());
 		token = session.getToken();
-		status = "ok";
+		buildLinkTo();
+		
 	}
 	
 	/**
@@ -66,13 +68,13 @@ public class SessionResponse  implements IResponse<me.didia.monlift.securities.S
 
 	@Override
 	public void accept(ResponseVisitor p_visitor) {
-		// TODO Auto-generated method stub
+		p_visitor.visit(this);
 		
 	}
 
 	@Override
 	public void buildLinkTo() {
-		// TODO Auto-generated method stub
+		accept(new ResponseLinkToVisitor());
 		
 	}
 	
