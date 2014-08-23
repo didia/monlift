@@ -6,6 +6,7 @@ import java.io.StringWriter;
 import java.util.logging.Logger;
 
 import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 import me.didia.monlift.entities.User;
@@ -18,8 +19,6 @@ import org.apache.commons.io.IOUtils;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -33,7 +32,7 @@ public class MonliftContext {
 	private static MonliftContext instance;
 	private static ObjectMapper objectMapper = new ObjectMapper();
 	private static final Logger log = Logger.getLogger(MonliftContext.class.getName());
-	
+	@Context private ContainerRequestContext requestContext;
 	public static MonliftContext getInstance()
 	{
 		if(instance == null)
@@ -93,7 +92,7 @@ public class MonliftContext {
 			
 			e.printStackTrace();
 		} catch (AuthentificationErrorException e) {
-	
+			
 			requestContext.abortWith(Response
                     .status(Response.Status.UNAUTHORIZED)
                     .entity("Invalid token used for logging. " + token)
@@ -110,6 +109,15 @@ public class MonliftContext {
 			
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public void userIsRequired() {
+		if(getCurrentUser() == null) {
+			requestContext.abortWith(Response
+                    .status(Response.Status.UNAUTHORIZED)
+                    .entity("An authentification token is required")
+                    .build());
 		}
 	}
 	

@@ -72,35 +72,3 @@ public class OauthService {
 
 	}
 }
-
-/**
- * Authentication API , 
- * full link is /api/oauth/
- * ajax request example :
- * function(){
-		var person ={
-			    "email": "jake",
-			    "password": "massa"
-			};
-		  $.ajax({
-	            url: '/api/oauth/login',
-	            type: 'POST',
-	            contentType: 'application/json',
-	            data: JSON.stringify(person),
-	            dataType: 'json',
-	            success:function(data){
-	            	var status = data.status
-	            	var user = JSON.parse (data.user);
-	            	var token = data.token;
-	            	var firstname = user.firstname;
-	            	console.log("userfirstname is "+ firstname);
-	            },
-	            error: function(jqXHR,textStatus,errorThrown){
-	            	alert("Error is" +jqXHR+textStatus,errorThrown);
-	            }
-	        });
-	        return false;
-	    };
- * @author theotherside
- *
- */

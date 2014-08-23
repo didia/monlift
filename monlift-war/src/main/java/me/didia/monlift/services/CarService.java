@@ -10,11 +10,9 @@ import javax.ws.rs.core.MediaType;
 import me.didia.monlift.MonliftContext;
 import me.didia.monlift.entities.Car;
 import me.didia.monlift.entities.User;
-import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.exceptions.MonliftException;
 import me.didia.monlift.exceptions.NotADriverException;
 import me.didia.monlift.managers.LiftManager;
-import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.requests.CreateCarRequest;
 import me.didia.monlift.responses.CarResponse;
 
@@ -25,13 +23,18 @@ import me.didia.monlift.responses.CarResponse;
 @Path("/cars")
 public class CarService {
 	
+	private static MonliftContext monliftContext = MonliftContext.getInstance();
+	
 	@POST
 	@Path("/create")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public CarResponse createCar() throws MonliftException{
-		CreateCarRequest request = MonliftContext.getInstance().getRequestObject(CreateCarRequest.class);
-		User user = MonliftContext.getInstance().getCurrentUser();
+	public CarResponse createCar() throws MonliftException {
+		
+		monliftContext.userIsRequired();
+		
+		CreateCarRequest request = monliftContext.getRequestObject(CreateCarRequest.class);
+		User user = monliftContext.getCurrentUser();
 		if (!user.isDriver()){
 			throw new NotADriverException("User must be a driver to add a car");
 		}

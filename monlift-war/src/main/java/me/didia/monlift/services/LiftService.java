@@ -25,6 +25,8 @@ import me.didia.monlift.responses.LiftResponse;
 @Path("/lifts")
 public class LiftService {
 	
+	private static MonliftContext monliftContext = MonliftContext.getInstance();
+	
 	@POST
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -54,10 +56,13 @@ public class LiftService {
 	@Path("/create")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public LiftResponse createLift() throws DuplicateValueException{
-		CreateLiftRequest p_request = MonliftContext.getInstance().getRequestObject(CreateLiftRequest.class);
+	public LiftResponse createLift() throws DuplicateValueException {
+		
+		monliftContext.userIsRequired();
+		
+		CreateLiftRequest p_request = monliftContext.getRequestObject(CreateLiftRequest.class);
 		p_request.validate();
-		Lift lift = LiftManager.createLift(MonliftContext.getInstance().getCurrentUser(), p_request);
+		Lift lift = LiftManager.createLift(monliftContext.getCurrentUser(), p_request);
 		LiftResponse response = new LiftResponse();
 		response.build(lift);
 		return response;

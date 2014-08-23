@@ -51,6 +51,7 @@ public class ProfileService {
 		UserResponse userResponse = new UserResponse();
 		userResponse.build(user);
 		*/
+		monliftContext.userIsRequired();
 		User user = monliftContext.getCurrentUser();
 		UserResponse userResponse = new UserResponse();
 		userResponse.build(user);
@@ -63,6 +64,7 @@ public class ProfileService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public UserResponse getUserProfile(@PathParam("id") Long userId) throws MonliftException
 	{
+		monliftContext.userIsRequired();
 		User user = UserManager.getUser(userId);
 		if(user == null)
 		{
@@ -79,6 +81,8 @@ public class ProfileService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public SuccessResponse promoteToDriver() throws MonliftException {
+		
+		monliftContext.userIsRequired();
 		PromoteUserRequest request = monliftContext.getRequestObject(PromoteUserRequest.class);
 		request.validate();
 		UserManager.promoteToDriver(monliftContext.getCurrentUser(), request);
@@ -94,6 +98,9 @@ public class ProfileService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public UserResponse getUserProfileField(@PathParam("id") Long userId,
 											@PathParam("field") String field) throws MonliftException{
+		
+		monliftContext.userIsRequired();
+		
 		String[] fields = field.split(",");
 		User user = UserManager.getUser(userId);
 		
@@ -115,6 +122,8 @@ public class ProfileService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<LiftResponse> getUserLifts(@PathParam("id") Long p_id){
 		
+		monliftContext.userIsRequired();
+		
 		List<Lift> userLifts = LiftManager.getLifts(UserManager.getUser(p_id));
 		return new LiftMarshaller().marshall(userLifts);
 	}
@@ -124,6 +133,9 @@ public class ProfileService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<CarResponse> getUserCars(@PathParam("id") Long p_id) {
+		
+		monliftContext.userIsRequired();
+		
 		List<Car> userCars = LiftManager.getCars(UserManager.getUser(p_id));
 		return new CarMarshaller().marshall(userCars);
 	}
