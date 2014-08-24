@@ -46,6 +46,17 @@ public abstract class BaseRequest implements IRequest{
 			return null;
 		}
 	}
+	
+	public void setField(String name, Object value) {
+		try {
+			Field thefield = this.getClass().getDeclaredField(name);
+			thefield.setAccessible(true);
+			thefield.set(this, value);
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+		
+		}
+		
+	}
 
 		
 }

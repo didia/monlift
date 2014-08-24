@@ -25,7 +25,18 @@ public abstract class AbstractEntity {
 			return null;
 		}
 	}
-
+	
+	public void setField(String name, Object value) {
+		try {
+			Field thefield = this.getClass().getDeclaredField(name);
+			thefield.setAccessible(true);
+			thefield.set(this, value);
+		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+		
+		}
+		
+	}
+	
 	public Key<AbstractEntity> getKey(){
 		return Key.create(this.getClass(), getId());
 	}
