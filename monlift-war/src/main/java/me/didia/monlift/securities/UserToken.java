@@ -16,11 +16,11 @@ public class UserToken {
 	@Ignore public static final String AUTHENTIFICATION = "auth";
 	@Ignore public static final String SIGNUP = "signup";
 	@Ignore public static final String RESET_PASSWORD = "reset_password";
-	@Id public String key;
+	@Id public String token;
 	public DateTime date_created;
 	public DateTime date_updated;
 	@Load public Ref<User> user;
 	@Index public String subject;
-	@Index public String token;
+	
 	
 }

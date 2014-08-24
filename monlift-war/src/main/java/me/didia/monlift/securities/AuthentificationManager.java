@@ -40,8 +40,10 @@ public class AuthentificationManager {
 	{
 		UserToken userToken = new UserToken();
 		String token = nextSessionId();
-		String key = String.format("%s.%s.%s", user.getId().toString(), subject, token);
-		userToken.key = key;
+		
+		while(getUserToken(token) != null) {
+			token = nextSessionId();
+		}
 		userToken.token = token;
 		userToken.subject = subject;
 		userToken.date_created = new DateTime();
@@ -74,24 +76,30 @@ public class AuthentificationManager {
 	}
 	private static User getUserByToken(String token,String subject) throws AuthentificationErrorException
 	{
-		UserToken userToken = getUserToken(token, subject);
-		if (userToken == null)
+		UserToken userToken = getUserToken(token);
+		
+		if (userToken == null || !userToken.subject.equals(subject))
 		{
 			throw new AuthentificationErrorException("The authentification token is not recognized");
 		}
-		updateToken(userToken);
+		
+		
+		
 		User user =  userToken.user.get();
 		if (user == null)
 		{
 			throw new AuthentificationErrorException("This user account has either been suspended or deleted");
 		}
+		
+		updateToken(userToken);
+		
 		return user;
 	}
 	
-	private static UserToken getUserToken(String token, String subject)
+	private static UserToken getUserToken(String token)
 	{
 		
-		return ofy().load().type(UserToken.class).filter("token", token).filter("subject",subject).first().now();
+		return ofy().load().type(UserToken.class).id(token).now();
 	}
 	
 	public static Session createSession(String p_email, String p_password) throws AuthentificationErrorException
@@ -120,7 +128,14 @@ public class AuthentificationManager {
 	
 	public static void deleteSession(String token)
 	{
-		UserToken userToken = getUserToken(token, UserToken.AUTHENTIFICATION);
-		ofy().delete().entity(userToken).now();
+		UserToken userToken = getUserToken(token);
+		if(userToken.subject.equals(UserToken.AUTHENTIFICATION)) {
+			deleteToken(userToken);
+		}
+		
+	}
+	
+	public static void deleteToken(UserToken p_token) {
+		ofy().delete().entity(p_token).now();
 	}
  }
