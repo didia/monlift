@@ -9,7 +9,7 @@ import me.didia.monlift.entities.User;
 import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.helper.UniqueConstraint;
 import me.didia.monlift.managers.UserManager;
-import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.requests.CreateUserRequest;
 import me.didia.monlift.securities.UserToken;
 
 import org.junit.After;
@@ -36,7 +36,7 @@ public class AbstractTest {
 		}
 		
 		try {
-			RegisterRequest request = MockFactory.getRegisterUserRequest();
+			CreateUserRequest request = MockFactory.getRegisterUserRequest();
 			m_userInstance = UserManager.createUser(request);
 			return m_userInstance;
 		} catch (DuplicateValueException e) {
@@ -49,8 +49,8 @@ public class AbstractTest {
 	public static ArrayList<User> getMultipleUser(int number) {
 		ArrayList<User> users = new ArrayList<User>(number);
 		
-		List<RegisterRequest> requests = MockFactory.getMultipleRegisterRequest(number);
-		for(RegisterRequest request : requests)
+		List<CreateUserRequest> requests = MockFactory.getMultipleRegisterRequest(number);
+		for(CreateUserRequest request : requests)
 		{
 			try{
 				users.add(UserManager.createUser(request));

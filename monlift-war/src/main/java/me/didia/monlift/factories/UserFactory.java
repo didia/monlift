@@ -4,7 +4,7 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 import me.didia.monlift.entities.User;
 import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.managers.UniqueConstraintManager;
-import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.requests.CreateUserRequest;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -47,7 +47,7 @@ public class UserFactory {
 		return newUser.getId();
 	}
 	
-	public static User createUser(RegisterRequest request) throws DuplicateValueException
+	public static User createUser(CreateUserRequest request) throws DuplicateValueException
 	{
 		User newUser = new User();
 		newUser.setFirstname(request.getFirstname());

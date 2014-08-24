@@ -16,7 +16,7 @@ import me.didia.monlift.exceptions.MonliftException;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.marshallers.SessionMarshaller;
 import me.didia.monlift.requests.LoginRequest;
-import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.requests.CreateUserRequest;
 import me.didia.monlift.responses.SessionResponse;
 import me.didia.monlift.securities.AuthentificationManager;
 import me.didia.monlift.securities.Session;
@@ -50,7 +50,7 @@ public class OauthService {
 	public SessionResponse register() throws MonliftException{
 
 		
-		RegisterRequest registerData = monliftContext.getRequestObject(RegisterRequest.class);
+		CreateUserRequest registerData = monliftContext.getRequestObject(CreateUserRequest.class);
 		registerData.validate();
 		
 		User user = UserManager.createUser(registerData);

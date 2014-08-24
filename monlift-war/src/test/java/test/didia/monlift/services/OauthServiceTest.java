@@ -9,7 +9,7 @@ import java.util.Map;
 
 import me.didia.monlift.requests.BaseRequest;
 import me.didia.monlift.requests.LoginRequest;
-import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.requests.CreateUserRequest;
 import test.didia.monlift.AbstractTest;
 
 /**
@@ -22,7 +22,7 @@ public class OauthServiceTest extends AbstractTest {
 	
 	//@Test
 	public void oauthServiceRegister() {	
-		RegisterRequest registerData = new RegisterRequest();
+		CreateUserRequest registerData = new CreateUserRequest();
 		
 		registerData.setFirstname("monlift");
 		registerData.setLastname("app");

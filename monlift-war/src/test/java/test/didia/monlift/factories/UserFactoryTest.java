@@ -10,7 +10,7 @@ import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.factories.UserFactory;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.requests.PromoteUserRequest;
-import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.requests.CreateUserRequest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class UserFactoryTest extends AbstractTest {
 	@Test
 	public void testCreateUser(){
 		// Testing normal procedure
-		RegisterRequest request = MockFactory.getRegisterUserRequest();
+		CreateUserRequest request = MockFactory.getRegisterUserRequest();
 		try {
 			
 			User user = UserFactory.createUser(request);

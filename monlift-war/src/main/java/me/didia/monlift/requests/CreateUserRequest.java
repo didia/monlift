@@ -1,7 +1,7 @@
 package me.didia.monlift.requests;
 
 
-public class RegisterRequest extends BaseRequest{
+public class CreateUserRequest extends BaseRequest{
 	
 	private String firstname;
 	private String lastname;

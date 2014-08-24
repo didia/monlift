@@ -14,7 +14,7 @@ import me.didia.monlift.requests.CreateLiftRequest;
 import me.didia.monlift.requests.IRequest;
 import me.didia.monlift.requests.LoginRequest;
 import me.didia.monlift.requests.PromoteUserRequest;
-import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.requests.CreateUserRequest;
 import me.didia.monlift.requests.UpdateUserRequest;
 import me.didia.monlift.visitors.RequestValidatorVisitor;
 
@@ -125,7 +125,7 @@ public class RequestValidatorVisitor implements RequestVisitor {
 	}
 
 	@Override
-	public void visit(RegisterRequest p_request) {
+	public void visit(CreateUserRequest p_request) {
 		String[] required_fields = {"firstname", "lastname", "email", "phone", "phone"};
 		if(!validateFieldsNonEmpty(p_request, required_fields)){
 			p_request.setValid(false);

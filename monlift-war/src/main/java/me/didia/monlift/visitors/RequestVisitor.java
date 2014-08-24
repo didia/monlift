@@ -4,7 +4,7 @@ import me.didia.monlift.requests.CreateCarRequest;
 import me.didia.monlift.requests.CreateLiftRequest;
 import me.didia.monlift.requests.LoginRequest;
 import me.didia.monlift.requests.PromoteUserRequest;
-import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.requests.CreateUserRequest;
 import me.didia.monlift.requests.UpdateUserRequest;
 
 /**
@@ -14,7 +14,7 @@ import me.didia.monlift.requests.UpdateUserRequest;
 public interface RequestVisitor {
 	public  void visit(CreateCarRequest p_request);
 	public  void visit(LoginRequest p_request);
-	public  void visit(RegisterRequest p_request);
+	public  void visit(CreateUserRequest p_request);
 	public  void visit(UpdateUserRequest p_request);
 	public  void visit(CreateLiftRequest p_request);
 	public  void visit(PromoteUserRequest p_request);

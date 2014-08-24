@@ -18,7 +18,7 @@ import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.requests.CreateCarRequest;
 import me.didia.monlift.requests.CreateLiftRequest;
 import me.didia.monlift.requests.PromoteUserRequest;
-import me.didia.monlift.requests.RegisterRequest;
+import me.didia.monlift.requests.CreateUserRequest;
 import me.didia.monlift.securities.AuthentificationManager;
 import me.didia.monlift.securities.Session;
 
@@ -59,17 +59,17 @@ public class MockFactory {
 		return request;
 	}
 	
-	public static RegisterRequest getRegisterUserRequest() {
+	public static CreateUserRequest getRegisterUserRequest() {
 		return getRegisterRequest(MOCK_USER_FIRSTNAME, MOCK_USER_LASTNAME, 
 				                  MOCK_USER_PASSWORD, MOCK_USER_NUMBER);
 		
 	}
 	
-	public static List<RegisterRequest> getMultipleRegisterRequest(int number) {
+	public static List<CreateUserRequest> getMultipleRegisterRequest(int number) {
 		
-		ArrayList<RegisterRequest> requests = new ArrayList<RegisterRequest>(number);
+		ArrayList<CreateUserRequest> requests = new ArrayList<CreateUserRequest>(number);
 		
-		RegisterRequest request = getRegisterUserRequest();
+		CreateUserRequest request = getRegisterUserRequest();
 		requests.add(request);
 		for(int i=0; i<number; i++)
 		{
@@ -77,7 +77,7 @@ public class MockFactory {
 			String lastname = request.getLastname() + "-" + i;
 			String password = request.getPassword() + "-" + i;
 			String phone = request.getPhone() + "-" + i;
-			RegisterRequest aRequest = getRegisterRequest(firstname, lastname,
+			CreateUserRequest aRequest = getRegisterRequest(firstname, lastname,
 														  password, phone);
 			requests.add(aRequest);
 			
@@ -86,11 +86,11 @@ public class MockFactory {
 		return requests;
 	}
 	
-	private static RegisterRequest getRegisterRequest(String p_firstname, 
+	private static CreateUserRequest getRegisterRequest(String p_firstname, 
 													  String p_lastname, 
 													  String p_password, 
 													  String p_phone) {
-		RegisterRequest request = new RegisterRequest();
+		CreateUserRequest request = new CreateUserRequest();
 		request.setFirstname(p_firstname);
 		request.setLastname(p_lastname);
 		request.setPassword(p_password);
