@@ -92,7 +92,10 @@ public class UserFactory {
 	public static Key<User> save(User user){
 		return ofy().save().entity(user).now();
 	}
-
+	
+	public static void delete(User user) {
+		ofy().delete().entity(user).now();
+	}
 	public static void setUniqueConstraint(Object object, String fieldname, String value) throws DuplicateValueException
 	{
 		if(!UniqueConstraintManager.create(object, fieldname, value))

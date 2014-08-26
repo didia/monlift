@@ -15,7 +15,8 @@ import me.didia.monlift.requests.CreateLiftRequest;
  *
  */
 public class LiftManager {
-	
+	private static String[] UPDATABLE_CAR_FIELDS = new String[] {"name","description"};
+	private static String[] UPDATABLE_LIFT_FIELDS = new String[] {"from", "to","meetingPlace","time","price","car"};
 	public static Car createCar(User user, CreateCarRequest request)
 	{
 		return LiftFactory.createCar(user, request);
@@ -47,7 +48,34 @@ public class LiftManager {
 		return LiftFactory.getLiftByQuery(from, to);
 	}
 	
+	public static Car updateCar(Car p_car, CreateCarRequest p_request)
+	{
+		for(String field : UPDATABLE_CAR_FIELDS) {
+			Object value = p_request.getField(field);
+			if(value != null) {
+				p_car.setField(field, value);
+			}
+		}
+		return p_car;
+	}
 	
+	public static Lift updateLift(Lift p_lift, CreateLiftRequest p_request) {
+		for(String field : UPDATABLE_LIFT_FIELDS) {
+			Object value = p_request.getField(field);
+			if(value != null) {
+				p_lift.setField(field, value);
+			}
+		}
+		return p_lift;
+	}
+	
+	public static void deleteCar(Car p_car) {
+		LiftFactory.delete(p_car);
+	}
+	
+	public static void deleteLift(Lift p_lift) {
+		LiftFactory.delete(p_lift);
+	}
 	
 	
 }

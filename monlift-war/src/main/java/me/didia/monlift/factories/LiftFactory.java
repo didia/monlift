@@ -89,6 +89,10 @@ public class LiftFactory {
 	public static Key<?> save(Object entity) {
 		return ofy().save().entity(entity).now();
 	}
+	
+	public static void delete(Object p_entity) {
+		ofy().delete().entity(p_entity).now();
+	}
 
 	public static List<Car> getCarsByDriver(User p_driver) {
 		
@@ -96,5 +100,7 @@ public class LiftFactory {
 		
 		return cars;
 	}
+
+
 	
 }

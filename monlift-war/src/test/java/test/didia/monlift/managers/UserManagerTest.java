@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import me.didia.monlift.entities.User;
 import me.didia.monlift.exceptions.DuplicateValueException;
 import me.didia.monlift.managers.UserManager;
+import me.didia.monlift.requests.CreateUserRequest;
 import me.didia.monlift.requests.PromoteUserRequest;
 
 import org.junit.Test;
@@ -63,6 +64,25 @@ public class UserManagerTest extends AbstractTest {
 			fail(e.getMessage());
 		}
 
+	}
+	
+	@Test
+	public void testUpdateUser() {
+		String firstname = "JoJo";
+		String lastname = "Masta";
+		String phone = "5814008150";
+		
+		CreateUserRequest request = new CreateUserRequest();
+		request.setFirstname(firstname);
+		request.setLastname(lastname);
+		request.setPhone(phone);
+		
+		User user = getUser();
+		UserManager.updateUser(user, request);
+		User sameUser = UserManager.getUser(user.getId());
+		assertEquals(sameUser.getFirstname(), firstname);
+		assertEquals(sameUser.getLastname(), lastname);
+		assertEquals(sameUser.getPhone(), phone);
 	}
 
 }
