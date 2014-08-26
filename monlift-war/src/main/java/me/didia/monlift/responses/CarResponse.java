@@ -14,17 +14,17 @@ import me.didia.monlift.visitors.ResponseVisitor;
  */
 public class CarResponse implements IResponse<Car> {
 
-	public String name;
-	public Long id;
-	public String description;
+	private String name;
+	private Long id;
+	private String description;
 	public HashMap<String, String> linkTo = new HashMap<String, String>() ;
 	
 	@Override
 	public void build(Car p_car) {
 		
-		name = p_car.getName();
-		id = p_car.getId();
-		description = p_car.getDescription();
+		setName(p_car.getName());
+		setId(p_car.getId());
+		setDescription(p_car.getDescription());
 	}
 
 	@Override
@@ -49,6 +49,48 @@ public class CarResponse implements IResponse<Car> {
 	public void buildLinkTo() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }

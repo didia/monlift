@@ -19,6 +19,7 @@ import me.didia.monlift.managers.LiftManager;
 import me.didia.monlift.managers.UserManager;
 import me.didia.monlift.marshallers.CarMarshaller;
 import me.didia.monlift.marshallers.LiftMarshaller;
+import me.didia.monlift.requests.CreateUserRequest;
 import me.didia.monlift.requests.PromoteUserRequest;
 import me.didia.monlift.responses.CarResponse;
 import me.didia.monlift.responses.LiftResponse;
@@ -41,16 +42,6 @@ public class ProfileService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public UserResponse getUserProfile() throws MonliftException
 	{
-		
-		/*
-		User user = userManager.getUser();
-		if(user == null)
-		{
-			throw new BaseException("Bad Request: Unknown user id");
-		}
-		UserResponse userResponse = new UserResponse();
-		userResponse.build(user);
-		*/
 		monliftContext.userIsRequired();
 		User user = monliftContext.getCurrentUser();
 		UserResponse userResponse = new UserResponse();
@@ -58,6 +49,19 @@ public class ProfileService {
 		return userResponse;
 	}
 	
+	@POST
+	@Path(MonliftRoutes.USER_EDIT_PATH)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public UserResponse editUserProfile() throws MonliftException {
+		monliftContext.userIsRequired();
+		User user = monliftContext.getCurrentUser();
+		CreateUserRequest request = monliftContext.getRequestObject(CreateUserRequest.class);
+		user = UserManager.updateUser(user, request);
+		UserResponse userResponse = new UserResponse();
+		userResponse.build(user);
+		return userResponse;
+	}
 	@POST
 	@Path(MonliftRoutes.USER_PATH)
 	@Produces(MediaType.APPLICATION_JSON)

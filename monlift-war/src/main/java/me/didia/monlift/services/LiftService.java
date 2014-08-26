@@ -11,18 +11,23 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import me.didia.monlift.MonliftContext;
+import me.didia.monlift.MonliftRoutes;
 import me.didia.monlift.entities.Lift;
+import me.didia.monlift.entities.User;
 import me.didia.monlift.exceptions.DuplicateValueException;
+import me.didia.monlift.exceptions.MonliftException;
 import me.didia.monlift.managers.LiftManager;
 import me.didia.monlift.managers.UserManager;
+import me.didia.monlift.marshallers.LiftMarshaller;
 import me.didia.monlift.requests.CreateLiftRequest;
 import me.didia.monlift.responses.LiftResponse;
+import me.didia.monlift.responses.SuccessResponse;
 
 /**
  * @author didia
  *
  */
-@Path("/lifts")
+@Path(MonliftRoutes.BASE_PATH)
 public class LiftService {
 	
 	private static MonliftContext monliftContext = MonliftContext.getInstance();
@@ -32,13 +37,15 @@ public class LiftService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public List<LiftResponse> getAllLifts(){
+		monliftContext.userIsRequired();
+		User user = monliftContext.getCurrentUser();
+		List<Lift> lifts = LiftManager.getLifts(user);
 		
-		return null;
-		
+		return new LiftMarshaller().marshall(lifts);		
 	}
 	
 	@GET
-	@Path("{userid}/{id}")
+	@Path(MonliftRoutes.LIFTS_SHOW_PUBLIC_PATH)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public LiftResponse getLift(@PathParam("id") Long p_liftId,
@@ -53,7 +60,7 @@ public class LiftService {
 	}
 	
 	@POST
-	@Path("/create")
+	@Path(MonliftRoutes.LIFTS_CREATE_PATH)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public LiftResponse createLift() throws DuplicateValueException {
@@ -67,7 +74,37 @@ public class LiftService {
 		response.build(lift);
 		return response;
 	}
-
+	
+	@POST
+	@Path(MonliftRoutes.LIFTS_EDIT_PATH)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public LiftResponse editLift(@PathParam("id") Long p_id) throws MonliftException {
+		monliftContext.userIsRequired();
+		User user = monliftContext.getCurrentUser();
+		CreateLiftRequest request = monliftContext.getRequestObject(CreateLiftRequest.class);
+		Lift lift = LiftManager.getLift(user, p_id);
+		lift = LiftManager.updateLift(lift, request);
+		
+		return new LiftMarshaller().marshall(lift);
+		
+		
+	}
+	
+	@POST
+	@Path(MonliftRoutes.LIFTS_DELETE_PATH)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public SuccessResponse deleteLift(@PathParam("id") Long p_id) throws MonliftException {
+		monliftContext.userIsRequired();
+		
+		User user = monliftContext.getCurrentUser();
+		Lift lift = LiftManager.getLift(user, p_id);
+		LiftManager.deleteLift(lift);
+		SuccessResponse response = new SuccessResponse();
+		response.build("Lift has been successfully deleted");
+		return response;
+	}
 	
 
 }

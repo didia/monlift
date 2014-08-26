@@ -8,25 +8,26 @@ import me.didia.monlift.entities.Lift;
 import me.didia.monlift.visitors.ResponseVisitor;
 
 public class LiftResponse implements IResponse<Lift> {
-	
-	public String from;
-	public String to;
-	public String date;
-	public Integer availablePlace;
-	public Double price;
-	public UserResponse driver;
-	public CarResponse car;
-	public HashMap<String, String> linkTo = new HashMap<String, String>();
+	private Long id;
+	private String from;
+	private String to;
+	private String date;
+	private Integer availablePlace;
+	private Double price;
+	private UserResponse driver;
+	private CarResponse car;
+	private HashMap<String, String> linkTo = new HashMap<String, String>();
 
 
 	
 	@Override
 	public void build(Lift p_lift) {
-		from = p_lift.getFrom();
-		to = p_lift.getTo();
-		date = p_lift.getTime().toString();
-		availablePlace = p_lift.getAvailablePlace();
-		price = p_lift.getPrice();
+		setId(p_lift.getId());
+		setFrom(p_lift.getFrom());
+		setTo(p_lift.getTo());
+		setDate(p_lift.getTime().toString());
+		setAvailablePlace(p_lift.getAvailablePlace());
+		setPrice(p_lift.getPrice());
 		car = new CarResponse();
 		car.build(p_lift.getCar());
 		driver = new UserResponse();
@@ -55,6 +56,94 @@ public class LiftResponse implements IResponse<Lift> {
 	public void buildLinkTo() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the from
+	 */
+	public String getFrom() {
+		return from;
+	}
+
+	/**
+	 * @param from the from to set
+	 */
+	public void setFrom(String from) {
+		this.from = from;
+	}
+
+	/**
+	 * @return the to
+	 */
+	public String getTo() {
+		return to;
+	}
+
+	/**
+	 * @param to the to to set
+	 */
+	public void setTo(String to) {
+		this.to = to;
+	}
+
+	/**
+	 * @return the date
+	 */
+	public String getDate() {
+		return date;
+	}
+
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	/**
+	 * @return the availablePlace
+	 */
+	public Integer getAvailablePlace() {
+		return availablePlace;
+	}
+
+	/**
+	 * @param availablePlace the availablePlace to set
+	 */
+	public void setAvailablePlace(Integer availablePlace) {
+		this.availablePlace = availablePlace;
+	}
+
+	/**
+	 * @return the price
+	 */
+	public Double getPrice() {
+		return price;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+	
+	public Long getDriverId() {
+		return this.driver.getId();
 	}
 
 }
